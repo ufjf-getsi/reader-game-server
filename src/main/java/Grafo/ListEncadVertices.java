@@ -1,0 +1,36 @@
+package Grafo;
+
+public class ListEncadVertices {
+
+    private Vertice primeiro;
+    private Vertice ultimo;
+
+    public boolean checkIfListaVazia() {
+        if (this.primeiro == null) {
+            return true;
+        }
+        return false;
+    }
+
+
+    public void setVertice(Vertice novoVertice) {
+
+        if (this.checkIfListaVazia()) {
+            this.primeiro = novoVertice;
+            this.ultimo = this.primeiro;
+            this.ultimo.setProximo(null);
+        } else //Lista contem ao menos 1 vertice
+        {
+            this.ultimo.setProximo(novoVertice);
+            this.ultimo = novoVertice;
+            this.ultimo.setProximo(null);
+        }
+    }
+
+    public Vertice getPrimeiro() {
+        return primeiro;
+    }
+    
+    
+
+}
