@@ -1,5 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Grafo;
 
+/**
+ *
+ * @author ferna
+ */
 public class ListEncadVertices {
 
     private Vertice primeiro;
@@ -11,7 +20,6 @@ public class ListEncadVertices {
         }
         return false;
     }
-
 
     public void setVertice(Vertice novoVertice) {
 
@@ -30,7 +38,5 @@ public class ListEncadVertices {
     public Vertice getPrimeiro() {
         return primeiro;
     }
-    
-    
 
 }

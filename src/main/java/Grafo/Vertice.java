@@ -1,5 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Grafo;
 
+/**
+ *
+ * @author ferna
+ */
 public class Vertice {
 
     private Vertice proximo;
@@ -13,7 +22,7 @@ public class Vertice {
     public ListaEncadArestas getArestasDesteVertice() {
         return arestasDesteVertice;
     }
-    
+
     public void setIndice(int indice) {
         this.indice = indice;
     }

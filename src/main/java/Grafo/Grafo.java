@@ -1,7 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Grafo;
 
-import java.util.Scanner;
-
+/**
+ *
+ * @author ferna
+ */
 public class Grafo {
 
     private ListEncadVertices verticesDesteGrafo = new ListEncadVertices();
@@ -16,8 +23,6 @@ public class Grafo {
     public int getNumeroDeVertices() {
         return numeroDeVertices;
     }
-
-    
 
     public boolean verificaExistenciaDoVertice(int indice) {
 
@@ -57,8 +62,7 @@ public class Grafo {
                     break;
                 }
             }
-            
-            
+
             base.setAresta(destino, novaAresta);
 
         } else {
@@ -66,11 +70,9 @@ public class Grafo {
         }
 
     }
-    
-    public void printGrafo()
-    {
-        for(Vertice v = this.verticesDesteGrafo.getPrimeiro(); v != null; v = v.getProximo())
-        {
+
+    public void printGrafo() {
+        for (Vertice v = this.verticesDesteGrafo.getPrimeiro(); v != null; v = v.getProximo()) {
             System.out.println("Vértice " + v.getIndice() + ": ");
             v.getArestasDesteVertice().printArestas();
         }
