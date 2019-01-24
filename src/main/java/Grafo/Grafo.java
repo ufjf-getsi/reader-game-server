@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Grafo;
 
-/**
- *
- * @author ferna
- */
+import java.util.Random;
+
 public class Grafo {
 
     private ListEncadVertices verticesDesteGrafo = new ListEncadVertices();
@@ -77,5 +70,91 @@ public class Grafo {
             v.getArestasDesteVertice().printArestas();
         }
         System.out.println();
+    }
+
+    // essa função verifica se tem uma aresta orientada saindo do vertice base para o vertice destino
+    public boolean verificaExistenciaAresta(int verticeBas, int verticeDest) {
+        if (verificaExistenciaDoVertice(verticeBas) && verificaExistenciaDoVertice(verticeDest)) {
+
+            Vertice verticeBase = new Vertice();
+
+            for (Vertice v = this.verticesDesteGrafo.getPrimeiro(); v != null; v = v.getProximo()) {
+                if (v.getIndice() == verticeBas) {
+                    verticeBase = v;
+                }
+
+            }
+
+            for (Aresta a = verticeBase.getArestasDesteVertice().getPrimeira(); a != null; a = a.getProxima()) {
+                if (a.getVerticeDestino().getIndice() == verticeDest) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void auxiliarEhConexo(Vertice visitando) {
+        visitando.setVisitado(true);
+        for (Aresta a = visitando.getPrimAresta(); a != null; a = a.getProxima()) {
+            if (a.getVerticeDestino().getVisitado() == false) {
+                auxiliarEhConexo(a.getVerticeDestino());
+            }
+        }
+    }
+
+    // retorna true se existe pelo menos um caminho entre todos os pares de vértices do grafo
+    // busca de profundidade utilizada
+    public boolean ehConexo() {
+
+        //escolhe o vértice inicial da busca em profundidade
+        for (Vertice a = this.verticesDesteGrafo.getPrimeiro(); a != null; a = a.getProximo()) {
+
+            // marca todos os vértices como "não visitados"
+            for (Vertice v = this.verticesDesteGrafo.getPrimeiro(); v != null; v = v.getProximo()) {
+                v.setVisitado(false);
+            }
+
+            // percorre o grafo para verificar se existe um caminho entre todos os pares de vértices
+            // marca os vértices como "visitado" se ele foi visitado
+            auxiliarEhConexo(a);
+
+            // verifica se todos os vértices foram visitados
+            for (Vertice v = this.verticesDesteGrafo.getPrimeiro(); v != null; v = v.getProximo()) {
+                if (v.getVisitado() == false) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public int numeroAleatorio(int min, int max) {
+
+        Random rand = new Random();
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
+    }
+
+    public void criarArestasAutomaticamente() {
+
+        while (!ehConexo()) {
+            int primeiroVertice = numeroAleatorio(1, numeroDeVertices);
+            int segundoVertice = numeroAleatorio(1, numeroDeVertices);
+
+            if (primeiroVertice != segundoVertice) {
+                if (!this.verificaExistenciaAresta(primeiroVertice, segundoVertice)) {
+                    Aresta ida = new Aresta(1);
+                    Aresta volta = new Aresta(2);
+
+                    this.setAresta(ida, primeiroVertice, segundoVertice);
+                    this.setAresta(volta, segundoVertice, primeiroVertice);
+                }
+
+            }
+
+        }
     }
 }

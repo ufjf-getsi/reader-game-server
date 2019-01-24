@@ -14,9 +14,22 @@ public class Vertice {
     private Vertice proximo;
     private int indice;
     private ListaEncadArestas arestasDesteVertice = new ListaEncadArestas();
+    boolean visitado;
+
+    public Vertice() {
+    }
 
     public Vertice(int indice) {
         this.indice = indice;
+    }
+    
+    
+    public void setVisitado(boolean visitado) {
+        this.visitado = visitado;
+    }
+
+    public boolean getVisitado() {
+        return visitado;
     }
 
     public ListaEncadArestas getArestasDesteVertice() {
