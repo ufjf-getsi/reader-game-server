@@ -13,6 +13,13 @@ public class Grafo {
         this.numeroDeVertices = 0;
     }
 
+    public Grafo(int quantidadeVertices) {
+        for (int i = 1; i <= quantidadeVertices; i++) {
+            Vertice novoVertice = new Vertice(i);
+            this.setVertice(novoVertice);
+        }
+    }
+
     public int getNumeroDeVertices() {
         return numeroDeVertices;
     }
