@@ -157,4 +157,18 @@ public class Grafo {
 
         }
     }
+
+    public String impressaoGraphViz() {
+        StringBuilder dotFormat = new StringBuilder();
+        Vertice vertice = verticesDesteGrafo.getPrimeiro();
+        while (vertice != null) {
+            Aresta aresta = vertice.getArestasDesteVertice().getPrimeira();
+            while (aresta != null) {
+                dotFormat.append(vertice.getIndice() + "->" + aresta.getVerticeDestino().getIndice() + ";");
+                aresta = aresta.getProxima();
+            }
+            vertice = vertice.getProximo();
+        }
+        return dotFormat.toString();
+    }
 }

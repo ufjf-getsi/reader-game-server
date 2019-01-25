@@ -19,7 +19,7 @@ public class PrincipalServlet extends HttpServlet {
         {
             Map<String, String> rotas;
             rotas = new HashMap<>();            
-            rotas.put("/index.html", "Comands.IndexCommand");
+            rotas.put("/index.html", "Comands.GetIndexCommand");
             
             String clazzName = rotas.get(request.getServletPath());
             Comando comando;
