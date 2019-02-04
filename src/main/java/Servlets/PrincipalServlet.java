@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "PrincipalServlet", urlPatterns = {"/index.html"})
+@WebServlet(name = "PrincipalServlet", urlPatterns = {"/index.html","/imagem"})
 public class PrincipalServlet extends HttpServlet {
 
     @Override
@@ -19,6 +19,7 @@ public class PrincipalServlet extends HttpServlet {
             Map<String, String> rotas;
             rotas = new HashMap<>();
             rotas.put("/index.html", "Comands.GetIndexCommand");
+            rotas.put("/imagem", "Comands.ShowImage");
 
             String clazzName = rotas.get(request.getServletPath());
             Comando comando;

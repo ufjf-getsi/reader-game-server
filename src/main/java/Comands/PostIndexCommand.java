@@ -6,6 +6,7 @@ import Grafo.Vertice;
 import GraphViz.GraphViz;
 import java.io.File;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,12 +20,12 @@ public class PostIndexCommand implements Comando {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) {
         try {
-            
+
             Integer quantidadeDeVertices = Integer.parseInt(request.getParameter("qtddVertices"));
 
             Random rand = new Random();
             int randomNum = rand.nextInt();
-            
+
             Grafo grafo = new Grafo(quantidadeDeVertices);
             grafo.criarArestasAutomaticamente();
 
@@ -53,12 +54,16 @@ public class PostIndexCommand implements Comando {
             // 		String repesentationType= "circo";
 
             //		File out = new File("/tmp/out"+gv.getImageDpi()+"."+ type);   // Linux
-            File out = new File("C:\\Users\\Mateu\\Documents\\temp\\out" + randomNum +"." + type);    // Windows
+            Properties config = new Properties();
+            config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));     
+            File uploads = new File(config.getProperty("UPLOAD_DIR"));
+            File out = File.createTempFile("graph", ".gif", uploads);
             gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), out);
-
-            request.setAttribute("nomeimagem", "file:\\C:\\Users\\Mateu\\Documents\\temp\\out" + randomNum +"." + type);
+            System.out.println(out.getAbsoluteFile());
+            request.setAttribute("nomeimagem", out.getName());
             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/figura.jsp");
             despachante.forward(request, response);
+            
         } catch (ServletException | IOException ex) {
             Logger.getLogger(GetIndexCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
