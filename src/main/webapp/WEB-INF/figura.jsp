@@ -2,7 +2,7 @@
 <%@include file="jspf/cabecalho.jspf" %>
 <div class="container text-center">
 
-    <img src="${nomeimagem}" alt="${nomeimagem}">
+    <img src="imagem?nomeimagem=${nomeimagem}" alt="${nomeimagem}">
     
 </div>
 
