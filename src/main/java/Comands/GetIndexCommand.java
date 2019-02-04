@@ -1,10 +1,5 @@
 package Comands;
 
-import Grafo.Aresta;
-import Grafo.Grafo;
-import Grafo.Vertice;
-import GraphViz.GraphViz;
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

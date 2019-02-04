@@ -25,15 +25,8 @@ public class PostIndexCommand implements Comando {
             Random rand = new Random();
             int randomNum = rand.nextInt();
             
-            Grafo grafo = new Grafo();
-            Vertice vertice = new Vertice(1);
-            Vertice vertice2 = new Vertice(2);
-            grafo.setVertice(vertice);
-            grafo.setVertice(vertice2);
-            Aresta aresta = new Aresta(0);
-            Aresta aresta2 = new Aresta(0);
-            grafo.setAresta(aresta, 1, 2);
-            grafo.setAresta(aresta2, 2, 1);
+            Grafo grafo = new Grafo(quantidadeDeVertices);
+            grafo.criarArestasAutomaticamente();
 
             GraphViz gv = new GraphViz();
             gv.addln(gv.start_graph());

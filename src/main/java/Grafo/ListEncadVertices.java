@@ -38,5 +38,10 @@ public class ListEncadVertices {
     public Vertice getPrimeiro() {
         return primeiro;
     }
+    
+    public Vertice getUltimo()
+    {
+        return ultimo;
+    }
 
 }

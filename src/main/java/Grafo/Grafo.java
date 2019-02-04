@@ -14,7 +14,10 @@ public class Grafo {
     }
 
     public Grafo(int quantidadeVertices) {
+        this.numeroDeArestas = 0;
+        this.numeroDeVertices = 0;
         for (int i = 1; i <= quantidadeVertices; i++) {
+            System.out.println(i);
             Vertice novoVertice = new Vertice(i);
             this.setVertice(novoVertice);
         }
