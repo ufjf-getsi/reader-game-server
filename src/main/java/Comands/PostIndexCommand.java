@@ -26,9 +26,9 @@ public class PostIndexCommand implements Comando {
             Random rand = new Random();
             int randomNum = rand.nextInt();
 
-            Grafo grafo = new Grafo(quantidadeDeVertices);
-            grafo.criarArestasAutomaticamente();
-
+            GrafoGenerator gerador = new GrafoGeneratorTeia();
+            Grafo grafo = gerador.getGrafo(quantidadeDeVertices);
+            
             GraphViz gv = new GraphViz();
             gv.addln(gv.start_graph());
             String dotFormat = grafo.impressaoGraphViz();
