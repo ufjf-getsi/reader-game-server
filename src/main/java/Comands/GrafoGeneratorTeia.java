@@ -18,25 +18,60 @@ class GrafoGeneratorTeia implements GrafoGenerator {
         Grafo novoGrafo = new Grafo();
         Vertice centro = new Vertice(n++);
         novoGrafo.setVertice(centro);
-        List<Vertice> n1 = new ArrayList<Vertice>();
-
-        for (int i = 0; i < 4; i++) {
-            Vertice v = new Vertice(n++);
-            novoGrafo.setVertice(v);
-            centro.setAresta(v, new Aresta(1));
-            n1.add(v);
-        }
-        n1.get(0).setAresta(n1.get(n1.size()-1), new Aresta(1));
-        n1.get(0).setAresta(n1.get(1), new Aresta(1));
-        n1.get(1).setAresta(n1.get(2), new Aresta(1));
-        n1.get(2).setAresta(n1.get(3), new Aresta(1));
-        for (Vertice vertice : n1) {
-            for (int i = 0; i < 3; i++) {
+        List<Vertice> nAtual = new ArrayList<Vertice>();
+        
+        if(qtdVertices <= 6){
+            for (int i = 0; i < qtdVertices - 1; i++) {
                 Vertice v = new Vertice(n++);
                 novoGrafo.setVertice(v);
-                vertice.setAresta(v, new Aresta(1));
+                centro.setAresta(v, new Aresta(1));
+                v.setAresta(centro, new Aresta(1));
+                nAtual.add(v);
             }
         }
+        else{
+            for (int i = 0; i < novoGrafo.getMaxArestasPorVertice(); i++) {
+                Vertice v = new Vertice(n++);
+                novoGrafo.setVertice(v);
+                centro.setAresta(v, new Aresta(1));
+                v.setAresta(centro, new Aresta(1));
+                nAtual.add(v);
+            }
+            List<Vertice> nAux = new ArrayList<Vertice>();
+        
+            int sorteioQtd = 0;
+
+            while(n <= qtdVertices + 1){
+                nAux.clear();
+                for(int j = 1; j < nAtual.size(); j++){
+                    if(novoGrafo.numeroAleatorio(0, 1) == 1){               //Aresta para a esquerda
+                        if(nAtual.get(j - 1).getArestasDesteVertice().getQtdArestas() < novoGrafo.getMaxArestasPorVertice()){
+                            nAtual.get(j).setAresta(nAtual.get(j - 1), new Aresta(1));
+                            nAtual.get(j - 1).setAresta(nAtual.get(j), new Aresta(1));
+                        }
+                    }
+                }
+                for(int j = 0; j < nAtual.size(); j++){
+                    sorteioQtd = novoGrafo.numeroAleatorio(0, novoGrafo.getMaxArestasPorVertice() - nAtual.get(j).getArestasDesteVertice().getQtdArestas());
+                    for (int k = 0; k < sorteioQtd; k++) {
+                        if(n >= qtdVertices + 1){
+                           break;
+                        }
+                        Vertice v = new Vertice(n++);
+                        novoGrafo.setVertice(v);
+                        nAtual.get(j).setAresta(v, new Aresta(1));
+                        v.setAresta(nAtual.get(j), new Aresta(1));
+                        nAux.add(v);
+                    }
+                }
+                if(n >= qtdVertices + 1){
+                    break;
+                 }
+                nAtual.clear();
+                nAtual.addAll(nAux);
+            }
+        }
+        
         return novoGrafo;
     }
 }

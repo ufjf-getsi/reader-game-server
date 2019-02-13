@@ -23,7 +23,6 @@ public class Vertice {
         this.indice = indice;
     }
     
-    
     public void setVisitado(boolean visitado) {
         this.visitado = visitado;
     }

@@ -28,7 +28,6 @@ public class PostIndexCommand implements Comando {
 
             GrafoGenerator gerador = new GrafoGeneratorTeia();
             Grafo grafo = gerador.getGrafo(quantidadeDeVertices);
-            
             GraphViz gv = new GraphViz();
             gv.addln(gv.start_graph());
             String dotFormat = grafo.impressaoGraphViz();
@@ -46,7 +45,7 @@ public class PostIndexCommand implements Comando {
             //      String type = "png";
             //      String type = "plain";
 
-            String repesentationType = "dot";
+            String repesentationType = "twopi";     //"dot";
             //		String repesentationType= "neato";
             //		String repesentationType= "fdp";
             //		String repesentationType= "sfdp";

@@ -7,15 +7,18 @@ public class Grafo {
     private ListEncadVertices verticesDesteGrafo = new ListEncadVertices();
     private int numeroDeVertices;
     private int numeroDeArestas;
+    private int maxArestasPorVertice;
 
     public Grafo() {
         this.numeroDeArestas = 0;
         this.numeroDeVertices = 0;
+        this.maxArestasPorVertice = 5;
     }
 
     public Grafo(int quantidadeVertices) {
         this.numeroDeArestas = 0;
         this.numeroDeVertices = 0;
+        this.maxArestasPorVertice = 5;
         for (int i = 1; i <= quantidadeVertices; i++) {
             System.out.println(i);
             Vertice novoVertice = new Vertice(i);
@@ -25,6 +28,10 @@ public class Grafo {
 
     public int getNumeroDeVertices() {
         return numeroDeVertices;
+    }
+    
+    public int getMaxArestasPorVertice(){
+        return maxArestasPorVertice;
     }
 
     public boolean verificaExistenciaDoVertice(int indice) {
@@ -72,6 +79,10 @@ public class Grafo {
             System.out.println("Algum dos vértices não existem.");
         }
 
+    }
+    
+    public void setMaxArestasPorVertice(int valorMaximo){
+        maxArestasPorVertice = valorMaximo;
     }
 
     public void printGrafo() {
