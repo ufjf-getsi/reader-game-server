@@ -342,7 +342,7 @@ public class GraphViz
      * @return A string to open a graph.
      */
     public String start_graph() {
-        return "digraph G {";
+        return "digraph G {";           //"graph G {";
     }
 
     /**

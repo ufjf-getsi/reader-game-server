@@ -40,6 +40,14 @@ public class ListaEncadArestas {
     public Aresta getPrimeira() {
         return this.primeira;
     }
+    
+    public int getQtdArestas(){
+        int qtdArestas = 0;
+        for (Aresta a = this.primeira; a != null; a = a.getProxima()) {
+            qtdArestas++;
+        }
+        return qtdArestas;
+    }
 
     public void printArestas() {
         for (Aresta a = this.primeira; a != null; a = a.getProxima()) {
