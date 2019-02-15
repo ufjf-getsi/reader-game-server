@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.ufjf.getsi</groupId>
-    <artifactId>GETSI-GAME</artifactId>
+    <artifactId>reader-game-server</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>GETSI-GAME</name>
+    <name>Reader Game Server</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -72,5 +72,7 @@
             </plugin>
         </plugins>
     </build>
+    <description>A game server for reading application.
 
+Project at: https://github.com/ufjf-getsi/reader-game-server</description>
 </project>
