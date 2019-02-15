@@ -60,17 +60,21 @@ class GrafoGeneratorTeia implements GrafoGenerator {
                         Vertice v = new Vertice(n++);
                         novoGrafo.setVertice(v);
                         nAtual.get(j).setAresta(v, new Aresta(1));
-                        v.setAresta(nAtual.get(j), new Aresta(1));
+                        v.setAresta(nAtual.get(j),  new Aresta(1));
                         nAux.add(v);
                     }
                 }
                 if(n >= qtdVertices + 1){
                     break;
-                 }
+                }
                 nAtual.clear();
                 nAtual.addAll(nAux);
             }
         }
+        //Vertice teste = new Vertice(n++);
+        //novoGrafo.setVertice(teste);
+        //System.out.println("novoGrafo - distancia entre \'1\' e \'" + novoGrafo.getNumeroDeVertices()+"\' eh: " + novoGrafo.algoritmoDijkstra(1, novoGrafo.getNumeroDeVertices()));
+        
         
         return novoGrafo;
     }

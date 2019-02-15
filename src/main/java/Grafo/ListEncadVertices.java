@@ -34,6 +34,19 @@ public class ListEncadVertices {
             this.ultimo.setProximo(null);
         }
     }
+    
+    public Vertice getVerticePorIndice(int indice){
+        Vertice aux = this.primeiro;
+        while(aux != null){
+            if(aux.getIndice() == indice){
+                return aux;
+            }
+            else{
+                aux = aux.getProximo();
+            }
+        }
+        return null;
+    }
 
     public Vertice getPrimeiro() {
         return primeiro;

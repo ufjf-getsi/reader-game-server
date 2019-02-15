@@ -92,6 +92,80 @@ public class Grafo {
         }
         System.out.println();
     }
+    
+    public int[][] getMatrizAdjacencia(){
+        int[][] matrizAdjacencia = new int[this.numeroDeVertices][this.numeroDeVertices];
+        for(int i = 0; i < this.numeroDeVertices; i++){             ///Limpa a matriz
+            for(int j = 0; j < this.numeroDeVertices; j++){
+                matrizAdjacencia[i][j] = 0;
+            }
+        }
+        Vertice auxVertice = verticesDesteGrafo.getPrimeiro();
+        Aresta auxAresta;
+        while(auxVertice != null){
+            auxAresta = auxVertice.getArestasDesteVertice().getPrimeira();
+            while(auxAresta != null){
+                matrizAdjacencia[auxVertice.getIndice() - 1][auxAresta.getVerticeDestino().getIndice() - 1] = auxAresta.getPeso();
+                auxAresta = auxAresta.getProxima();
+            }
+            auxVertice = auxVertice.getProximo();
+        }
+        return matrizAdjacencia;
+    }
+    
+    public int minDistance(int dist[], boolean visitados[]){ 
+        // Initialize min value 
+        int min = Integer.MAX_VALUE, min_index = -1; 
+
+        for (int v = 0; v < this.numeroDeVertices; v++){
+            if (visitados[v] == false && dist[v] <= min) 
+            { 
+                min = dist[v]; 
+                min_index = v; 
+            } 
+        }   
+
+        return min_index; 
+    } 
+    
+    // Calcula a distancia entre dois vertices através do algoritmo de Dijkstra 
+    // aplicado em uma matriz de adjacência
+    public int algoritmoDijkstra(int origem, int destino){
+        int[][] matAdj = new int[this.numeroDeVertices][this.numeroDeVertices];
+        matAdj = getMatrizAdjacencia();
+        /*for(int i = 0; i < this.numeroDeVertices; i++){
+            for(int j = 0; j < this.numeroDeVertices; j++){
+                System.out.println("matAdj["+i+"]"+j+"]: "+ matAdj[i][j]);
+            }
+        }*/
+        int[] dist = new int[this.numeroDeVertices];
+        boolean[] visitados = new boolean[this.numeroDeVertices];
+        int infinito = Integer.MAX_VALUE;                               ///Valor bem grande para representar quando não há aresta de um vertice para o outro
+        for(int i = 0; i < this.numeroDeVertices; i++){
+            dist[i] = infinito;                            
+            visitados[i] = false;
+        }
+                            
+        dist[origem - 1] = 0;               // Distancia da fonte pra ela mesma é sempre 0
+        
+        for(int i = 0; i < this.numeroDeVertices - 1; i++){
+            
+            int u = minDistance(dist, visitados);
+            
+            visitados[u] = true;
+            
+            for(int j = 0; j < this.numeroDeVertices; j++){
+                if (!visitados[j] && matAdj[u][j] != 0 && dist[u] != infinito && dist[u] + matAdj[u][j] < dist[j]){
+                    dist[j] = dist[u] + matAdj[u][j]; 
+                }
+            }
+        }
+        
+        /*for(int j = 0; j < this.numeroDeVertices; j++){
+            System.out.println("dist["+j+"]: "+ dist[j]);
+        }*/
+        return dist[destino - 1];
+    }
 
     // essa função verifica se tem uma aresta orientada saindo do vertice base para o vertice destino
     public boolean verificaExistenciaAresta(int verticeBas, int verticeDest) {
