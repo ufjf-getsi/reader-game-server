@@ -7,7 +7,6 @@ package Grafo;
 
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  *
  * @author lucas
@@ -15,7 +14,7 @@ import java.util.List;
  */
 public class VerticeItem extends Vertice{
     
-    private List<String> itens = itens = new ArrayList<String>();
+    private List<String> itens = new ArrayList<String>();
     
     public VerticeItem(){
         super();
@@ -35,5 +34,15 @@ public class VerticeItem extends Vertice{
     
     public void addItem(String elemento){
         this.itens.add(elemento);
+    }
+    
+    public String getLabel(){
+        String label = "\"" + this.getIndice() + "";
+        for(int i = 0; i < itens.size(); i++){
+            label = label + "_" + itens.get(i);
+        }
+        label = label + "\"";
+        System.out.println(label);
+        return label;
     }
 }

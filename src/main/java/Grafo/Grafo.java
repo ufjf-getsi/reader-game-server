@@ -266,14 +266,16 @@ public class Grafo {
 
     public String impressaoGraphViz() {
         StringBuilder dotFormat = new StringBuilder();
-        Vertice vertice = verticesDesteGrafo.getPrimeiro();
+        VerticeItem vertice = (VerticeItem) verticesDesteGrafo.getPrimeiro();     //vertice = verticesDesteGrafo.getPrimeiro();
+        VerticeItem aux;
         while (vertice != null) {
             Aresta aresta = vertice.getArestasDesteVertice().getPrimeira();
             while (aresta != null) {
-                dotFormat.append(vertice.getIndice() + "->" + aresta.getVerticeDestino().getIndice() + ";");
+                aux = (VerticeItem) aresta.getVerticeDestino();
+                dotFormat.append(vertice.getLabel() + "->" + aux.getLabel() + ";");
                 aresta = aresta.getProxima();
             }
-            vertice = vertice.getProximo();
+            vertice = (VerticeItem) vertice.getProximo();
         }
         return dotFormat.toString();
     }
