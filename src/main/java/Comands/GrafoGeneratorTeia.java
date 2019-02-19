@@ -3,6 +3,7 @@ package Comands;
 import Grafo.Aresta;
 import Grafo.Grafo;
 import Grafo.Vertice;
+import Grafo.VerticeItem;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +17,13 @@ class GrafoGeneratorTeia implements GrafoGenerator {
 
         int n = 1;
         Grafo novoGrafo = new Grafo();
-        Vertice centro = new Vertice(n++);
+        VerticeItem centro = new VerticeItem(n++);
         novoGrafo.setVertice(centro);
-        List<Vertice> nAtual = new ArrayList<Vertice>();
+        List<VerticeItem> nAtual = new ArrayList<VerticeItem>();
         
         if(qtdVertices <= 6){
             for (int i = 0; i < qtdVertices - 1; i++) {
-                Vertice v = new Vertice(n++);
+                VerticeItem v = new VerticeItem(n++);
                 novoGrafo.setVertice(v);
                 centro.setAresta(v, new Aresta(1));
                 v.setAresta(centro, new Aresta(1));
@@ -31,13 +32,13 @@ class GrafoGeneratorTeia implements GrafoGenerator {
         }
         else{
             for (int i = 0; i < novoGrafo.getMaxArestasPorVertice(); i++) {
-                Vertice v = new Vertice(n++);
+                VerticeItem v = new VerticeItem(n++);
                 novoGrafo.setVertice(v);
                 centro.setAresta(v, new Aresta(1));
                 v.setAresta(centro, new Aresta(1));
                 nAtual.add(v);
             }
-            List<Vertice> nAux = new ArrayList<Vertice>();
+            List<VerticeItem> nAux = new ArrayList<VerticeItem>();
         
             int sorteioQtd = 0;
 
@@ -57,7 +58,7 @@ class GrafoGeneratorTeia implements GrafoGenerator {
                         if(n >= qtdVertices + 1){
                            break;
                         }
-                        Vertice v = new Vertice(n++);
+                        VerticeItem v = new VerticeItem(n++);
                         novoGrafo.setVertice(v);
                         nAtual.get(j).setAresta(v, new Aresta(1));
                         v.setAresta(nAtual.get(j),  new Aresta(1));
@@ -71,10 +72,13 @@ class GrafoGeneratorTeia implements GrafoGenerator {
                 nAtual.addAll(nAux);
             }
         }
-        //Vertice teste = new Vertice(n++);
+        //VerticeItem teste = new VerticeItem(n++);
         //novoGrafo.setVertice(teste);
-        //System.out.println("novoGrafo - distancia entre \'1\' e \'" + novoGrafo.getNumeroDeVertices()+"\' eh: " + novoGrafo.algoritmoDijkstra(1, novoGrafo.getNumeroDeVertices()));
-        
+        //teste.addItem("teste");
+        novoGrafo.atualizaMatrizAdjacencia();       //Após criar o grafo todo, é salvo a matriz de adjacencia correspondente para poder utilizar o algoritmo de Dijkstra
+        novoGrafo.atualizaMatrizDistancias();
+        //novoGrafo.imprimeMatrizDistancias();
+        //novoGrafo.imprimeMatrizAdjacencia();
         
         return novoGrafo;
     }
