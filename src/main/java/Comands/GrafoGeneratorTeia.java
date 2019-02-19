@@ -76,6 +76,8 @@ class GrafoGeneratorTeia implements GrafoGenerator {
         //novoGrafo.setVertice(teste);
         //teste.addItem("teste");
         novoGrafo.atualizaMatrizAdjacencia();       //Após criar o grafo todo, é salvo a matriz de adjacencia correspondente para poder utilizar o algoritmo de Dijkstra
+        novoGrafo.atualizaMatrizDistancias();
+        //novoGrafo.imprimeMatrizDistancias();
         //novoGrafo.imprimeMatrizAdjacencia();
         
         return novoGrafo;

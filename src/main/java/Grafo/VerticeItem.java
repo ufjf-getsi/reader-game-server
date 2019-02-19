@@ -42,7 +42,7 @@ public class VerticeItem extends Vertice{
             label = label + "_" + itens.get(i);
         }
         label = label + "\"";
-        System.out.println(label);
+        //System.out.println(label);
         return label;
     }
 }
