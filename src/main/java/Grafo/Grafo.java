@@ -31,6 +31,12 @@ public class Grafo {
     public int getNumeroDeVertices() {
         return numeroDeVertices;
     }
+
+    public ListEncadVertices getVerticesDesteGrafo() {
+        return verticesDesteGrafo;
+    }
+    
+    
     
     public void setNumeroDeVertices(int numeroDeVertices){
         this.numeroDeVertices = numeroDeVertices;

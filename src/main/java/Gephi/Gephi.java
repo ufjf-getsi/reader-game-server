@@ -1,8 +1,13 @@
 package Gephi;
 
+import Grafo.Aresta;
+import Grafo.Grafo;
+import Grafo.Vertice;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import org.apache.batik.transcoder.TranscoderException;
 import org.gephi.appearance.api.AppearanceController;
 import org.gephi.appearance.api.AppearanceModel;
@@ -31,7 +36,7 @@ import org.openide.util.Lookup;
 
 public class Gephi {
 
-    public void script() throws IOException, TranscoderException {
+    public void script(Grafo grafo) throws IOException, TranscoderException {
 
         //Init a project - and therefore a workspace
         ProjectController pc = Lookup.getDefault().lookup(ProjectController.class);
@@ -50,7 +55,56 @@ public class Gephi {
         Container container;
         container = Lookup.getDefault().lookup(Container.Factory.class).newContainer();
 
-        Node n0 = graphModel.factory().newNode("n0");
+        
+        List<Node> vertices = new LinkedList();
+      
+        float posicaoX = 0;
+        float posicaoY = 0;
+        
+        DirectedGraph directedGraph = graphModel.getDirectedGraph();
+        
+        for (Vertice a = grafo.getVerticesDesteGrafo().getPrimeiro(); a != null; a = a.getProximo()) {
+            Node newNode = graphModel.factory().newNode((String) String.valueOf(a.getIndice()));
+            newNode.setLabel((String) String.valueOf(a.getIndice()));
+            newNode.setSize(3.0f);
+            vertices.add(newNode);
+            newNode.setPosition(posicaoX, posicaoY);
+
+            posicaoX += 0.5;
+            posicaoY += 0.5;
+            
+            directedGraph.addNode(newNode);
+
+        }
+
+        
+        Vertice a = grafo.getVerticesDesteGrafo().getPrimeiro();
+        for (int i = 0; i < vertices.size(); i++) {
+            Node base = vertices.get(i);
+
+            for (Aresta b = a.getPrimAresta(); b != null; b = b.getProxima()) {
+
+                Node destino = null;
+
+                int indiceNodeDestino = b.getVerticeDestino().getIndice();
+                
+                for (int j = 0; j < vertices.size(); j++) {
+                    if (vertices.get(j).getLabel().equals(Integer.toString(indiceNodeDestino))) {
+                        destino = vertices.get(j);
+                        break;
+                    }
+                }
+
+                if(destino!=null){
+                Edge e = graphModel.factory().newEdge(base, destino, 0, 1.0, true);
+                directedGraph.addEdge(e);}
+
+            }
+
+            a = a.getProximo();
+        }
+
+        /*Node n0 = graphModel.factory().newNode("n0");
         n0.setLabel("Node 0");
         n0.setSize(3.0f);
         Node n1 = graphModel.factory().newNode("n1");
@@ -92,7 +146,7 @@ public class Gephi {
         directedGraph.addEdge(e3);
         directedGraph.addEdge(e4);
         directedGraph.addEdge(e5);
-        directedGraph.addEdge(e6);
+        directedGraph.addEdge(e6);*/
 
         //Append imported data to GraphAPI
         //      importController = Lookup.getDefault().lookup(ImportController.class);

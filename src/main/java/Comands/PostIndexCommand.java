@@ -23,24 +23,20 @@ public class PostIndexCommand implements Comando {
     public void exec(HttpServletRequest request, HttpServletResponse response) {
         try {
 
-            try {
-                Gephi gephi = new Gephi();
-                gephi.script();
-            } catch (TranscoderException ex) {
-                Exceptions.printStackTrace(ex);
-            }
-
             Integer quantidadeDeVertices = Integer.parseInt(request.getParameter("qtddVertices"));
 
             Random rand = new Random();
             int randomNum = rand.nextInt();
-            
+
             Fase fase = new Fase(quantidadeDeVertices);
 
             GrafoGenerator gerador = new GrafoGeneratorTeia();
-            fase.setMapa(gerador.getGrafo(quantidadeDeVertices /** fase.getFatorMutiMapa()*/));
+            fase.setMapa(gerador.getGrafo(quantidadeDeVertices /**
+             * fase.getFatorMutiMapa()
+             */
+            ));
             //fase.geraMapa();
-            
+
             Grafo grafo = fase.getMapa();
             GraphViz gv = new GraphViz();
             gv.addln(gv.start_graph());
@@ -49,6 +45,13 @@ public class PostIndexCommand implements Comando {
             gv.addln(gv.end_graph());
 
             gv.increaseDpi();   // 106 dpi
+
+            try {
+                Gephi gephi = new Gephi();
+                gephi.script(grafo);
+            } catch (TranscoderException ex) {
+                Exceptions.printStackTrace(ex);
+            }
 
             String type = "gif";
             //      String type = "dot";
