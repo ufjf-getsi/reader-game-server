@@ -21,6 +21,17 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.gephi</groupId>
+            <artifactId>gephi-toolkit</artifactId>
+            <version>0.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>1.8.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -74,5 +85,5 @@
     </build>
     <description>A game server for reading application.
 
-Project at: https://github.com/ufjf-getsi/reader-game-server</description>
+        Project at: https://github.com/ufjf-getsi/reader-game-server</description>
 </project>

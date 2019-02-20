@@ -13,7 +13,6 @@ public class GetIndexCommand implements Comando {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) {
         try {
-              System.out.println("blea");
             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/index.jsp");
             despachante.forward(request, response);
         } catch (ServletException | IOException ex) {

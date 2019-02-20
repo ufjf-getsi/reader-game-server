@@ -1,8 +1,6 @@
 package Comands;
 
-import Grafo.Aresta;
 import Grafo.Grafo;
-import Grafo.Vertice;
 import GraphViz.GraphViz;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +18,13 @@ public class PostIndexCommand implements Comando {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) {
         try {
+
+            /*try {
+                Gephi gephi = new Gephi();
+                gephi.script();
+            } catch (TranscoderException ex) {
+                Exceptions.printStackTrace(ex);
+            }*/
 
             Integer quantidadeDeVertices = Integer.parseInt(request.getParameter("qtddVertices"));
 
@@ -54,7 +59,7 @@ public class PostIndexCommand implements Comando {
 
             //		File out = new File("/tmp/out"+gv.getImageDpi()+"."+ type);   // Linux
             Properties config = new Properties();
-            config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));     
+            config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));
             File uploads = new File(config.getProperty("UPLOAD_DIR"));
             File out = File.createTempFile("graph", ".gif", uploads);
             gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), out);
@@ -62,7 +67,7 @@ public class PostIndexCommand implements Comando {
             request.setAttribute("nomeimagem", out.getName());
             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/figura.jsp");
             despachante.forward(request, response);
-            
+
         } catch (ServletException | IOException ex) {
             Logger.getLogger(GetIndexCommand.class.getName()).log(Level.SEVERE, null, ex);
         }
