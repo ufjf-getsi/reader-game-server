@@ -142,7 +142,7 @@ public class Gephi {
         ExportController ec = Lookup.getDefault().lookup(ExportController.class);
         // PDFExporter exporter = (PDFExporter) ec.getExporter("pdf");
 
-        ec.exportFile(new File("C:\\\\Users\\\\Mateu\\\\Documents\\\\temp\\saida.pdf"));
+        ec.exportFile(new File("C:\\\\Users\\\\ferna\\\\iamgens gephi\\\\temp.pdf"));
         
     }
 }

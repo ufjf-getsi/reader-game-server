@@ -1,5 +1,6 @@
 package Comands;
 
+import Gephi.Gephi;
 import Grafo.Grafo;
 import GraphViz.GraphViz;
 import java.io.File;
@@ -12,6 +13,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.batik.transcoder.TranscoderException;
+import org.openide.util.Exceptions;
 
 public class PostIndexCommand implements Comando {
 
@@ -19,12 +22,12 @@ public class PostIndexCommand implements Comando {
     public void exec(HttpServletRequest request, HttpServletResponse response) {
         try {
 
-            /*try {
+            try {
                 Gephi gephi = new Gephi();
                 gephi.script();
             } catch (TranscoderException ex) {
                 Exceptions.printStackTrace(ex);
-            }*/
+            }
 
             Integer quantidadeDeVertices = Integer.parseInt(request.getParameter("qtddVertices"));
 
