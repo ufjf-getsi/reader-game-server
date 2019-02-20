@@ -3,6 +3,7 @@ package Comands;
 import Gephi.Gephi;
 import Grafo.Grafo;
 import GraphViz.GraphViz;
+import Mundo.Fase;
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
@@ -33,9 +34,14 @@ public class PostIndexCommand implements Comando {
 
             Random rand = new Random();
             int randomNum = rand.nextInt();
+            
+            Fase fase = new Fase(quantidadeDeVertices);
 
             GrafoGenerator gerador = new GrafoGeneratorTeia();
-            Grafo grafo = gerador.getGrafo(quantidadeDeVertices);
+            fase.setMapa(gerador.getGrafo(quantidadeDeVertices /** fase.getFatorMutiMapa()*/));
+            //fase.geraMapa();
+            
+            Grafo grafo = fase.getMapa();
             GraphViz gv = new GraphViz();
             gv.addln(gv.start_graph());
             String dotFormat = grafo.impressaoGraphViz();

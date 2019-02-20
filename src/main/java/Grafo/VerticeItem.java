@@ -36,13 +36,21 @@ public class VerticeItem extends Vertice{
         this.itens.add(elemento);
     }
     
+    public void removeItem(String elemento){
+        for(int i = 0; i < itens.size(); i++){
+            if(elemento.equals(itens.get(i))){
+                itens.remove(i);
+                break;
+            }
+        }
+    }
+    
     public String getLabel(){
         String label = "\"" + this.getIndice() + "";
         for(int i = 0; i < itens.size(); i++){
             label = label + "_" + itens.get(i);
         }
         label = label + "\"";
-        //System.out.println(label);
         return label;
     }
 }

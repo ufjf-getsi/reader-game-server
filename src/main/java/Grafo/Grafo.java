@@ -53,6 +53,10 @@ public class Grafo {
         }
         return false;
     }
+    
+    public Vertice getVertice(int indice) {
+        return verticesDesteGrafo.getVerticePorIndice(indice);
+    }
 
     public void setVertice(Vertice novoVertice) {
 
