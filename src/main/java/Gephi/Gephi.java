@@ -68,10 +68,12 @@ public class Gephi {
             newNode.setLabel((String) String.valueOf(a.getIndice()));
             newNode.setSize(3.0f);
             vertices.add(newNode);
+            posicaoX = grafo.numeroAleatorio(0, 100);
+            posicaoY = grafo.numeroAleatorio(0, 100);
             newNode.setPosition(posicaoX, posicaoY);
 
-            posicaoX += 0.5;
-            posicaoY += 0.5;
+           // posicaoX += 0.5;
+           // posicaoY += 0.5;
             
             directedGraph.addNode(newNode);
 
