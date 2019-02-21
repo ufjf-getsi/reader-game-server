@@ -27,6 +27,8 @@ public class PostIndexCommand implements Comando {
             Properties config = new Properties();
             config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));
             File uploads = new File(config.getProperty("UPLOAD_DIR"));
+            File pngGraphviz = File.createTempFile("graph", ".gif", uploads);
+            File svgGephi = File.createTempFile("gephi", ".svg", uploads);
             
             
 
@@ -55,7 +57,7 @@ public class PostIndexCommand implements Comando {
 
             try {
                 Gephi gephi = new Gephi();
-                gephi.script(grafo, File.createTempFile("gephi", ".svg", uploads));
+                gephi.script(grafo, svgGephi);
             } catch (TranscoderException ex) {
                 Exceptions.printStackTrace(ex);
             }
@@ -77,10 +79,10 @@ public class PostIndexCommand implements Comando {
             // 		String repesentationType= "circo";
 
             //		File out = new File("/tmp/out"+gv.getImageDpi()+"."+ type);   // Linux
-            File out = File.createTempFile("graph", ".gif", uploads);
-            gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), out);
-            System.out.println(out.getAbsoluteFile());
-            request.setAttribute("nomeimagem", out.getName());
+            gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), pngGraphviz);
+            System.out.println(pngGraphviz.getAbsoluteFile());
+            request.setAttribute("nomeimagem", pngGraphviz.getName());
+            request.setAttribute("nomefigura", svgGephi.getName());
             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/figura.jsp");
             despachante.forward(request, response);
 
