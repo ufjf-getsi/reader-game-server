@@ -38,8 +38,10 @@ public class PrincipalServlet extends HttpServlet {
 
             Map<String, String> rotas;
             rotas = new HashMap<>();
+            rotas.put("/", "Comands.PostIndexCommand");
             rotas.put("/index.html", "Comands.PostIndexCommand");
             rotas.put("/audio", "Comands.PostAudioCommand");
+            
             processRequest(rotas, request, response);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             response.sendRedirect("index.html");
@@ -63,6 +65,7 @@ public class PrincipalServlet extends HttpServlet {
     private boolean processRequest(Map<String, String> rotas, HttpServletRequest request, HttpServletResponse response) throws IllegalAccessException, InstantiationException, ClassNotFoundException, IOException {
         String clazzName = rotas.get(request.getServletPath());
         if (clazzName == null) {
+            System.out.println("404: "+request.getServletPath()+" "+clazzName);
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return false;
         }
