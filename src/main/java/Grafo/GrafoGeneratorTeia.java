@@ -1,17 +1,9 @@
-package Comands;
+package Grafo;
 
-import Grafo.Aresta;
-import Grafo.Grafo;
-import Grafo.Vertice;
-import Grafo.VerticeItem;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author igor
- */
-class GrafoGeneratorTeia implements GrafoGenerator {
+public class GrafoGeneratorTeia implements GrafoGenerator {
 
     public Grafo getGrafo(int qtdVertices) {
 

@@ -1,5 +1,7 @@
 package Comands;
 
+import Grafo.GrafoGenerator;
+import Grafo.GrafoGeneratorTeia;
 import Gephi.Gephi;
 import Grafo.Grafo;
 import GraphViz.GraphViz;

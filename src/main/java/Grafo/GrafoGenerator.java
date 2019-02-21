@@ -1,11 +1,9 @@
-package Comands;
-
-import Grafo.Grafo;
+package Grafo;
 
 /**
  *
  * @author igor
  */
-interface GrafoGenerator {
+public interface GrafoGenerator {
     public Grafo getGrafo(int qtdVertices);
 }
