@@ -22,7 +22,8 @@ public class PrincipalServlet extends HttpServlet {
             rotas.put("/", "Comands.GetIndexCommand");
             rotas.put("/index.html", "Comands.GetIndexCommand");
             rotas.put("/imagem", "Comands.ShowImage");
-            rotas.put("/audio", "Comands.ShowAudio");
+            rotas.put("/audio", "Comands.AudioShow");
+            rotas.put("/svg", "Comands.SVGShow");
 
             processRequest(rotas, request, response);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
