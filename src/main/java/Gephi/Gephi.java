@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import org.apache.batik.transcoder.TranscoderException;
 import org.gephi.appearance.api.AppearanceController;
 import org.gephi.appearance.api.AppearanceModel;
@@ -23,8 +24,11 @@ import org.gephi.io.exporter.api.ExportController;
 import org.gephi.io.importer.api.Container;
 import org.gephi.io.importer.api.ImportController;
 import org.gephi.io.processor.plugin.DefaultProcessor;
+import org.gephi.layout.plugin.AutoLayout;
 import org.gephi.layout.plugin.force.StepDisplacement;
 import org.gephi.layout.plugin.force.yifanHu.YifanHuLayout;
+import org.gephi.layout.plugin.forceAtlas.ForceAtlas;
+import org.gephi.layout.plugin.forceAtlas.ForceAtlasLayout;
 import org.gephi.preview.api.PreviewController;
 import org.gephi.preview.api.PreviewModel;
 import org.gephi.preview.api.PreviewProperty;
@@ -47,6 +51,7 @@ public class Gephi {
 
         //Get models and controllers for this new workspace - will be useful later
         GraphModel graphModel = Lookup.getDefault().lookup(GraphController.class).getGraphModel();
+
         PreviewModel model = Lookup.getDefault().lookup(PreviewController.class).getModel();
         ImportController importController = Lookup.getDefault().lookup(ImportController.class);
         //FilterController filterController = Lookup.getDefault().lookup(FilterController.class);
@@ -69,13 +74,12 @@ public class Gephi {
             newNode.setLabel((String) String.valueOf(a.getIndice()));
             newNode.setSize(3.0f);
             vertices.add(newNode);
-            posicaoX = grafo.numeroAleatorioFloat(0, 100);
+            /*posicaoX = grafo.numeroAleatorioFloat(0, 100);
             posicaoY = grafo.numeroAleatorioFloat(0, 100);
-            newNode.setPosition(posicaoX, posicaoY);
+            newNode.setPosition(posicaoX, posicaoY);*/
+            newNode.setX((float) ((0.01 + Math.random()) * 1000) - 500);
+            newNode.setY((float) ((0.01 + Math.random()) * 1000) - 500);
 
-            // posicaoX += 0.5;
-            // posicaoY += 0.5;
-            //a
             directedGraph.addNode(newNode);
 
         }
@@ -99,6 +103,7 @@ public class Gephi {
 
                 if (destino != null) {
                     Edge e = graphModel.factory().newEdge(base, destino, 0, 1.0, true);
+
                     directedGraph.addEdge(e);
                     // Edge aaa = graphModel.factory().newEdge();
                 }
@@ -176,7 +181,19 @@ public class Gephi {
             layout.goAlgo();
         }
         layout.endAlgo();
-
+        /*AutoLayout autoLayout = new AutoLayout(1, TimeUnit.MINUTES);
+        autoLayout.setGraphModel(graphModel);
+        YifanHuLayout firstLayout = new YifanHuLayout(null, new StepDisplacement(1f));
+        ForceAtlasLayout secondLayout = new ForceAtlasLayout(null);
+        AutoLayout.DynamicProperty adjustBySizeProperty = AutoLayout.createDynamicProperty("Adjust by Sizes", Boolean.TRUE, 0.1f);//True after 10% of layout time
+        AutoLayout.DynamicProperty repulsionProperty = AutoLayout.createDynamicProperty("Repulsion strength", new Double(500.), 0f);//500 for the complete period
+        autoLayout.addLayout(firstLayout, 0.5f);
+        autoLayout.addLayout(secondLayout, 0.5f, new AutoLayout.DynamicProperty[]{adjustBySizeProperty, repulsionProperty});
+        autoLayout.execute(); */
+        
+        
+      
+        
         //Get Centrality
         GraphDistance distance = new GraphDistance();
         distance.setDirected(true);
@@ -185,7 +202,7 @@ public class Gephi {
         //Rank color by Degree
         Function degreeRanking = appearanceModel.getNodeFunction(graph, AppearanceModel.GraphFunction.NODE_DEGREE, RankingElementColorTransformer.class);
         RankingElementColorTransformer degreeTransformer = (RankingElementColorTransformer) degreeRanking.getTransformer();
-        degreeTransformer.setColors(new Color[]{new Color(0xFEF0D9), new Color(0xB30000)});
+        degreeTransformer.setColors(new Color[]{new Color(255,69,0), new Color(255,69,0)});
         degreeTransformer.setColorPositions(new float[]{0f, 0.5f});
         appearanceController.transform(degreeRanking);
 
@@ -198,7 +215,7 @@ public class Gephi {
         model.getProperties().putValue(PreviewProperty.NODE_BORDER_COLOR, new DependantColor(new Color(0, 0, 0)));
         model.getProperties().putValue(PreviewProperty.NODE_LABEL_PROPORTIONAL_SIZE, Boolean.TRUE);
         model.getProperties().putValue(PreviewProperty.BACKGROUND_COLOR, Color.WHITE);
-        model.getProperties().putValue(PreviewProperty.EDGE_CURVED, Boolean.TRUE); 
+        model.getProperties().putValue(PreviewProperty.EDGE_CURVED, Boolean.TRUE);
         model.getProperties().putValue(PreviewProperty.DIRECTED, Boolean.TRUE);
 
 //Export
