@@ -19,6 +19,7 @@ import org.gephi.graph.api.GraphController;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.Node;
 import org.gephi.io.exporter.api.ExportController;
+import org.gephi.io.exporter.preview.SVGExporter;
 import org.gephi.io.importer.api.Container;
 import org.gephi.io.importer.api.ImportController;
 import org.gephi.io.processor.plugin.DefaultProcessor;
@@ -216,7 +217,7 @@ public class Gephi {
 
 //Export
         ExportController ec = Lookup.getDefault().lookup(ExportController.class);
-        // PDFExporter exporter = (PDFExporter) ec.getExporter("pdf");
+        SVGExporter exporter = (SVGExporter) ec.getExporter("svg");
 
         ec.exportFile(file);
 

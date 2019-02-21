@@ -55,7 +55,7 @@ public class PostIndexCommand implements Comando {
 
             try {
                 Gephi gephi = new Gephi();
-                gephi.script(grafo, File.createTempFile("gephi", ".pdf", uploads));
+                gephi.script(grafo, File.createTempFile("gephi", ".svg", uploads));
             } catch (TranscoderException ex) {
                 Exceptions.printStackTrace(ex);
             }

@@ -5,7 +5,7 @@
     <form method="post">
         <div class="form-group">
             <label> Quantidade de vértices </label>
-            <input type="text" class="form-control" name="qtddVertices" placeholder="Entre com a quantidade de vértices">
+            <input type="text" class="form-control" name="qtddVertices" placeholder="Entre com a quantidade de vértices" value="15">
         </div>
         <button type="submit" class="btn btn-primary"> Enviar </button>
     </form>
