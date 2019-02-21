@@ -28,6 +28,8 @@ import org.gephi.layout.plugin.force.yifanHu.YifanHuLayout;
 import org.gephi.preview.api.PreviewController;
 import org.gephi.preview.api.PreviewModel;
 import org.gephi.preview.api.PreviewProperty;
+import org.gephi.preview.types.DependantColor;
+import org.gephi.preview.types.DependantOriginalColor;
 import org.gephi.preview.types.EdgeColor;
 import org.gephi.project.api.ProjectController;
 import org.gephi.project.api.Workspace;
@@ -55,32 +57,29 @@ public class Gephi {
         Container container;
         container = Lookup.getDefault().lookup(Container.Factory.class).newContainer();
 
-        
         List<Node> vertices = new LinkedList();
-      
+
         float posicaoX = 0;
         float posicaoY = 0;
-        
+
         DirectedGraph directedGraph = graphModel.getDirectedGraph();
-        
+
         for (Vertice a = grafo.getVerticesDesteGrafo().getPrimeiro(); a != null; a = a.getProximo()) {
             Node newNode = graphModel.factory().newNode((String) String.valueOf(a.getIndice()));
             newNode.setLabel((String) String.valueOf(a.getIndice()));
             newNode.setSize(3.0f);
             vertices.add(newNode);
-            posicaoX = grafo.numeroAleatorio(0, 100);
-            posicaoY = grafo.numeroAleatorio(0, 100);
+            posicaoX = grafo.numeroAleatorioFloat(0, 100);
+            posicaoY = grafo.numeroAleatorioFloat(0, 100);
             newNode.setPosition(posicaoX, posicaoY);
 
-           // posicaoX += 0.5;
-           // posicaoY += 0.5;
-           //a
-            
+            // posicaoX += 0.5;
+            // posicaoY += 0.5;
+            //a
             directedGraph.addNode(newNode);
 
         }
 
-        
         Vertice a = grafo.getVerticesDesteGrafo().getPrimeiro();
         for (int i = 0; i < vertices.size(); i++) {
             Node base = vertices.get(i);
@@ -90,7 +89,7 @@ public class Gephi {
                 Node destino = null;
 
                 int indiceNodeDestino = b.getVerticeDestino().getIndice();
-                
+
                 for (int j = 0; j < vertices.size(); j++) {
                     if (vertices.get(j).getLabel().equals(Integer.toString(indiceNodeDestino))) {
                         destino = vertices.get(j);
@@ -98,9 +97,11 @@ public class Gephi {
                     }
                 }
 
-                if(destino!=null){
-                Edge e = graphModel.factory().newEdge(base, destino, 0, 1.0, true);
-                directedGraph.addEdge(e);}
+                if (destino != null) {
+                    Edge e = graphModel.factory().newEdge(base, destino, 0, 1.0, true);
+                    directedGraph.addEdge(e);
+                    // Edge aaa = graphModel.factory().newEdge();
+                }
 
             }
 
@@ -150,7 +151,6 @@ public class Gephi {
         directedGraph.addEdge(e4);
         directedGraph.addEdge(e5);
         directedGraph.addEdge(e6);*/
-
         //Append imported data to GraphAPI
         //      importController = Lookup.getDefault().lookup(ImportController.class);
         importController.process(container, new DefaultProcessor(), workspace);
@@ -160,11 +160,11 @@ public class Gephi {
         System.out.println("Nodes: " + graph.getNodeCount());
         System.out.println("Edges: " + graph.getEdgeCount());
 
-        //See visible graph stats
-        UndirectedGraph graphVisible = graphModel.getUndirectedGraphVisible();
+        /*//See visible graph stats
+        DirectedGraph graphVisible = graphModel.getDirectedGraphVisible();
+        //UndirectedGraph graphVisible = graphModel.getUndirectedGraphVisible();
         System.out.println("Nodes: " + graphVisible.getNodeCount());
-        System.out.println("Edges: " + graphVisible.getEdgeCount());
-
+        System.out.println("Edges: " + graphVisible.getEdgeCount());*/
         //Run YifanHuLayout for 100 passes - The layout always takes the current visible view
         YifanHuLayout layout = new YifanHuLayout(null, new StepDisplacement(1f));
         layout.setGraphModel(graphModel);
@@ -186,20 +186,26 @@ public class Gephi {
         Function degreeRanking = appearanceModel.getNodeFunction(graph, AppearanceModel.GraphFunction.NODE_DEGREE, RankingElementColorTransformer.class);
         RankingElementColorTransformer degreeTransformer = (RankingElementColorTransformer) degreeRanking.getTransformer();
         degreeTransformer.setColors(new Color[]{new Color(0xFEF0D9), new Color(0xB30000)});
-        degreeTransformer.setColorPositions(new float[]{0f, 1f});
+        degreeTransformer.setColorPositions(new float[]{0f, 0.5f});
         appearanceController.transform(degreeRanking);
 
         //Preview
         model.getProperties().putValue(PreviewProperty.SHOW_NODE_LABELS, Boolean.TRUE);
-        model.getProperties().putValue(PreviewProperty.EDGE_COLOR, new EdgeColor(Color.GRAY));
-        model.getProperties().putValue(PreviewProperty.EDGE_THICKNESS, new Float(0.5f));
+        model.getProperties().putValue(PreviewProperty.EDGE_COLOR, new EdgeColor(Color.CYAN));
+        model.getProperties().putValue(PreviewProperty.EDGE_THICKNESS, new Float(0.1f));
         model.getProperties().putValue(PreviewProperty.NODE_LABEL_FONT, model.getProperties().getFontValue(PreviewProperty.NODE_LABEL_FONT).deriveFont(8));
+        model.getProperties().putValue(PreviewProperty.NODE_BORDER_WIDTH, 0.3f);
+        model.getProperties().putValue(PreviewProperty.NODE_BORDER_COLOR, new DependantColor(new Color(0, 0, 0)));
+        model.getProperties().putValue(PreviewProperty.NODE_LABEL_PROPORTIONAL_SIZE, Boolean.TRUE);
+        model.getProperties().putValue(PreviewProperty.BACKGROUND_COLOR, Color.WHITE);
+        model.getProperties().putValue(PreviewProperty.EDGE_CURVED, Boolean.TRUE); 
+        model.getProperties().putValue(PreviewProperty.DIRECTED, Boolean.TRUE);
 
-        //Export
+//Export
         ExportController ec = Lookup.getDefault().lookup(ExportController.class);
         // PDFExporter exporter = (PDFExporter) ec.getExporter("pdf");
 
         ec.exportFile(new File("C:\\\\Users\\\\ferna\\\\iamgens gephi\\\\temp.pdf"));
-        
+
     }
 }
