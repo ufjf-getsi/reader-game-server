@@ -2,9 +2,9 @@ package Comands;
 
 import Grafo.GrafoGenerator;
 import Grafo.GrafoGeneratorTeia;
-import Gephi.Gephi;
+import Grafo.gephi.Gephi;
 import Grafo.Grafo;
-import GraphViz.GraphViz;
+import Grafo.graphviz.GraphViz;
 import Mundo.Fase;
 import java.io.File;
 import java.io.IOException;
