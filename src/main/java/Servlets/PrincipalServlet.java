@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet (name = "PrincipalServlet", urlPatterns = {"/index.html", "/imagem", "/audio","/"})
-//@WebServlet(name = "PrincipalServlet", urlPatterns = {"/index.html", "/imagem", "/audio", ""})
+@WebServlet(name = "PrincipalServlet", urlPatterns = {"/index.html", "/imagem", "/audio", "/"})
 public class PrincipalServlet extends HttpServlet {
 
     @Override
@@ -25,11 +24,7 @@ public class PrincipalServlet extends HttpServlet {
             rotas.put("/imagem", "Comands.ShowImage");
             rotas.put("/audio", "Comands.ShowAudio");
 
-            System.out.println(request.getServletPath());
-            String clazzName = rotas.get(request.getServletPath());
-            Class clazz = Class.forName(clazzName);
-            Comando comando = (Comando) clazz.newInstance();
-            comando.exec(request, response);
+            processRequest(rotas, request, response);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             response.sendRedirect("/index.html");
         }
@@ -44,11 +39,7 @@ public class PrincipalServlet extends HttpServlet {
             rotas = new HashMap<>();
             rotas.put("/index.html", "Comands.PostIndexCommand");
             rotas.put("/audio", "Comands.PostAudioCommand");
-
-            String clazzName = rotas.get(request.getServletPath());
-            Comando comando;
-            comando = (Comando) Class.forName(clazzName).newInstance();
-            comando.exec(request, response);
+            processRequest(rotas, request, response);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             response.sendRedirect("index.html");
         }
@@ -66,6 +57,18 @@ public class PrincipalServlet extends HttpServlet {
         resp.setHeader("Access-Control-Allow-Methods", "OPTIONS, HEADER, GET,POST");
         resp.setHeader("Access-Control-Max-Age", "3600");
         resp.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+    }
+
+    private boolean processRequest(Map<String, String> rotas, HttpServletRequest request, HttpServletResponse response) throws IllegalAccessException, InstantiationException, ClassNotFoundException, IOException {
+        String clazzName = rotas.get(request.getServletPath());
+        if (clazzName == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return false;
+        }
+        Class clazz = Class.forName(clazzName);
+        Comando comando = (Comando) clazz.newInstance();
+        comando.exec(request, response);
+        return true;
     }
 
 }
