@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import org.apache.batik.transcoder.TranscoderException;
 import org.gephi.appearance.api.AppearanceController;
 import org.gephi.appearance.api.AppearanceModel;
@@ -19,21 +18,15 @@ import org.gephi.graph.api.Edge;
 import org.gephi.graph.api.GraphController;
 import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.Node;
-import org.gephi.graph.api.UndirectedGraph;
 import org.gephi.io.exporter.api.ExportController;
 import org.gephi.io.importer.api.Container;
 import org.gephi.io.importer.api.ImportController;
 import org.gephi.io.processor.plugin.DefaultProcessor;
-import org.gephi.layout.plugin.AutoLayout;
-import org.gephi.layout.plugin.force.StepDisplacement;
-import org.gephi.layout.plugin.force.yifanHu.YifanHuLayout;
-import org.gephi.layout.plugin.forceAtlas.ForceAtlas;
 import org.gephi.layout.plugin.forceAtlas.ForceAtlasLayout;
 import org.gephi.preview.api.PreviewController;
 import org.gephi.preview.api.PreviewModel;
 import org.gephi.preview.api.PreviewProperty;
 import org.gephi.preview.types.DependantColor;
-import org.gephi.preview.types.DependantOriginalColor;
 import org.gephi.preview.types.EdgeColor;
 import org.gephi.project.api.ProjectController;
 import org.gephi.project.api.Workspace;
@@ -42,7 +35,7 @@ import org.openide.util.Lookup;
 
 public class Gephi {
 
-    public void script(Grafo grafo) throws IOException, TranscoderException {
+    public void script(Grafo grafo, File file) throws IOException, TranscoderException {
 
         //Init a project - and therefore a workspace
         ProjectController pc = Lookup.getDefault().lookup(ProjectController.class);
@@ -225,7 +218,7 @@ public class Gephi {
         ExportController ec = Lookup.getDefault().lookup(ExportController.class);
         // PDFExporter exporter = (PDFExporter) ec.getExporter("pdf");
 
-        ec.exportFile(new File("C:\\\\Users\\\\ferna\\\\iamgens gephi\\\\temp.pdf"));
+        ec.exportFile(file);
 
     }
 }

@@ -24,6 +24,11 @@ public class PostIndexCommand implements Comando {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) {
         try {
+            Properties config = new Properties();
+            config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));
+            File uploads = new File(config.getProperty("UPLOAD_DIR"));
+            
+            
 
             Integer quantidadeDeVertices = Integer.parseInt(request.getParameter("qtddVertices"));
 
@@ -50,7 +55,7 @@ public class PostIndexCommand implements Comando {
 
             try {
                 Gephi gephi = new Gephi();
-                gephi.script(grafo);
+                gephi.script(grafo, File.createTempFile("gephi", ".pdf", uploads));
             } catch (TranscoderException ex) {
                 Exceptions.printStackTrace(ex);
             }
@@ -72,9 +77,6 @@ public class PostIndexCommand implements Comando {
             // 		String repesentationType= "circo";
 
             //		File out = new File("/tmp/out"+gv.getImageDpi()+"."+ type);   // Linux
-            Properties config = new Properties();
-            config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));
-            File uploads = new File(config.getProperty("UPLOAD_DIR"));
             File out = File.createTempFile("graph", ".gif", uploads);
             gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), out);
             System.out.println(out.getAbsoluteFile());
