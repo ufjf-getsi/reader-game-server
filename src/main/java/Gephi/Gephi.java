@@ -74,6 +74,7 @@ public class Gephi {
 
            // posicaoX += 0.5;
            // posicaoY += 0.5;
+           //a
             
             directedGraph.addNode(newNode);
 
