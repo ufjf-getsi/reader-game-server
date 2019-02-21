@@ -64,7 +64,6 @@ public class PrincipalServlet extends HttpServlet {
     private void enableCORS(HttpServletResponse resp) {
         resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setHeader("Access-Control-Allow-Methods", "OPTIONS, HEADER, GET,POST");
-        //resp.setHeader("Access-Control-Allow-Methods", "POST, GET");
         resp.setHeader("Access-Control-Max-Age", "3600");
         resp.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     }
