@@ -74,12 +74,15 @@ public class Gephi {
             newNode.setLabel((String) String.valueOf(a.getIndice()));
             newNode.setSize(3.0f);
             vertices.add(newNode);
+
+            // escolhendo coordenadas do vértice aleatóriamente - primeira forma
             /*posicaoX = grafo.numeroAleatorioFloat(0, 100);
             posicaoY = grafo.numeroAleatorioFloat(0, 100);
-            newNode.setPosition(posicaoX, posicaoY);*/
-            newNode.setX((float) ((0.01 + Math.random()) * 1000) - 500);
-            newNode.setY((float) ((0.01 + Math.random()) * 1000) - 500);
-
+            newNode.setPosition(posicaoX, posicaoY);
+            
+            // escolhendo coordenadas do vértice aleatóriamente - segunda forma
+            /*newNode.setX((float) ((0.01 + Math.random()) * 1000) - 500);
+            newNode.setY((float) ((0.01 + Math.random()) * 1000) - 500);*/
             directedGraph.addNode(newNode);
 
         }
@@ -164,14 +167,15 @@ public class Gephi {
         DirectedGraph graph = graphModel.getDirectedGraph();
         System.out.println("Nodes: " + graph.getNodeCount());
         System.out.println("Edges: " + graph.getEdgeCount());
-
         /*//See visible graph stats
         DirectedGraph graphVisible = graphModel.getDirectedGraphVisible();
         //UndirectedGraph graphVisible = graphModel.getUndirectedGraphVisible();
         System.out.println("Nodes: " + graphVisible.getNodeCount());
         System.out.println("Edges: " + graphVisible.getEdgeCount());*/
-        //Run YifanHuLayout for 100 passes - The layout always takes the current visible view
-        YifanHuLayout layout = new YifanHuLayout(null, new StepDisplacement(1f));
+
+        // LAYOUT MANUAL
+        //Run YifanHuLayout for 100 passes - The layout always takes the current visible view       
+        /*YifanHuLayout layout = new YifanHuLayout(null, new StepDisplacement(1f));
         layout.setGraphModel(graphModel);
         layout.resetPropertiesValues();
         layout.setOptimalDistance(100f);
@@ -180,20 +184,19 @@ public class Gephi {
         for (int i = 0; i < 100 && layout.canAlgo(); i++) {
             layout.goAlgo();
         }
-        layout.endAlgo();
-        /*AutoLayout autoLayout = new AutoLayout(1, TimeUnit.MINUTES);
-        autoLayout.setGraphModel(graphModel);
-        YifanHuLayout firstLayout = new YifanHuLayout(null, new StepDisplacement(1f));
-        ForceAtlasLayout secondLayout = new ForceAtlasLayout(null);
-        AutoLayout.DynamicProperty adjustBySizeProperty = AutoLayout.createDynamicProperty("Adjust by Sizes", Boolean.TRUE, 0.1f);//True after 10% of layout time
-        AutoLayout.DynamicProperty repulsionProperty = AutoLayout.createDynamicProperty("Repulsion strength", new Double(500.), 0f);//500 for the complete period
-        autoLayout.addLayout(firstLayout, 0.5f);
-        autoLayout.addLayout(secondLayout, 0.5f, new AutoLayout.DynamicProperty[]{adjustBySizeProperty, repulsionProperty});
-        autoLayout.execute(); */
+        layout.endAlgo();*/
         
         
-      
-        
+        // LAYOUT AUTOMÁTICO
+        ForceAtlasLayout layout1 = new ForceAtlasLayout(null);
+        layout1.setGraphModel(graphModel);
+        layout1.initAlgo();
+        layout1.resetPropertiesValues();
+        for (int i = 0; i < 100 && layout1.canAlgo(); i++) {
+            layout1.goAlgo();
+        }
+        layout1.endAlgo();
+
         //Get Centrality
         GraphDistance distance = new GraphDistance();
         distance.setDirected(true);
@@ -202,7 +205,7 @@ public class Gephi {
         //Rank color by Degree
         Function degreeRanking = appearanceModel.getNodeFunction(graph, AppearanceModel.GraphFunction.NODE_DEGREE, RankingElementColorTransformer.class);
         RankingElementColorTransformer degreeTransformer = (RankingElementColorTransformer) degreeRanking.getTransformer();
-        degreeTransformer.setColors(new Color[]{new Color(255,69,0), new Color(255,69,0)});
+        degreeTransformer.setColors(new Color[]{new Color(255, 69, 0), new Color(255, 69, 0)});
         degreeTransformer.setColorPositions(new float[]{0f, 0.5f});
         appearanceController.transform(degreeRanking);
 
@@ -210,7 +213,7 @@ public class Gephi {
         model.getProperties().putValue(PreviewProperty.SHOW_NODE_LABELS, Boolean.TRUE);
         model.getProperties().putValue(PreviewProperty.EDGE_COLOR, new EdgeColor(Color.CYAN));
         model.getProperties().putValue(PreviewProperty.EDGE_THICKNESS, new Float(0.1f));
-        model.getProperties().putValue(PreviewProperty.NODE_LABEL_FONT, model.getProperties().getFontValue(PreviewProperty.NODE_LABEL_FONT).deriveFont(8));
+        model.getProperties().putValue(PreviewProperty.NODE_LABEL_FONT, model.getProperties().getFontValue(PreviewProperty.NODE_LABEL_FONT).deriveFont(20));
         model.getProperties().putValue(PreviewProperty.NODE_BORDER_WIDTH, 0.3f);
         model.getProperties().putValue(PreviewProperty.NODE_BORDER_COLOR, new DependantColor(new Color(0, 0, 0)));
         model.getProperties().putValue(PreviewProperty.NODE_LABEL_PROPORTIONAL_SIZE, Boolean.TRUE);

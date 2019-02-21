@@ -2,7 +2,7 @@
 <%@include file="jspf/cabecalho.jspf" %>
 <div class="container text-center">
 
-    <audio src="imagem?nomeimagem=${nomeaudio}" alt="${nomeaudio}"></audio>
+    <audio src="imagem?nomeaudio=${nomeaudio}" alt="${nomeaudio}"></audio>
     
 </div>
 
