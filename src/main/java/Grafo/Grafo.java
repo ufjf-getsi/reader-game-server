@@ -35,18 +35,16 @@ public class Grafo {
     public ListEncadVertices getVerticesDesteGrafo() {
         return verticesDesteGrafo;
     }
-    
-    
-    
-    public void setNumeroDeVertices(int numeroDeVertices){
+
+    public void setNumeroDeVertices(int numeroDeVertices) {
         this.numeroDeVertices = numeroDeVertices;
     }
-    
-    public int getMaxArestasPorVertice(){
+
+    public int getMaxArestasPorVertice() {
         return maxArestasPorVertice;
     }
-    
-    public void setMaxArestasPorVertice(int maxArestasPorVertice){
+
+    public void setMaxArestasPorVertice(int maxArestasPorVertice) {
         this.maxArestasPorVertice = maxArestasPorVertice;
     }
 
@@ -59,7 +57,7 @@ public class Grafo {
         }
         return false;
     }
-    
+
     public Vertice getVertice(int indice) {
         return verticesDesteGrafo.getVerticePorIndice(indice);
     }
@@ -108,106 +106,105 @@ public class Grafo {
         }
         System.out.println();
     }
-    
-    public double[][] getMatrizAdjacencia(){
+
+    public double[][] getMatrizAdjacencia() {
         return matrizAdjacencia;
     }
-    
-    public void setMatrizAdjacencia(double[][] matrizAdjacencia){
+
+    public void setMatrizAdjacencia(double[][] matrizAdjacencia) {
         this.matrizAdjacencia = matrizAdjacencia;
     }
-    
-    public void atualizaMatrizAdjacencia(){
+
+    public void atualizaMatrizAdjacencia() {
         this.matrizAdjacencia = new double[this.numeroDeVertices][this.numeroDeVertices];
         Vertice auxVertice = verticesDesteGrafo.getPrimeiro();
         Aresta auxAresta;
-        while(auxVertice != null){
+        while (auxVertice != null) {
             auxAresta = auxVertice.getArestasDesteVertice().getPrimeira();
-            while(auxAresta != null){
+            while (auxAresta != null) {
                 matrizAdjacencia[auxVertice.getIndice() - 1][auxAresta.getVerticeDestino().getIndice() - 1] = auxAresta.getPeso();
                 auxAresta = auxAresta.getProxima();
             }
             auxVertice = auxVertice.getProximo();
         }
     }
-    
-    public void imprimeMatrizAdjacencia(){
+
+    public void imprimeMatrizAdjacencia() {
         String texto = "";
-        for(int i = 0; i < this.matrizAdjacencia.length; i++){
-            for(int j = 0; j < this.matrizAdjacencia[i].length; j++){
+        for (int i = 0; i < this.matrizAdjacencia.length; i++) {
+            for (int j = 0; j < this.matrizAdjacencia[i].length; j++) {
                 texto = texto + "matAdj[" + i + "][" + j + "]: " + this.matrizAdjacencia[i][j] + "  -  ";
             }
             texto = texto + "\n";
         }
         System.out.println(texto);
     }
-    
-    public double[][] getMatrizDistancias(){
+
+    public double[][] getMatrizDistancias() {
         return matrizDistancias;
     }
-    
-    public void setMatrizDistancias(double[][] matrizDistancias){
+
+    public void setMatrizDistancias(double[][] matrizDistancias) {
         this.matrizDistancias = matrizDistancias;
     }
-    
-    public void atualizaMatrizDistancias(){
+
+    public void atualizaMatrizDistancias() {
         this.matrizDistancias = new double[this.numeroDeVertices][this.numeroDeVertices];
-        for(int i = 0; i < this.numeroDeVertices; i++){
-            double[] distAux = algoritmoDijkstra(i + 1);       
-            for(int j = 0; j < this.numeroDeVertices; j++){
+        for (int i = 0; i < this.numeroDeVertices; i++) {
+            double[] distAux = algoritmoDijkstra(i + 1);
+            for (int j = 0; j < this.numeroDeVertices; j++) {
                 this.matrizDistancias[i][j] = distAux[j];
             }
         }
     }
-    
-    public void imprimeMatrizDistancias(){
+
+    public void imprimeMatrizDistancias() {
         String texto = "";
-        for(int i = 0; i < this.matrizDistancias.length; i++){
-            for(int j = 0; j < this.matrizDistancias[i].length; j++){
+        for (int i = 0; i < this.matrizDistancias.length; i++) {
+            for (int j = 0; j < this.matrizDistancias[i].length; j++) {
                 texto = texto + "matDist[" + i + "][" + j + "]: " + this.matrizDistancias[i][j] + "  -  ";
             }
             texto = texto + "\n";
         }
         System.out.println(texto);
     }
-    
-    public double minDistance(double dist[], boolean visitados[]){ 
+
+    public double minDistance(double dist[], boolean visitados[]) {
         // Initialize min value 
-        double min = Double.MAX_VALUE, min_index = -1; 
+        double min = Double.MAX_VALUE, min_index = -1;
 
-        for (int v = 0; v < this.numeroDeVertices; v++){
-            if (visitados[v] == false && dist[v] <= min) 
-            { 
-                min = dist[v]; 
-                min_index = v; 
-            } 
-        }   
+        for (int v = 0; v < this.numeroDeVertices; v++) {
+            if (visitados[v] == false && dist[v] <= min) {
+                min = dist[v];
+                min_index = v;
+            }
+        }
 
-        return min_index; 
+        return min_index;
     }
-    
+
     // Calcula a distancia entre um vértice determinado e todos os outros através do algoritmo de Dijkstra 
     // aplicado em uma matriz de adjacência
-    public double[] algoritmoDijkstra(int origem){
+    public double[] algoritmoDijkstra(int origem) {
         double[] dist = new double[this.numeroDeVertices];
         boolean[] visitados = new boolean[this.numeroDeVertices];
         double infinito = Double.MAX_VALUE;//Integer.MAX_VALUE;                               // Valor bem grande para representar quando não há aresta de um vertice para o outro
-        for(int i = 0; i < this.numeroDeVertices; i++){
-            dist[i] = infinito;                            
+        for (int i = 0; i < this.numeroDeVertices; i++) {
+            dist[i] = infinito;
             visitados[i] = false;
         }
-                            
+
         dist[origem - 1] = 0;               // Distancia da fonte pra ela mesma é sempre 0
-        
-        for(int i = 0; i < this.numeroDeVertices - 1; i++){
-            
+
+        for (int i = 0; i < this.numeroDeVertices - 1; i++) {
+
             double u = minDistance(dist, visitados);
-            
-            visitados[(int)u] = true;
-            
-            for(int j = 0; j < this.numeroDeVertices; j++){
-                if (!visitados[j] && this.matrizAdjacencia[(int)u][j] != 0 && dist[(int)u] != infinito && dist[(int)u] + this.matrizAdjacencia[(int)u][j] < dist[j]){
-                    dist[j] = dist[(int)u] + this.matrizAdjacencia[(int)u][j]; 
+
+            visitados[(int) u] = true;
+
+            for (int j = 0; j < this.numeroDeVertices; j++) {
+                if (!visitados[j] && this.matrizAdjacencia[(int) u][j] != 0 && dist[(int) u] != infinito && dist[(int) u] + this.matrizAdjacencia[(int) u][j] < dist[j]) {
+                    dist[j] = dist[(int) u] + this.matrizAdjacencia[(int) u][j];
                 }
             }
         }
@@ -277,6 +274,14 @@ public class Grafo {
 
         Random rand = new Random();
         int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
+    }
+
+    public float numeroAleatorioFloat(int min, int max) {
+
+        Random rand = new Random();
+        float randomNum = rand.nextInt((max - min) + 1) + min;
 
         return randomNum;
     }
