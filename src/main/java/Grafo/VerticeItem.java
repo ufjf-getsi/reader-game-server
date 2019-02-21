@@ -15,6 +15,8 @@ import java.util.List;
 public class VerticeItem extends Vertice{
     
     private List<String> itens = new ArrayList<String>();
+    private String nomeDoRecurso;
+    private int tipoDeRecurso;      //0 - Jogador Ganha recurso, 1 - Jogador consome seu recurso ...
     
     public VerticeItem(){
         super();

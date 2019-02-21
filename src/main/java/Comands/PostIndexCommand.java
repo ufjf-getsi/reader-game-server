@@ -40,11 +40,8 @@ public class PostIndexCommand implements Comando {
             Fase fase = new Fase(quantidadeDeVertices);
 
             GrafoGenerator gerador = new GrafoGeneratorTeia();
-            fase.setMapa(gerador.getGrafo(quantidadeDeVertices /**
-             * fase.getFatorMutiMapa()
-             */
-            ));
-            //fase.geraMapa();
+            //fase.setMapa(gerador.getGrafo(quantidadeDeVertices));
+            fase.geraMapa();
 
             Grafo grafo = fase.getMapa();
             GraphViz gv = new GraphViz();

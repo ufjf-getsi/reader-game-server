@@ -55,6 +55,7 @@ public class Jogador {
     
     public void setVertice(VerticeItem vertice){
         this.vertice = vertice;
+        vertice.addItem("J" + this.indice);
     }
     
     public void mover(int opcao){
