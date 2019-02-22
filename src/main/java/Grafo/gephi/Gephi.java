@@ -218,7 +218,7 @@ public class Gephi {
         model.getProperties().putValue(PreviewProperty.NODE_BORDER_COLOR, new DependantColor(new Color(0, 0, 0)));
         model.getProperties().putValue(PreviewProperty.NODE_LABEL_PROPORTIONAL_SIZE, Boolean.TRUE);
         model.getProperties().putValue(PreviewProperty.BACKGROUND_COLOR, Color.WHITE);
-        model.getProperties().putValue(PreviewProperty.EDGE_CURVED, Boolean.TRUE);
+        model.getProperties().putValue(PreviewProperty.EDGE_CURVED, Boolean.FALSE);
         model.getProperties().putValue(PreviewProperty.DIRECTED, Boolean.TRUE);
 
 //Export
