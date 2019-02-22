@@ -6,7 +6,6 @@
 package Mundo;
 
 import Grafo.Aresta;
-import Grafo.Vertice;
 import Grafo.VerticeItem;
 
 /**

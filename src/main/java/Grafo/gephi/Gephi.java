@@ -3,6 +3,7 @@ package Grafo.gephi;
 import Grafo.Aresta;
 import Grafo.Grafo;
 import Grafo.Vertice;
+import Grafo.VerticeItem;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
@@ -58,9 +59,6 @@ public class Gephi {
 
         List<Node> vertices = new LinkedList();
 
-        float posicaoX = 0;
-        float posicaoY = 0;
-
         DirectedGraph directedGraph = graphModel.getDirectedGraph();
 
         for (Vertice a = grafo.getVerticesDesteGrafo().getPrimeiro(); a != null; a = a.getProximo()) {
@@ -110,6 +108,16 @@ public class Gephi {
             a = a.getProximo();
         }
 
+        VerticeItem aa = (VerticeItem) grafo.getVerticesDesteGrafo().getPrimeiro();
+        for (int i = 0; i < vertices.size(); i++) {
+            if (aa.getItens().size() > 0) {
+                vertices.get(i).setLabel(vertices.get(i).getLabel() + "_");
+            }
+            for (int j = 0; j < aa.getItens().size(); j++) {
+                vertices.get(i).setLabel(vertices.get(i).getLabel() + aa.getItens().get(j));
+            }
+            aa = (VerticeItem) aa.getProximo();
+        }
         /*Node n0 = graphModel.factory().newNode("n0");
         n0.setLabel("Node 0");
         n0.setSize(3.0f);
@@ -179,8 +187,6 @@ public class Gephi {
             layout.goAlgo();
         }
         layout.endAlgo();*/
-        
-        
         // LAYOUT AUTOMÁTICO
         ForceAtlasLayout layout1 = new ForceAtlasLayout(null);
         layout1.setGraphModel(graphModel);
@@ -206,7 +212,7 @@ public class Gephi {
         //Preview
         model.getProperties().putValue(PreviewProperty.SHOW_NODE_LABELS, Boolean.TRUE);
         model.getProperties().putValue(PreviewProperty.EDGE_COLOR, new EdgeColor(Color.CYAN));
-        model.getProperties().putValue(PreviewProperty.EDGE_THICKNESS, new Float(0.1f));
+        model.getProperties().putValue(PreviewProperty.EDGE_THICKNESS, new Float(0.2f));
         model.getProperties().putValue(PreviewProperty.NODE_LABEL_FONT, model.getProperties().getFontValue(PreviewProperty.NODE_LABEL_FONT).deriveFont(20));
         model.getProperties().putValue(PreviewProperty.NODE_BORDER_WIDTH, 0.3f);
         model.getProperties().putValue(PreviewProperty.NODE_BORDER_COLOR, new DependantColor(new Color(0, 0, 0)));
