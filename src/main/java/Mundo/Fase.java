@@ -57,33 +57,57 @@ public class Fase {
     }
     
     public void geraMapa(){
-        //int posJogador = mapa.numeroAleatorio(1, mapa.getNumeroDeVertices());
         GrafoGenerator gerador = new GrafoGeneratorTeia();
         this.mapa = gerador.getGrafo(this.fatorMutltMapa * this.jogadores.size());
         List<Integer> verticesDisp = new ArrayList<Integer>();
+        List<Integer> posJogadores = new ArrayList<Integer>();                          //Lista de posições dos jogadores já escolhidas que deverá ser verificado se a distancia do vertice escolhido é compativel com todos eles
         for(int i = 1; i <= (this.fatorMutltMapa * this.jogadores.size());i++){
             verticesDisp.add(i);
         }
-        int verticeJogador = this.mapa.numeroAleatorio(verticesDisp.get(0), verticesDisp.get(verticesDisp.size() - 1));
+        Integer verticeJogador = this.mapa.numeroAleatorio(verticesDisp.get(0), verticesDisp.get(verticesDisp.size() - 1));
         int sortTipoVertice;
         jogadores.get(0).setVertice((VerticeItem)this.mapa.getVertice(verticeJogador));         //Posicionando o primeiro jogador
-        verticesDisp.remove((Integer)verticeJogador);
+        posJogadores.add(verticeJogador);
+        verticesDisp.remove(verticeJogador);
+        System.out.println(posJogadores.get(0) + "  TESTE");
+        boolean testePossibilidade = true;                                                      //Possibilidade de adicionar um jogador
         for(int i = 1; i < jogadores.size(); i++){
-            //if(verticesDisp.contains())
             for(int j = 0; j < mapa.getNumeroDeVertices(); j++){
                 if(mapa.getMatrizDistancias()[verticeJogador - 1][j] >= 2){
-                    if(verticesDisp.contains((Integer)(j + 1))){
-                        jogadores.get(i).setVertice((VerticeItem)this.mapa.getVertice(verticesDisp.get((Integer)(j + 1))));
-                        verticesDisp.remove((Integer)(j + 1));
+                    testePossibilidade = true;
+                    for (int k = 0; k < posJogadores.size(); k++) {         //Verifica se o jogador tera distancia padronizada dentre todos os outros que já foram posicionados
+                        if(mapa.getMatrizDistancias()[j][posJogadores.get(k) - 1] < 2){
+                            testePossibilidade = false;
+                            break;
+                        }
+                    }
+                    if(testePossibilidade){
                         verticeJogador = j + 1;
+                        posJogadores.add(verticeJogador);
+                        jogadores.get(i).setVertice((VerticeItem)this.mapa.getVertice(buscaElemLista(verticesDisp, verticeJogador)));
+                        removeElemLista(verticesDisp, verticeJogador);
                         break;
                     }
                 }
             }
         }
-        
-        //jogadores.get(0).getVertice() = mapa.getVertice(posJogador);
-        //jogadores.get(0).getVertice().addItem("J"+this.indice);
     }
     
+    private void removeElemLista(List<Integer> lista, int elemento){
+        for(int i = 0; i < lista.size(); i++){
+            if(lista.get(i) == elemento){
+                lista.remove(i);
+                break;
+            }
+        }
+    }
+    
+    private Integer buscaElemLista(List<Integer> lista, int elemento){
+        for(int i = 0; i < lista.size(); i++){
+            if(lista.get(i) == elemento){
+                return lista.get(i);
+            }
+        }
+        return -1;
+    }
 }
