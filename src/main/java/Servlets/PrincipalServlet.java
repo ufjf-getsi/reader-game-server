@@ -23,6 +23,7 @@ public class PrincipalServlet extends HttpServlet {
             rotas.put("/index.html", "Comands.GetIndexCommand");
             rotas.put("/imagem", "Comands.ShowImage");
             rotas.put("/audio", "Comands.AudioShow");
+            rotas.put("/audios", "Comands.AudioListCommand");
             rotas.put("/svg", "Comands.SVGShow");
 
             processRequest(rotas, request, response);

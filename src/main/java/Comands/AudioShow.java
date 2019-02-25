@@ -21,7 +21,7 @@ public class AudioShow implements Comando {
         try {
             Properties config = new Properties();
             config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));
-            File uploads = new File(config.getProperty("UPLOAD_DIR"));
+            File uploads = new File(config.getProperty("UPLOAD_DIR")+"/audio");
             String fileName = request.getParameter("nomeaudio");
             File audio = new File(uploads, fileName);
             os = response.getOutputStream();
