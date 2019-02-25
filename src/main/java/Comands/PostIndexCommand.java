@@ -39,10 +39,14 @@ public class PostIndexCommand implements Comando {
 
             Fase fase = new Fase(quantidadeDeVertices);
 
-            GrafoGenerator gerador = new GrafoGeneratorTeia();
+            //GrafoGenerator gerador = new GrafoGeneratorTeia();
             //fase.setMapa(gerador.getGrafo(quantidadeDeVertices));
             fase.geraMapa();
-
+            /*System.out.println("Teste movimentacao do jogador");
+            System.out.println("Vertice jogador 1 antes: " + fase.getJogadores().get(0).getVertice().getIndice());
+            System.out.println("Movendo...");
+            fase.getJogadores().get(0).mover(0);
+            System.out.println("Vertice jogador 1 depois: " + fase.getJogadores().get(0).getVertice().getIndice());*/
             Grafo grafo = fase.getMapa();
             GraphViz gv = new GraphViz();
             gv.addln(gv.start_graph());

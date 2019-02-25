@@ -65,11 +65,9 @@ public class Fase {
             verticesDisp.add(i);
         }
         Integer verticeJogador = this.mapa.numeroAleatorio(verticesDisp.get(0), verticesDisp.get(verticesDisp.size() - 1));
-        int sortTipoVertice;
         jogadores.get(0).setVertice((VerticeItem)this.mapa.getVertice(verticeJogador));         //Posicionando o primeiro jogador
         posJogadores.add(verticeJogador);
         verticesDisp.remove(verticeJogador);
-        System.out.println(posJogadores.get(0) + "  TESTE");
         boolean testePossibilidade = true;                                                      //Possibilidade de adicionar um jogador
         for(int i = 1; i < jogadores.size(); i++){
             for(int j = 0; j < mapa.getNumeroDeVertices(); j++){
@@ -84,12 +82,73 @@ public class Fase {
                     if(testePossibilidade){
                         verticeJogador = j + 1;
                         posJogadores.add(verticeJogador);
-                        jogadores.get(i).setVertice((VerticeItem)this.mapa.getVertice(buscaElemLista(verticesDisp, verticeJogador)));
-                        removeElemLista(verticesDisp, verticeJogador);
+                        jogadores.get(i).setVertice((VerticeItem)this.mapa.getVertice(buscaElemLista(verticesDisp, (int)verticeJogador)));
+                        removeElemLista(verticesDisp, (int)verticeJogador);
                         break;
                     }
                 }
             }
+        }
+        
+        /*for(int i = 0; i < jogadores.size(); i++){
+            System.out.println("Vertice jogadores[ " + i +"]: " + jogadores.get(i).getVertice().getIndice());
+        }
+        
+        for(int i = 0; i < verticesDisp.size(); i++){
+            System.out.println("Vertice Disp[ " + i +"]: " + verticesDisp.get(i));
+        }*/
+        
+        List<Integer> qtd = new ArrayList<>();
+        List<Integer> tipos = new ArrayList<>();
+        List<Integer> qtdMaxTipo = new ArrayList<>();
+        qtdMaxTipo.add(Math.round((60 * verticesDisp.size())/100));
+        qtdMaxTipo.add(Math.round((40 * verticesDisp.size())/100));
+        //System.out.println("qtdMax[0]: " + qtdMaxTipo.get(0) + " qtdMax[1]: " + qtdMaxTipo.get(1) + " verticesDisp: " + verticesDisp.size());
+        for(int i = 0; i < qtdMaxTipo.size(); i++){
+            qtd.add(0);
+            tipos.add(i);
+        }
+        //System.out.println("Tamanho verticesDisp: " + verticesDisp.size());
+        int verticeRecurso;
+        int sortTipo;
+        VerticeItem auxVertice;
+        while(verticesDisp.size() > 0){
+            verticeRecurso = this.mapa.numeroAleatorio(0, (verticesDisp.size() - 1));
+            //System.out.println("Vertice Recurso: " + verticesDisp.get(verticeRecurso));
+            if(qtd.size() > 0){
+                sortTipo = this.mapa.numeroAleatorio(0, (qtd.size() - 1));
+                //System.out.println("Vertice Recurso: " + verticesDisp.get(verticeRecurso) + " -- Tipo: " + tipos.get(sortTipo));
+                auxVertice = (VerticeItem)(this.mapa.getVertice(verticesDisp.get(verticeRecurso)));
+                switch(tipos.get(sortTipo)){
+                    case 0:
+                        auxVertice.addItem("GR");           //Ganha recurso
+                        break;
+                    case 1:
+                        auxVertice.addItem("CR");           //Consome recurso
+                        break;
+                    default:
+                }
+                qtd.set(sortTipo, qtd.get(sortTipo) + 1);
+                if(qtd.get(sortTipo) >= qtdMaxTipo.get(sortTipo)){
+                    //System.out.println("qtd: "+ qtd.get(tipos.get(sortTipo)) + " - qtdMax: "+ qtdMaxTipo.get(tipos.get(sortTipo)) + " - Tipo: " + tipos.get(sortTipo));
+                    qtd.remove(sortTipo);
+                    qtdMaxTipo.remove(sortTipo);
+                }
+            }
+            else{
+                sortTipo = 0;       //this.mapa.numeroAleatorio(0, (tipos.size() - 1));
+                auxVertice = (VerticeItem)(this.mapa.getVertice(verticesDisp.get(verticeRecurso)));
+                switch(sortTipo){
+                    case 0:
+                        auxVertice.addItem("GR");           //Ganha recurso
+                        break;
+                    case 1:
+                        auxVertice.addItem("CR");           //Consome recurso
+                        break;
+                    default:
+                }
+            }
+            verticesDisp.remove(verticeRecurso);
         }
     }
     
