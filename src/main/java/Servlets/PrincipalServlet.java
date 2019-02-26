@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "PrincipalServlet", urlPatterns = {"/index.html", "/imagem", "/audio", "/"})
+@WebServlet(name = "PrincipalServlet", urlPatterns = {"/index.html", "/imagem", "/audio", "/", "/alunos.html"})
 public class PrincipalServlet extends HttpServlet {
 
     @Override
@@ -25,7 +25,7 @@ public class PrincipalServlet extends HttpServlet {
             rotas.put("/audio", "Comands.AudioShow");
             rotas.put("/audios", "Comands.AudioListCommand");
             rotas.put("/svg", "Comands.SVGShow");
-
+            rotas.put("/alunos.html", "Comands.GetPlayersNameCommand");
             processRequest(rotas, request, response);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             response.sendRedirect("/index.html");
@@ -42,6 +42,7 @@ public class PrincipalServlet extends HttpServlet {
             rotas.put("/", "Comands.PostIndexCommand");
             rotas.put("/index.html", "Comands.PostIndexCommand");
             rotas.put("/audio", "Comands.PostAudioCommand");
+            rotas.put("/alunos.html", "Comands.PostPlayersNameCommand");
             
             processRequest(rotas, request, response);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
