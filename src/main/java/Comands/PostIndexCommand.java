@@ -27,13 +27,11 @@ public class PostIndexCommand implements Comando {
             Properties config = new Properties();
             config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));
             File uploads = new File(config.getProperty("UPLOAD_DIR"));
-            if(!uploads.exists()){
+            if (!uploads.exists()) {
                 uploads.mkdirs();
             }
             File pngGraphviz = File.createTempFile("graph", ".gif", uploads);
             File svgGephi = File.createTempFile("gephi", ".svg", uploads);
-            
-            
 
             Integer quantidadeDeVertices = Integer.parseInt(request.getParameter("qtddVertices"));
 
@@ -62,38 +60,42 @@ public class PostIndexCommand implements Comando {
             try {
                 Gephi gephi = new Gephi();
                 gephi.script(grafo, svgGephi);
+                System.out.println(svgGephi.getAbsoluteFile());
             } catch (TranscoderException ex) {
                 Exceptions.printStackTrace(ex);
             }
 
-            String type = "gif";
-            //      String type = "dot";
-            //      String type = "fig";    // open with xfig
-            //      String type = "pdf";
-            //      String type = "ps";
-            //      String type = "svg";    // open with inkscape
-            //      String type = "png";
-            //      String type = "plain";
+            try {
+                String type = "gif";
+                //      String type = "dot";
+                //      String type = "fig";    // open with xfig
+                //      String type = "pdf";
+                //      String type = "ps";
+                //      String type = "svg";    // open with inkscape
+                //      String type = "png";
+                //      String type = "plain";
 
-            String repesentationType = "twopi";     //"dot";
-            //		String repesentationType= "neato";
-            //		String repesentationType= "fdp";
-            //		String repesentationType= "sfdp";
-            // 		String repesentationType= "twopi";
-            // 		String repesentationType= "circo";
+                String repesentationType = "twopi";     //"dot";
+                //		String repesentationType= "neato";
+                //		String repesentationType= "fdp";
+                //		String repesentationType= "sfdp";
+                // 		String repesentationType= "twopi";
+                // 		String repesentationType= "circo";
 
-            //		File out = new File("/tmp/out"+gv.getImageDpi()+"."+ type);   // Linux
-            gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), pngGraphviz);
-            System.out.println(pngGraphviz.getAbsoluteFile());
+                //		File out = new File("/tmp/out"+gv.getImageDpi()+"."+ type);   // Linux
+                gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), type, repesentationType), pngGraphviz);
+                System.out.println(pngGraphviz.getAbsoluteFile());
+
+            } catch (Exception ex) {
+                Logger.getLogger(GetIndexCommand.class.getName()).log(Level.SEVERE, null, ex);
+            }
             request.setAttribute("nomeimagem", pngGraphviz.getName());
             request.setAttribute("nomefigura", svgGephi.getName());
             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/figura.jsp");
             despachante.forward(request, response);
-
         } catch (ServletException | IOException ex) {
-            Logger.getLogger(GetIndexCommand.class.getName()).log(Level.SEVERE, null, ex);
+            Exceptions.printStackTrace(ex);
         }
-
     }
 
 }
