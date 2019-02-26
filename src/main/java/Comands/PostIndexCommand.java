@@ -1,6 +1,7 @@
 package Comands;
 
 import Mundo.Game;
+import Mundo.OrdemGenerator;
 import Persistence.GameDAO;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -18,10 +19,9 @@ public class PostIndexCommand implements Comando {
             Integer turnsLeft = Integer.parseInt(request.getParameter("turns"));
             Integer players = Integer.parseInt(request.getParameter("players"));
             
-            Random numberGenerator = new Random();
-            Integer firstPlayer = numberGenerator.nextInt(players);
+            OrdemGenerator ordem = new OrdemGenerator(players);
             
-            Game game = new Game(name, players, firstPlayer, (turnsLeft*players));
+            Game game = new Game(name, players, ordem.getOrdem().get(0), (turnsLeft*players), ordem.getOrdem(players));
             Integer game_id = GameDAO.getInstance().saveGame(game);
             response.sendRedirect("alunos.html?id="+game_id);
         } catch (IOException | ClassNotFoundException | SQLException ex) {

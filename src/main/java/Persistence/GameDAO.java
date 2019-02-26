@@ -20,12 +20,13 @@ public class GameDAO {
     }
 
     public Integer saveGame (Game game) throws SQLException, ClassNotFoundException {
-        operacaoSaveGame = DatabaseLocator.getInstance().getConnection().prepareStatement("insert into game (name, players, turnsleft, currentPlayer) values (?, ?, ?, ?)");
+        operacaoSaveGame = DatabaseLocator.getInstance().getConnection().prepareStatement("insert into game (name, players, turnsleft, currentPlayer, turnOrder) values (?, ?, ?, ?, ?)");
         operacaoSaveGame.clearParameters();
         operacaoSaveGame.setString(1, game.getName());
         operacaoSaveGame.setInt(2, game.getPlayers());
         operacaoSaveGame.setInt(3, game.getTurnsLeft());
         operacaoSaveGame.setInt(4, game.getCurrentPlayer());
+        operacaoSaveGame.setString(5, game.getPlayersOrder());
         operacaoSaveGame.execute();
         Integer idCriado = 1;
         operacaoListGame = DatabaseLocator.getInstance().getConnection().prepareStatement("select * from game");

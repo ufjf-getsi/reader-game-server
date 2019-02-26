@@ -14,7 +14,8 @@ public class Game {
     private Integer players;
     private Integer currentPlayer;
     private Integer turnsLeft;
-
+    private String playersOrder;
+    
     private Grafo mapa;
     private List<Player> jogadores = new ArrayList<>();
     private int fatorMutltMapa = 4;                             //Fator que multiplicado pelo num de jogadores ira gerar o grafo
@@ -30,11 +31,12 @@ public class Game {
         }
     }
 
-    public Game(String name, Integer players, Integer currentPlayer, Integer turnsLeft) {
+    public Game(String name, Integer players, Integer currentPlayer, Integer turnsLeft, String playersOrder) {
         this.name = name;
         this.players = players;
         this.currentPlayer = currentPlayer;
         this.turnsLeft = turnsLeft;
+        this.playersOrder = playersOrder;
     }
 
     public void setMapa(Grafo mapa) {
@@ -211,6 +213,14 @@ public class Game {
             }
         }
         return -1;
+    }
+
+    public String getPlayersOrder() {
+        return playersOrder;
+    }
+
+    public void setPlayersOrder(String playersOrder) {
+        this.playersOrder = playersOrder;
     }
 
 }

@@ -3,5 +3,6 @@ game_identifier integer primary key generated always as identity,
 name varchar(100),
 players integer,
 currentPlayer integer,
-turnsLeft integer
+turnsLeft integer,
+turnOrder varchar(100)
 );
