@@ -27,6 +27,9 @@ public class PostIndexCommand implements Comando {
             Properties config = new Properties();
             config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));
             File uploads = new File(config.getProperty("UPLOAD_DIR"));
+            if(!uploads.exists()){
+                uploads.mkdirs();
+            }
             File pngGraphviz = File.createTempFile("graph", ".gif", uploads);
             File svgGephi = File.createTempFile("gephi", ".svg", uploads);
             

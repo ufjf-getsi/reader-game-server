@@ -20,6 +20,9 @@ public class PostAudioCommand implements Comando {
             Properties config = new Properties();
             config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));
             File uploads = new File(config.getProperty("UPLOAD_DIR")+"/audio/");
+            if(!uploads.exists()){
+                uploads.mkdirs();
+            }
             File out = File.createTempFile("audio", ".webm", uploads);
             
             byte[] buffer = new byte[1024 * 1024];
