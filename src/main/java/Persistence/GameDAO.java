@@ -11,6 +11,7 @@ public class GameDAO {
     private PreparedStatement operacaoSaveGame;
     private PreparedStatement operacaoListGame;
     private PreparedStatement operacaoListPlayersNumber;
+    private PreparedStatement operacaoListCurrentPlayer;
 
     private GameDAO() {
     }
@@ -47,5 +48,19 @@ public class GameDAO {
             return resultado.getInt("players");
         }
         return 0;
+    }
+    
+    public Integer searchCurrentPlayer (Integer gameId) throws SQLException, ClassNotFoundException {
+        operacaoListCurrentPlayer = DatabaseLocator.getInstance().getConnection().prepareStatement("select currentPlayer from game where game_identifier = ?");
+        operacaoListCurrentPlayer.setInt(1, gameId);
+        
+        Integer currentPlayer = -1;
+        
+        ResultSet resultado = operacaoListCurrentPlayer.executeQuery();
+        while (resultado.next())
+        {
+            currentPlayer = resultado.getInt("currentPlayer");
+        }
+        return currentPlayer;
     }
 }

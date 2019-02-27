@@ -1,3 +1,6 @@
+--É necessário criar um banco de dados com as seguintes informações
+--Nome: readergameserver, user: root, senha: 1234
+
 create table game (
 game_identifier integer primary key generated always as identity,
 name varchar(100),

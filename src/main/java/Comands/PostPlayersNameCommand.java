@@ -5,6 +5,9 @@ import Grafo.gephi.Gephi;
 import Grafo.graphviz.GraphViz;
 import Mundo.Game;
 import Mundo.GameGenerator;
+import Mundo.Player;
+import Persistence.GameDAO;
+import Persistence.PlayerDAO;
 import java.io.File;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -26,7 +29,7 @@ public class PostPlayersNameCommand implements Comando {
             String playersNames[] = request.getParameterValues("players");
 
             GameGenerator game = new GameGenerator();
-            Grafo grafo = game.savePlayersDataAndStartGame(playersNumber, playersNames);
+            Grafo grafo = game.savePlayersDataAndStartGame(playersNumber, playersNames, gameId);
 
             Properties config = new Properties();
             config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));
@@ -78,6 +81,12 @@ public class PostPlayersNameCommand implements Comando {
             } catch (Exception ex) {
                 Logger.getLogger(GetIndexCommand.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            
+            Integer currentPlayer = GameDAO.getInstance().searchCurrentPlayer(gameId);
+            Player player = PlayerDAO.getInstance().searchPlayer(currentPlayer, gameId);
+            
+            request.setAttribute("player", player);
             request.setAttribute("nomeimagem", pngGraphviz.getName());
             request.setAttribute("nomefigura", svgGephi.getName());
             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/figura.jsp");

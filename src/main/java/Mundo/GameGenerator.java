@@ -2,6 +2,7 @@ package Mundo;
 
 import Grafo.Grafo;
 import Persistence.GameDAO;
+import Persistence.PlayerDAO;
 import java.sql.SQLException;
 import java.util.List;
 import org.openide.util.Exceptions;
@@ -20,12 +21,13 @@ public class GameGenerator {
         return null;
     }
 
-    public Grafo savePlayersDataAndStartGame(Integer playersNumber, String []playersName) {
+    public Grafo savePlayersDataAndStartGame(Integer playersNumber, String []playersName, Integer gameIdentifier) throws SQLException, ClassNotFoundException {
         Game fase = new Game(playersNumber, playersName);
         //GrafoGenerator gerador = new GrafoGeneratorTeia();
         //fase.setMapa(gerador.getGrafo(quantidadeDeVertices));
         fase.geraMapa();
         List<Player> jogadores = fase.getJogadores();
+        PlayerDAO.getInstance().savePlayers(jogadores, gameIdentifier);
         /*System.out.println("Teste movimentacao do jogador");
             System.out.println("Vertice jogador 1 antes: " + fase.getJogadores().get(0).getVertice().getIndice());
             System.out.println("Movendo...");
@@ -34,4 +36,5 @@ public class GameGenerator {
         Grafo grafo = fase.getMapa();
         return grafo;
     }
+
 }

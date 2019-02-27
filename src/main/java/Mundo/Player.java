@@ -12,19 +12,15 @@ public class Player {
     private Integer pontos;
     private VerticeItem vertice;
 
+    public Player() {
+    }
+    
     public Player(Integer identificator, String nome) {
         this.identificator = identificator;
         this.name = nome;
         this.pontos = 0;
         this.vertice = null;
-    }
-
-    public int getIndice() {
-        return this.identificator;
-    }
-
-    public void setIndice(int indice) {
-        this.identificator = indice;
+        this.team = 0;
     }
 
     public String getName() {
@@ -61,5 +57,29 @@ public class Player {
         }
         vertice = (VerticeItem) auxAresta.getVerticeDestino();
         vertice.addItem("J" + this.identificator);
+    }
+
+    public Integer getIdentificator() {
+        return identificator;
+    }
+
+    public void setIdentificator(Integer identificator) {
+        this.identificator = identificator;
+    }
+
+    public Integer getTeam() {
+        return team;
+    }
+
+    public void setTeam(Integer team) {
+        this.team = team;
+    }
+
+    public Integer getPontos() {
+        return pontos;
+    }
+
+    public void setPontos(Integer pontos) {
+        this.pontos = pontos;
     }
 }
