@@ -45,18 +45,18 @@ public class Player {
 
     public void setVertice(VerticeItem vertice) {
         this.vertice = vertice;
-//        vertice.addItem("J" + this.identificator);
+        setPosition(vertice.getIndice());
         vertice.addItem(this.getName());
     }
 
     public void mover(int opcao) {
-        vertice.removeItem("J" + this.identificator);
+        vertice.removeItem(this.getName());
         Aresta auxAresta = vertice.getPrimAresta();
         for (int i = 0; i < opcao; i++) {
             auxAresta = auxAresta.getProxima();
         }
         vertice = (VerticeItem) auxAresta.getVerticeDestino();
-        vertice.addItem("J" + this.identificator);
+        setVertice(vertice);
     }
 
     public Integer getIdentificator() {
