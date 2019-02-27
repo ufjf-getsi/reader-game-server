@@ -4,14 +4,12 @@ import Grafo.Grafo;
 import Grafo.gephi.Gephi;
 import Grafo.graphviz.GraphViz;
 import Mundo.Game;
-import Mundo.Player;
+import Mundo.GameGenerator;
 import java.io.File;
-import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.batik.transcoder.TranscoderException;
@@ -25,13 +23,11 @@ public class PostPlayersNameCommand implements Comando {
         try {
             Integer gameId = Integer.parseInt(request.getParameter("id"));
             Integer playersNumber = Integer.parseInt(request.getParameter("playersNumber"));
-            
-            String names[] = request.getParameterValues("players");
-            for (int i = 0; i < names.length; i++)
-            {
-                //Adicionar jogadores no banco
-            }
-            
+            String playersNames[] = request.getParameterValues("players");
+
+            GameGenerator game = new GameGenerator();
+            Grafo grafo = game.savePlayersDataAndStartGame(playersNumber, playersNames);
+
             Properties config = new Properties();
             config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));
 
@@ -43,22 +39,11 @@ public class PostPlayersNameCommand implements Comando {
             File pngGraphviz = File.createTempFile("graph", ".gif", uploads);
             File svgGephi = File.createTempFile("gephi", ".svg", uploads);
 
-            Game fase = new Game(playersNumber);
-            //GrafoGenerator gerador = new GrafoGeneratorTeia();
-            //fase.setMapa(gerador.getGrafo(quantidadeDeVertices));
-            fase.geraMapa();
-            /*System.out.println("Teste movimentacao do jogador");
-            System.out.println("Vertice jogador 1 antes: " + fase.getJogadores().get(0).getVertice().getIndice());
-            System.out.println("Movendo...");
-            fase.getJogadores().get(0).mover(0);
-            System.out.println("Vertice jogador 1 depois: " + fase.getJogadores().get(0).getVertice().getIndice());*/
-            Grafo grafo = fase.getMapa();
             GraphViz gv = new GraphViz();
             gv.addln(gv.start_graph());
             String dotFormat = grafo.impressaoGraphViz();
             gv.add(dotFormat);
             gv.addln(gv.end_graph());
-
             gv.increaseDpi();   // 106 dpi
 
             try {
@@ -96,7 +81,7 @@ public class PostPlayersNameCommand implements Comando {
             request.setAttribute("nomeimagem", pngGraphviz.getName());
             request.setAttribute("nomefigura", svgGephi.getName());
             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/figura.jsp");
-            despachante.forward(request, response); 
+            despachante.forward(request, response);
         } catch (Exception ex) {
             Exceptions.printStackTrace(ex);
         }

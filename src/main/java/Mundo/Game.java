@@ -24,10 +24,10 @@ public class Game {
 
     }
 
-    public Game(int numJogadores) {
+    public Game(Integer numJogadores, String []playersName) {
         this.mapa = new Grafo();
         for (int i = 1; i <= numJogadores; i++) {
-            this.jogadores.add(new Player(i));
+            this.jogadores.add(new Player(i, playersName[i-1]));
         }
     }
 
@@ -106,14 +106,15 @@ public class Game {
     public void geraMapa() {
         GrafoGenerator gerador = new GrafoGeneratorTeia();
         this.mapa = gerador.getGrafo(this.fatorMutltMapa * this.jogadores.size());
-        List<Integer> verticesDisp = new ArrayList<Integer>();
-        List<Integer> posJogadores = new ArrayList<Integer>();                          //Lista de posições dos jogadores já escolhidas que deverá ser verificado se a distancia do vertice escolhido é compativel com todos eles
+        List<Integer> verticesDisp = new ArrayList<>();
+        List<Integer> posJogadores = new ArrayList<>();                          //Lista de posições dos jogadores já escolhidas que deverá ser verificado se a distancia do vertice escolhido é compativel com todos eles
         for (int i = 1; i <= (this.fatorMutltMapa * this.jogadores.size()); i++) {
             verticesDisp.add(i);
         }
         Integer verticeJogador = this.mapa.numeroAleatorio(verticesDisp.get(0), verticesDisp.get(verticesDisp.size() - 1));
         jogadores.get(0).setVertice((VerticeItem) this.mapa.getVertice(verticeJogador));         //Posicionando o primeiro jogador
         posJogadores.add(verticeJogador);
+        jogadores.get(0).setPosition(verticeJogador);
         verticesDisp.remove(verticeJogador);
         boolean testePossibilidade = true;                                                      //Possibilidade de adicionar um jogador
         for (int i = 1; i < jogadores.size(); i++) {
@@ -130,6 +131,7 @@ public class Game {
                         verticeJogador = j + 1;
                         posJogadores.add(verticeJogador);
                         jogadores.get(i).setVertice((VerticeItem) this.mapa.getVertice(buscaElemLista(verticesDisp, (int) verticeJogador)));
+                        jogadores.get(i).setPosition(verticeJogador);
                         removeElemLista(verticesDisp, (int) verticeJogador);
                         break;
                     }
