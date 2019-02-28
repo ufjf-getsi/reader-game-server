@@ -23,7 +23,7 @@ public class PlayerDAO {
         operacaoSavePlayer = DatabaseLocator.getInstance().getConnection().prepareStatement("insert into player (player_identifier_in_game, name, position, team, points, fk_game_identifier) values (?, ?, ?, ?, ?, ?)");
         for (Player jogadore : jogadores) {
             operacaoSavePlayer.clearParameters();
-            operacaoSavePlayer.setInt(1, jogadore.getIdentificator());
+            operacaoSavePlayer.setInt(1, jogadore.getIdentifier_in_game());
             operacaoSavePlayer.setString(2, jogadore.getName());
             operacaoSavePlayer.setInt(3, jogadore.getPosition());
             operacaoSavePlayer.setInt(4, jogadore.getTeam());
@@ -44,11 +44,12 @@ public class PlayerDAO {
         ResultSet resultado = operacaoSearchPlayer.executeQuery();
         while(resultado.next())
         {
-            player.setIdentificator(player_identifier_in_game);
+            player.setIdentifier_in_game(player_identifier_in_game);
             player.setName(resultado.getString("name"));
             player.setPontos(resultado.getInt("points"));
             player.setPosition(resultado.getInt("position"));
             player.setTeam(resultado.getInt("team"));
+            player.setIdentifier(resultado.getInt("player_identifier"));
         }
         
         return player;

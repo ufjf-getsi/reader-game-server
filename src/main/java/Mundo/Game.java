@@ -108,6 +108,7 @@ public class Game {
 
         Integer verticeJogador = this.map.numeroAleatorio(verticesDisp.get(0), verticesDisp.get(verticesDisp.size() - 1));      //Sorteia uma posição na lista de vertices disponíveis
         jogadores.get(0).setVertice((VerticeItem) this.map.getVertice(verticeJogador));         //Posicionando o primeiro jogador
+        jogadores.get(0).setIdentifier_in_game(verticeJogador);
         posJogadores.add(verticeJogador);
         verticesDisp.remove(verticeJogador);
         boolean testePossibilidade;  
@@ -125,6 +126,7 @@ public class Game {
                         verticeJogador = j + 1;
                         posJogadores.add(verticeJogador);
                         jogadores.get(i).setVertice((VerticeItem) this.map.getVertice(verticeJogador));
+                        jogadores.get(i).setIdentifier_in_game(verticeJogador);
                         removeElemLista(verticesDisp, verticeJogador);
                         break;
                     }

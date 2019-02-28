@@ -15,7 +15,6 @@ public class GetPlayersNameCommand implements Comando {
     public void exec(HttpServletRequest request, HttpServletResponse response) {
         try {
             Integer id = Integer.parseInt(request.getParameter("id"));
-
             Integer numAlunos = GameDAO.getInstance().searchPlayersNumber(id);
             request.setAttribute("numAlunos", numAlunos);
             request.setAttribute("id", id);

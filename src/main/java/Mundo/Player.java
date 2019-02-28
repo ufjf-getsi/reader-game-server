@@ -5,7 +5,8 @@ import Grafo.VerticeItem;
 
 public class Player {
 
-    private Integer identificator;
+    private Integer identifier;
+    private Integer identifier_in_game;
     private String name;
     private Integer team;
     private Integer position;
@@ -14,9 +15,9 @@ public class Player {
 
     public Player() {
     }
-    
-    public Player(Integer identificator, String nome) {
-        this.identificator = identificator;
+
+    public Player(Integer identifier_in_game, String nome) {
+        this.identifier_in_game = identifier_in_game;
         this.name = nome;
         this.pontos = 0;
         this.vertice = null;
@@ -59,12 +60,12 @@ public class Player {
         setVertice(vertice);
     }
 
-    public Integer getIdentificator() {
-        return identificator;
+    public Integer getIdentifier() {
+        return identifier;
     }
 
-    public void setIdentificator(Integer identificator) {
-        this.identificator = identificator;
+    public void setIdentifier(Integer identifier) {
+        this.identifier = identifier;
     }
 
     public Integer getTeam() {
@@ -82,4 +83,14 @@ public class Player {
     public void setPontos(Integer pontos) {
         this.pontos = pontos;
     }
+
+    public Integer getIdentifier_in_game() {
+        return identifier_in_game;
+    }
+
+    public void setIdentifier_in_game(Integer identifier_in_game) {
+        this.identifier_in_game = identifier_in_game;
+    }
+    
+    
 }

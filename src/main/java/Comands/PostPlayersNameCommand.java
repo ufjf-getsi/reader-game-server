@@ -24,7 +24,7 @@ public class PostPlayersNameCommand implements Comando {
     public void exec(HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            Integer gameId = Integer.parseInt(request.getParameter("id"));
+            Integer gameId = Integer.parseInt(request.getParameter("idGame"));
             Integer playersNumber = Integer.parseInt(request.getParameter("playersNumber"));
             String playersNames[] = request.getParameterValues("players");
 
@@ -82,10 +82,11 @@ public class PostPlayersNameCommand implements Comando {
                 Logger.getLogger(GetIndexCommand.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            
             Integer currentPlayer = GameDAO.getInstance().searchCurrentPlayer(gameId);
+            
             Player player = PlayerDAO.getInstance().searchPlayer(currentPlayer, gameId);
             
+            request.setAttribute("gameId", gameId);
             request.setAttribute("player", player);
             request.setAttribute("nomeimagem", pngGraphviz.getName());
             request.setAttribute("nomefigura", svgGephi.getName());
