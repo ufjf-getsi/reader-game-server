@@ -13,10 +13,7 @@ public class GetIndexCommand implements Comando {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) {
         try {
-            /*Redireciona pro index
             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/index.jsp");
-            despachante.forward(request, response);*/
-            RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/grafo.jsp");
             despachante.forward(request, response);
         } catch (ServletException | IOException ex) {
             Logger.getLogger(GetIndexCommand.class.getName()).log(Level.SEVERE, null, ex);
