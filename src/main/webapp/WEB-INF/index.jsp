@@ -15,7 +15,7 @@
             </div>
             <button type="submit" class="btn btn-primary"> Enviar </button>
         </form>
-        <a href="grafo.html">Testar desenho do grafo</a>
+        <a href="reader-game-server/grafo.html">Testar desenho do grafo</a>
     </div>
 
 </div>

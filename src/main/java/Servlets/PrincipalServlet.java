@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "PrincipalServlet", urlPatterns = {"/index.html", "/imagem", "/audio", "/", "/alunos.html", "/grafo.html"})
+@WebServlet(name = "PrincipalServlet", urlPatterns = {"/index.html", "/imagem", "/audio", "/alunos.html", "/grafo.html", "/avancargame.html", "/",})
 public class PrincipalServlet extends HttpServlet {
 
     @Override
@@ -27,9 +27,10 @@ public class PrincipalServlet extends HttpServlet {
             rotas.put("/svg", "Comands.SVGShow");
             rotas.put("/alunos.html", "Comands.GetPlayersNameCommand");
             rotas.put("/grafo.html", "Comands.GetGrafoCommand");
+            rotas.put("/avancargame.html", "Comands.GetAvancarGameCommand");
             processRequest(rotas, request, response);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            response.sendRedirect("/index.html");
+            response.sendRedirect("index.html");
         }
     }
 

@@ -20,3 +20,10 @@ points integer,
 fk_game_identifier integer,
 foreign key (fk_game_identifier) references game (game_identifier)
 );
+
+create table image (
+image_identifier integer primary key generated always as identity,
+path varchar (100),
+fk_game_identifier integer,
+foreign key (fk_game_identifier) references game (game_identifier)
+);

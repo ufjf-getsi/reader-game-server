@@ -7,6 +7,7 @@ import Mundo.Game;
 import Mundo.GameGenerator;
 import Mundo.Player;
 import Persistence.GameDAO;
+import Persistence.ImageDAO;
 import Persistence.PlayerDAO;
 import java.io.File;
 import java.util.Properties;
@@ -82,8 +83,9 @@ public class PostPlayersNameCommand implements Comando {
                 Logger.getLogger(GetIndexCommand.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            Integer currentPlayer = GameDAO.getInstance().searchCurrentPlayer(gameId);
+            ImageDAO.getInstance().saveImage(pngGraphviz.getName(), svgGephi.getName(), gameId);
             
+            Integer currentPlayer = GameDAO.getInstance().searchCurrentPlayer(gameId);
             Player player = PlayerDAO.getInstance().searchPlayer(currentPlayer, gameId);
             
             request.setAttribute("gameId", gameId);
