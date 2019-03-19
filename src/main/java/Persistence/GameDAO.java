@@ -12,6 +12,8 @@ public class GameDAO {
     private PreparedStatement operacaoListGame;
     private PreparedStatement operacaoListPlayersNumber;
     private PreparedStatement operacaoListCurrentPlayer;
+    private PreparedStatement operacaoSearchGame;
+    private PreparedStatement operacaoUpdateGame;
 
     private GameDAO() {
     }
@@ -62,5 +64,30 @@ public class GameDAO {
             currentPlayer = resultado.getInt("currentPlayer");
         }
         return currentPlayer;
+    }
+    
+    public Game searchGame (Integer gameID) throws SQLException, ClassNotFoundException {
+        operacaoSearchGame = DatabaseLocator.getInstance().getConnection().prepareStatement("select * from game where game_identifier = ?");
+        operacaoSearchGame.setInt(1, gameID);
+        
+        Game game = new Game();
+        ResultSet resultado = operacaoSearchGame.executeQuery();
+        while (resultado.next())
+        {
+            game.setIdentifier(gameID);
+            game.setCurrentPlayer(resultado.getInt("currentPlayer"));
+            game.setTurnsLeft(resultado.getInt("turnsleft"));
+            game.setPlayersOrder(resultado.getString("turnorder"));
+        }
+        return game;
+    }
+    
+    public void updateGame (Game game) throws ClassNotFoundException, SQLException
+    {
+        operacaoUpdateGame = DatabaseLocator.getInstance().getConnection().prepareStatement("update game set currentPlayer = ?, turnsleft = ? where game_identifier = ?");
+        operacaoUpdateGame.setInt(1, game.getCurrentPlayer());
+        operacaoUpdateGame.setInt(2, game.getTurnsLeft());
+        operacaoUpdateGame.setInt(3, game.getIdentifier());
+        operacaoUpdateGame.executeUpdate();
     }
 }

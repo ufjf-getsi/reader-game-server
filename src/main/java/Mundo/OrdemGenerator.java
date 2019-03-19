@@ -18,9 +18,10 @@ public class OrdemGenerator {
 
     public String getOrdem(Integer numPlayers) {
         StringBuilder ordemJogadores = new StringBuilder();
-        for (Integer i = 0; i < numPlayers; i++) {
+        for (Integer i = 0; i < numPlayers-1; i++) {
             ordemJogadores.append(ordem.get(i) + ";");
         }
+        ordemJogadores.append(ordem.get(numPlayers-1));
         return ordemJogadores.toString();
     }
 

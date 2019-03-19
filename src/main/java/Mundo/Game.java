@@ -15,7 +15,7 @@ public class Game {
     private Integer currentPlayer;
     private Integer turnsLeft;
     private String playersOrder;
-    
+
     private Grafo map;
     private List<Player> jogadores = new ArrayList<>();
     private int fatorMutltMapa = 4;                             //Fator que multiplicado pelo num de jogadores ira gerar o grafo
@@ -24,10 +24,10 @@ public class Game {
 
     }
 
-    public Game(Integer numJogadores, String []playersName) {
+    public Game(Integer numJogadores, String[] playersName) {
         this.map = new Grafo();
         for (int i = 1; i <= numJogadores; i++) {
-            this.jogadores.add(new Player(i, playersName[i - 1]));
+            this.jogadores.add(new Player(i-1, playersName[i - 1]));
         }
     }
 
@@ -95,13 +95,21 @@ public class Game {
         this.turnsLeft = turnsLeft;
     }
 
+    public String getPlayersOrder() {
+        return playersOrder;
+    }
+
+    public void setPlayersOrder(String playersOrder) {
+        this.playersOrder = playersOrder;
+    }
+
     public void geraMapa() {
         GrafoGenerator gerador = new GrafoGeneratorTeia();
         this.map = gerador.getGrafo(this.fatorMutltMapa * this.jogadores.size());
-        
-        List<Integer> verticesDisp = new ArrayList<>();                                         
+
+        List<Integer> verticesDisp = new ArrayList<>();
         List<Integer> posJogadores = new ArrayList<>();                         //Lista de posições dos jogadores já escolhidas que deverá ser verificado se a distancia 
-                                                                                //do vertice escolhido é compativel com todos eles
+        //do vertice escolhido é compativel com todos eles
         for (int i = 1; i <= (this.fatorMutltMapa * this.jogadores.size()); i++) {
             verticesDisp.add(i);
         }
@@ -110,7 +118,7 @@ public class Game {
         jogadores.get(0).setVertice((VerticeItem) this.map.getVertice(verticeJogador));         //Posicionando o primeiro jogador
         posJogadores.add(verticeJogador);
         verticesDisp.remove(verticeJogador);
-        boolean testePossibilidade;  
+        boolean testePossibilidade;
         for (int i = 1; i < jogadores.size(); i++) {
             for (int j = 0; j < map.getNumeroDeVertices(); j++) {
                 if (this.map.getMatrizDistancias()[verticeJogador - 1][j] >= 2) {
@@ -188,13 +196,4 @@ public class Game {
             }
         }
     }
-
-    public String getPlayersOrder() {
-        return playersOrder;
-    }
-
-    public void setPlayersOrder(String playersOrder) {
-        this.playersOrder = playersOrder;
-    }
-
 }
