@@ -27,7 +27,7 @@ public class GameGenerator {
         //fase.setMapa(gerador.getGrafo(quantidadeDeVertices));
         fase.geraMapa();
         List<Player> jogadores = fase.getJogadores();
-       // PlayerDAO.getInstance().savePlayers(jogadores, gameIdentifier);
+        //PlayerDAO.getInstance().savePlayers(jogadores, gameIdentifier);
         /*System.out.println("Teste movimentacao do jogador");
             System.out.println("Vertice jogador 1 antes: " + fase.getJogadores().get(0).getVertice().getIndice());
             System.out.println("Movendo...");

@@ -9,8 +9,8 @@ import java.util.List;
 public class PlayerDAO {
 
     private final static PlayerDAO instance = new PlayerDAO();
-    private PreparedStatement operacaoSavePlayer;
-    private PreparedStatement operacaoSearchPlayer;
+    private final String operacaoSavePlayer = "insert into player (player_identifier_in_game, name, position, team, points, fk_game_identifier) values (?, ?, ?, ?, ?, ?)";
+    private final String operacaoSearchPlayer = "select * from player where player_identifier_in_game = ? and fk_game_identifier = ?";
 
     private PlayerDAO() {
     }
@@ -20,28 +20,29 @@ public class PlayerDAO {
     }
 
     public void savePlayers(List<Player> jogadores, Integer gameIdentifier) throws SQLException, ClassNotFoundException {
-        operacaoSavePlayer = DatabaseLocator.getInstance().getConnection().prepareStatement("insert into player (player_identifier_in_game, name, position, team, points, fk_game_identifier) values (?, ?, ?, ?, ?, ?)");
+        PreparedStatement comando = DatabaseLocator.getInstance().getConnection().prepareStatement(operacaoSavePlayer);
         for (Player jogadore : jogadores) {
-            operacaoSavePlayer.clearParameters();
-            operacaoSavePlayer.setInt(1, jogadore.getIdentifier_in_game());
-            operacaoSavePlayer.setString(2, jogadore.getName());
-            operacaoSavePlayer.setInt(3, jogadore.getPosition());
-            operacaoSavePlayer.setInt(4, jogadore.getTeam());
-            operacaoSavePlayer.setInt(5, jogadore.getPontos());
-            operacaoSavePlayer.setInt(6, gameIdentifier);
-            operacaoSavePlayer.execute();
+            comando.clearParameters();
+            comando.setInt(1, jogadore.getIdentifier_in_game());
+            comando.setString(2, jogadore.getName());
+            comando.setInt(3, jogadore.getPosition());
+            comando.setInt(4, jogadore.getTeam());
+            comando.setInt(5, jogadore.getPontos());
+            comando.setInt(6, gameIdentifier);
+            comando.execute();
         }
+        comando.close();
     }
     
     public Player searchPlayer (Integer player_identifier_in_game, Integer gameIdentifier) throws ClassNotFoundException, SQLException
     {
-        operacaoSearchPlayer = DatabaseLocator.getInstance().getConnection().prepareStatement("select * from player where player_identifier_in_game = ? and fk_game_identifier = ?");
-        operacaoSearchPlayer.setInt(1, player_identifier_in_game);
-        operacaoSearchPlayer.setInt(2, gameIdentifier);
+        PreparedStatement comando = DatabaseLocator.getInstance().getConnection().prepareStatement(operacaoSearchPlayer);
+        comando.setInt(1, player_identifier_in_game);
+        comando.setInt(2, gameIdentifier);
         
         Player player = new Player();
         
-        ResultSet resultado = operacaoSearchPlayer.executeQuery();
+        ResultSet resultado = comando.executeQuery();
         while(resultado.next())
         {
             player.setIdentifier_in_game(player_identifier_in_game);

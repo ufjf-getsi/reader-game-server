@@ -11,8 +11,8 @@ import java.util.List;
 public class ImageDAO {
 
     private final static ImageDAO instance = new ImageDAO();
-    private PreparedStatement operacaoSaveImage;
-    private PreparedStatement operacaoListImage;
+    private final String operacaoSaveImage = "insert into image (path, fk_game_identifier) values (?, ?)";
+    private final String operacaoListImage = "select * from image where fk_game_identifier = ?";
 
     private ImageDAO() {
     }
@@ -22,24 +22,26 @@ public class ImageDAO {
     }
 
     public void saveImage(String pathOne, String pathTwo, Integer game_identifier) throws SQLException, ClassNotFoundException {
-        operacaoSaveImage = DatabaseLocator.getInstance().getConnection().prepareStatement("insert into image (path, fk_game_identifier) values (?, ?)");
+        PreparedStatement comando = DatabaseLocator.getInstance().getConnection().prepareStatement(operacaoSaveImage);
 
-        operacaoSaveImage.clearParameters();
-        operacaoSaveImage.setString(1, pathOne);
-        operacaoSaveImage.setInt(2, game_identifier);
-        operacaoSaveImage.execute();
+        comando.clearParameters();
+        comando.setString(1, pathOne);
+        comando.setInt(2, game_identifier);
+        comando.execute();
 
-        operacaoSaveImage.clearParameters();
-        operacaoSaveImage.setString(1, pathTwo);
-        operacaoSaveImage.setInt(2, game_identifier);
-        operacaoSaveImage.execute();
+        comando.clearParameters();
+        comando.setString(1, pathTwo);
+        comando.setInt(2, game_identifier);
+        comando.execute();
+        
+        comando.close();
     }
 
     public List<Image> listImages(Integer game_identifier) throws SQLException, ClassNotFoundException {
         List<Image> images = new ArrayList<>();
-        operacaoListImage = DatabaseLocator.getInstance().getConnection().prepareStatement("select * from image where fk_game_identifier = ?");
-        operacaoListImage.setInt(1, game_identifier);
-        ResultSet resultado = operacaoListImage.executeQuery();
+        PreparedStatement comando = DatabaseLocator.getInstance().getConnection().prepareStatement(operacaoListImage);
+        comando.setInt(1, game_identifier);
+        ResultSet resultado = comando.executeQuery();
         while (resultado.next()) {
             Image image = new Image();
             image.setIdentifier(resultado.getInt("image_identifier"));
