@@ -5,7 +5,7 @@ import java.util.Objects;
 public class GameSteps {
 
     public Boolean atualizarJogadorAtual(Game game) {
-        if (game.getTurnsLeft() > 0) {
+        if (game.getTurnsLeft() > 0) { // Jogo não será encerrado
             String[] rounds = game.getPlayersOrder().split(";");
             Integer[] order = new Integer[rounds.length];
             for (Integer i = 0; i < rounds.length; i++) {
@@ -22,10 +22,9 @@ public class GameSteps {
                     }
                 }
             }
-
             atualizarNumeroDeRodadas(game);
             return true;
-        } else {
+        } else { //Jogo será encerrado
             return false;
         }
     }

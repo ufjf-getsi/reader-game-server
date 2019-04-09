@@ -28,7 +28,7 @@ public class PostGrafoCommand implements Comando {
                 playersNames[i - 1] = "Jogador " + i;
             }
             GameGenerator game = new GameGenerator();
-            Grafo grafo = game.savePlayersDataAndStartGame(playersNumber, playersNames, 0);
+            Grafo grafo = game.savePlayersData(playersNumber, playersNames, 0).getMapa();
 
             Properties config = new Properties();
             config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));

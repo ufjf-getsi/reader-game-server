@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class GameDAO {
 
     private final static GameDAO instance = new GameDAO();
-    private final String operacaoSaveGame = "insert into game (name, players, turnsleft, currentPlayer, turnOrder) values (?, ?, ?, ?, ?)";
+    private final String operacaoSaveGame = "insert into game (name, turnsleft, players, currentPlayer, turnOrder) values (?, ?, ?, ?, ?)";
     private final String operacaoListGame = "select * from game";
     private final String operacaoListPlayersNumber = "select players from game where game_identifier = ?";
     private final String operacaoListCurrentPlayer = "select currentPlayer from game where game_identifier = ?";
@@ -25,9 +25,9 @@ public class GameDAO {
     public Integer saveGame (Game game) throws SQLException, ClassNotFoundException {
         PreparedStatement comando = DatabaseLocator.getInstance().getConnection().prepareStatement(operacaoSaveGame);
         comando.clearParameters();
-        comando.setString(1, game.getName());
-        comando.setInt(2, game.getPlayers());
-        comando.setInt(3, game.getTurnsLeft());
+        comando.setString(1, game.getTittle());
+        comando.setInt(2, game.getTurnsLeft());
+        comando.setInt(3, game.getPlayers());
         comando.setInt(4, game.getCurrentPlayer());
         comando.setString(5, game.getPlayersOrder());
         comando.execute();

@@ -29,8 +29,9 @@ public class PostPlayersNameCommand implements Comando {
             Integer playersNumber = Integer.parseInt(request.getParameter("playersNumber"));
             String playersNames[] = request.getParameterValues("players");
 
-            GameGenerator game = new GameGenerator();
-            Grafo grafo = game.savePlayersDataAndStartGame(playersNumber, playersNames, gameId);
+            GameGenerator generator = new GameGenerator();
+            Game game = generator.savePlayersData(playersNumber, playersNames, gameId); // jogo já gerado, só falta iniciá-lo
+            Grafo grafo = game.getMapa();
 
             Properties config = new Properties();
             config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));
