@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "PrincipalServlet", urlPatterns = {"/index.html", "/imagem", "/audio", "/alunos.html", "/grafo.html", "/avancargame.html", "/jogo","/",})
+@WebServlet(name = "PrincipalServlet", urlPatterns = {"/index.html", "/imagem", "/audio", "/alunos.html", "/grafo.html", "/avancargame.html", "/jogo/*","/",})
 public class PrincipalServlet extends HttpServlet {
 
     @Override
