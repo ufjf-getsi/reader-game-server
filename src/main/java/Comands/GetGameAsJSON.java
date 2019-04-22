@@ -27,7 +27,8 @@ public class GetGameAsJSON implements Comando{
                 writer.close(); 
                 return ;
             }
-            String json = new ObjectMapper().writeValueAsString(game);
+            
+            String json = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(game);
             writer.println(json);
             writer.close();
         } catch (JsonProcessingException ex) {

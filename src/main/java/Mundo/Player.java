@@ -24,30 +24,46 @@ public class Player {
         this.team = 0;
     }
 
+    public Player(Integer identifier, Integer identifier_in_game, String name, Integer team, Integer position, Integer pontos) {
+        this.identifier = identifier;
+        this.identifier_in_game = identifier_in_game;
+        this.name = name;
+        this.team = team;
+        this.position = position;
+        this.pontos = pontos;
+    }
+    
+
     public String getName() {
         return this.name;
     }
 
-    public void setName(String name) {
+    public Player setName(String name) {
         this.name = name;
+        return this;
+
     }
 
     public Integer getPosition() {
         return position;
     }
 
-    public void setPosition(Integer position) {
+    public Player setPosition(Integer position) {
         this.position = position;
+        return this;
+
     }
 
     public VerticeItem getVertice() {
         return vertice;
     }
 
-    public void setVertice(VerticeItem vertice) {
+    public Player setVertice(VerticeItem vertice) {
         this.vertice = vertice;
         setPosition(vertice.getIndice());
         vertice.addItem(this.getName());
+        return this;
+
     }
 
     public void mover(int opcao) {
@@ -64,33 +80,37 @@ public class Player {
         return identifier;
     }
 
-    public void setIdentifier(Integer identifier) {
+    public Player setIdentifier(Integer identifier) {
         this.identifier = identifier;
+        return this;
+
     }
 
     public Integer getTeam() {
         return team;
     }
 
-    public void setTeam(Integer team) {
+    public Player setTeam(Integer team) {
         this.team = team;
+        return this;
     }
 
     public Integer getPontos() {
         return pontos;
     }
 
-    public void setPontos(Integer pontos) {
+    public Player setPontos(Integer pontos) {
         this.pontos = pontos;
+        return this;
     }
 
     public Integer getIdentifier_in_game() {
         return identifier_in_game;
     }
 
-    public void setIdentifier_in_game(Integer identifier_in_game) {
+    public Player setIdentifier_in_game(Integer identifier_in_game) {
         this.identifier_in_game = identifier_in_game;
+        return this;
     }
-    
-    
+
 }

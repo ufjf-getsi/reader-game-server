@@ -151,15 +151,37 @@ public class GameGenerator {
     }
     
     public static Game getGameStub(){
-        Game game = new Game("abcdef", 0, 4, 6*4, "PlayersOrder");
+        List<Player> jogadores = new ArrayList<Player>(){{
+            add(new Player(1001, 1, "Jogador A1",1,0,0));
+            add(new Player(1002, 2, "Jogador A2",1,0,0));
+            add(new Player(1003, 3, "Jogador A3",1,0,0));
+            add(new Player(1004, 4, "Jogador A4",1,0,0));
+            add(new Player(1015, 5, "Jogador B1",2,0,0));
+            add(new Player(1016, 6, "Jogador B2",2,0,0));
+            add(new Player(1017, 7, "Jogador B3",2,0,0));
+            add(new Player(1018, 8, "Jogador B4",2,0,0));
+        }};
+        
+        List<Item> items = new ArrayList<Item>(){{
+            add(new Item(100, "{name: \"GA\"}", 0));
+            add(new Item(101, "{name: \"GB\"}", 0));
+            add(new Item(102, "{name: \"CA\"}", 0));
+            add(new Item(130, "{name: \"CA\"}", 0));
+            add(new Item(131, "{name: \"CB\"}", 0));
+        }};
+        
+        Game game = new Game("abcdef", 0, jogadores.size(), 6*jogadores.size(), "PlayersOrder");
         game.setIdentifier(1);
-        game.setNodes("[{node:1,x:0,y:0,items:[\"p1\"]}]");
+        game.setNodes("[{\"node\":0,\"x\":0,\"y\":0,\"items\":[\"p1\"]},{\"node\":1,\"x\":1,\"y\":0,\"items\":[\"p2\"]}]");
         game.setOpcoes(new HashMap<String, String>(){{
             put("Pálido","mover para 3");
             put("Paletó","move para 4");
             put("Palito","move para 10");
             put("Partido","move para 11");
         }});
+        
+        game.setJogadores(jogadores);
+        game.setItens(items);
         return game;
     } 
 
