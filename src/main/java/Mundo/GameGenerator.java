@@ -8,6 +8,8 @@ import Persistence.GameDAO;
 import Persistence.PlayerDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import org.openide.util.Exceptions;
 
@@ -147,5 +149,18 @@ public class GameGenerator {
             }
         }
     }
+    
+    public static Game getGameStub(){
+        Game game = new Game("abcdef", 0, 4, 6*4, "PlayersOrder");
+        game.setIdentifier(1);
+        game.setNodes("[{node:1,x:0,y:0,items:[\"p1\"]}]");
+        game.setOpcoes(new HashMap<String, String>(){{
+            put("Pálido","mover para 3");
+            put("Paletó","move para 4");
+            put("Palito","move para 10");
+            put("Partido","move para 11");
+        }});
+        return game;
+    } 
 
 }

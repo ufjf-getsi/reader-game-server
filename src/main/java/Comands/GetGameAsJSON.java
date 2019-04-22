@@ -1,6 +1,7 @@
 package Comands;
 
 import Mundo.Game;
+import Mundo.GameGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -20,13 +21,12 @@ public class GetGameAsJSON implements Comando{
             String pathInfo = request.getRequestURI(); 
             String[] parts = pathInfo.split("/");
             
-            System.out.println(Arrays.toString(parts));
-            if(parts.length!=4 || parts[3].isEmpty()){
+            Game game = GameGenerator.getGameStub();
+            if(parts.length!=4 || parts[3].isEmpty() || !parts[3].equals(game.getTittle())){
                 writer.println("{\"error\":\"Game room not found!\"}");
                 writer.close(); 
                 return ;
             }
-            Game game = new Game("Jogo "+parts[3], 4, 0, 6*4, "PlayersOrder");
             String json = new ObjectMapper().writeValueAsString(game);
             writer.println(json);
             writer.close();

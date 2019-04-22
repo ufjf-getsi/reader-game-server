@@ -2,7 +2,9 @@ package Mundo;
 
 import Grafo.Grafo;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Game {
 
@@ -18,6 +20,7 @@ public class Game {
     private String playersOrder;
     private List<Player> jogadores = new ArrayList<>();
     private List<Item> itens = new ArrayList<>();
+    private Map<String, String> opcoes = new HashMap<>();
 
     private Grafo mapa;
 
@@ -152,4 +155,14 @@ public class Game {
     public String getCurrentPlayerStatus() {
         return null;
     }
+
+    public Map<String, String> getOpcoes() {
+        return opcoes;
+    }
+
+    public void setOpcoes(Map<String, String> opcoes) {
+        this.opcoes = opcoes;
+    }
+    
+    
 }
