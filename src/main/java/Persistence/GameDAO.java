@@ -79,6 +79,7 @@ public class GameDAO {
         while (resultado.next())
         {
             game.setIdentifier(gameID);
+            game.setTittle(resultado.getString("name"));
             game.setCurrentPlayer(resultado.getInt("currentPlayer"));
             game.setTurnsLeft(resultado.getInt("turnsleft"));
             game.setPlayersOrder(resultado.getString("turnorder"));
