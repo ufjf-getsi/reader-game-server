@@ -27,7 +27,7 @@ public class DatabaseLocator {
         IniciaDatabase(conn);
         return conn;
     }
-
+    
     private Connection ConexaoHeroku() throws SQLException {
         String jdbcurl = System.getenv("JDBC_DATABASE_URL");
         return DriverManager.getConnection(jdbcurl);
@@ -42,26 +42,26 @@ public class DatabaseLocator {
         Connection conexao = (Connection) DriverManager.getConnection(url, user, senha);
         return conexao;
     }
-    
+
     private void IniciaDatabase(Connection conn) throws SQLException {
         Statement operacao = conn.createStatement();
         operacao.executeUpdate("CREATE TABLE IF NOT EXISTS GAME (game_identifier serial PRIMARY KEY, name varchar(100)"
                 + ", currentPlayer integer, players integer, turnsLeft integer, turnOrder varchar(100), nodes varchar(100), data varchar(100), status varchar(100));");
         operacao.close();
-        
+
         Statement operacao2 = conn.createStatement();
-        operacao2.executeUpdate("CREATE TABLE IF NOT EXISTS PLAYER (player_identifier serial PRIMARY KEY, player_identifier_in_game integer, " +
-        "name varchar(100), position integer, team integer, points integer, fk_game_identifier integer,"
+        operacao2.executeUpdate("CREATE TABLE IF NOT EXISTS PLAYER (player_identifier serial PRIMARY KEY, player_identifier_in_game integer, "
+                + "name varchar(100), position integer, team integer, points integer, fk_game_identifier integer,"
                 + "CONSTRAINT fk_game_identifier_id FOREIGN KEY (fk_game_identifier) REFERENCES GAME (game_identifier) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION);");
         operacao2.close();
-        
+
         Statement operacao3 = conn.createStatement();
-        operacao3.executeUpdate("CREATE TABLE IF NOT EXISTS IMAGE(image_identifier serial PRIMARY KEY, path varchar (100)," +
-        "fk_game_identifier integer, CONSTRAINT fk_game_identifier_id_image FOREIGN KEY (fk_game_identifier) REFERENCES GAME (game_identifier) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION);");
+        operacao3.executeUpdate("CREATE TABLE IF NOT EXISTS IMAGE(image_identifier serial PRIMARY KEY, path varchar (100),"
+                + "fk_game_identifier integer, CONSTRAINT fk_game_identifier_id_image FOREIGN KEY (fk_game_identifier) REFERENCES GAME (game_identifier) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION);");
         operacao3.close();
-        
+
         Statement operacao4 = conn.createStatement();
-        operacao4.executeUpdate("CREATE TABLE IF NOT EXISTS ITEM(item_identifier serial PRIMARY KEY, data varchar (100), node int," +
-        "fk_game_identifier integer, CONSTRAINT fk_game_identifier_id_image FOREIGN KEY (fk_game_identifier) REFERENCES GAME (game_identifier) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION);");
+        operacao4.executeUpdate("CREATE TABLE IF NOT EXISTS ITEM(item_identifier serial PRIMARY KEY, data varchar (100), node int,"
+                + "fk_game_identifier integer, CONSTRAINT fk_game_identifier_id_image FOREIGN KEY (fk_game_identifier) REFERENCES GAME (game_identifier) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION);");
     }
 }

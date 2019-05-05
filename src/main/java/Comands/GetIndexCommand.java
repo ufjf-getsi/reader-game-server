@@ -1,5 +1,6 @@
 package Comands;
 
+import static autovalue.shaded.com.google$.common.base.$Charsets.UTF_8;
 import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -17,6 +18,14 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Bucket;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.cloud.StorageClient;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -46,7 +55,7 @@ public class GetIndexCommand implements Comando {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) {
         try {
-            System.out.println("CREDENTIALS_FOLDER: " + CREDENTIALS_FOLDER.getAbsolutePath());
+             System.out.println("CREDENTIALS_FOLDER: " + CREDENTIALS_FOLDER.getAbsolutePath());
 
             // 1: Create CREDENTIALS_FOLDER
             if (!CREDENTIALS_FOLDER.exists()) {
@@ -58,7 +67,7 @@ public class GetIndexCommand implements Comando {
             }
 
             final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-            Credential credential = getCredentials(HTTP_TRANSPORT);
+            Credential credential = getCredentials(HTTP_TRANSPORT); 
             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/index.jsp");
             despachante.forward(request, response);
         } catch (Exception ex) {

@@ -4,14 +4,26 @@ import Models.Image;
 import Mundo.Game;
 import Mundo.GameSteps;
 import Mundo.Player;
+import Persistence.FirestoreLocator;
 import Persistence.GameDAO;
 import Persistence.ImageDAO;
 import Persistence.PlayerDAO;
 import com.google.api.client.http.AbstractInputStreamContent;
 import com.google.api.client.http.FileContent;
+import com.google.api.client.util.Charsets;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.FileList;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Bucket;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.cloud.StorageClient;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,11 +71,12 @@ public class GetAvancarGameCommand implements Comando {
             if (avancou) {
                 File som = avaliaAudio(request, playerAtual);
                 uploadGoogleDrive(game, playerAtual, som);
+                salvarComFireStore(game, playerAtual, som);
 
                 GameDAO.getInstance().updateGame(game);
                 Player proximoPlayer = PlayerDAO.getInstance().searchPlayer(game.getCurrentPlayer(), id);
-                //request.setAttribute("nomeimagem", images.get(0).getPath());
-                //request.setAttribute("nomefigura", images.get(1).getPath());
+                request.setAttribute("nomeimagem", images.get(0).getPath());
+                request.setAttribute("nomefigura", images.get(1).getPath());
                 request.setAttribute("gameId", id);
                 request.setAttribute("player", proximoPlayer);
                 RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/figura.jsp");
@@ -221,5 +234,24 @@ public class GetAvancarGameCommand implements Comando {
         com.google.api.services.drive.model.File file = driveService.files().create(fileMetadata).setFields("id, name").execute();
 
         return file;
+    }
+
+    private void salvarComFireStore(Game game, Player player, File som) throws FileNotFoundException, IOException {
+        FirestoreLocator.getInstance().getEscrita();
+        Bucket bucket = StorageClient.getInstance().bucket();
+
+        int len = (int) som.length();
+        byte[] sendBuf = new byte[len];
+        FileInputStream inFile = null;
+        try {
+            inFile = new FileInputStream(som);
+            inFile.read(sendBuf, 0, len);
+        } catch (FileNotFoundException fnfex) {
+        } catch (IOException ioex) {
+        }
+
+        BlobId blobId = BlobId.of("readergame-57416.appspot.com", "game" + game.getIdentifier() + "/" + player.getName() + "/" + som.getName());
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("audio/wav").build();
+        Blob blob = bucket.getStorage().create(blobInfo, sendBuf);
     }
 }

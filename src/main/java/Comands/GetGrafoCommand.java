@@ -12,12 +12,11 @@ public class GetGrafoCommand implements Comando {
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) {
         try {
-            System.out.println("passei aqui");
             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/grafo.jsp");
             despachante.forward(request, response);
         } catch (IOException | ServletException ex) {
             Exceptions.printStackTrace(ex);
-        } 
+        }
     }
 
 }
