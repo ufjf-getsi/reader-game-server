@@ -112,4 +112,36 @@ public class GameIntegrationTest {
         assertEquals(0, neighbors.size());
     }
 
+    @Test
+    public void testMove(){
+        Node p1n1 = game.getCurrentPlayerNode();
+        assertEquals((Integer)0, p1n1.getX());
+        assertEquals((Integer)0, p1n1.getY());
+        game.move(Game.MOVE_DOWN);
+        Node p1n2 = game.getCurrentPlayerNode();
+        assertEquals((Integer)0, p1n2.getX());
+        assertEquals((Integer)1, p1n2.getY());
+        
+        game.endTurn();
+        Node p2n1 = game.getCurrentPlayerNode();
+        assertEquals((Integer)1, p2n1.getX());
+        assertEquals((Integer)1, p2n1.getY());
+        game.move(Game.MOVE_RIGHT);
+        Node p2n2 = game.getCurrentPlayerNode();
+        assertEquals((Integer)2, p2n2.getX());
+        assertEquals((Integer)1, p2n2.getY());
+        game.move(Game.MOVE_LEFT);
+        Node p2n4 = game.getCurrentPlayerNode();
+        assertEquals((Integer)1, p2n4.getX());
+        assertEquals((Integer)1, p2n4.getY());
+        game.move(Game.MOVE_UP);
+        Node p2n3 = game.getCurrentPlayerNode();
+        assertEquals((Integer)1, p2n3.getX());
+        assertEquals((Integer)0, p2n3.getY());
+        game.move(Game.MOVE_UP);
+        Node p2n5 = game.getCurrentPlayerNode();
+        assertEquals((Integer)1, p2n5.getX());
+        assertEquals((Integer)0, p2n5.getY());
+                
+    }
 }

@@ -222,20 +222,39 @@ public class Game {
     }
 
     void move(int direction) {
+        Node actual = this.getCurrentPlayerNode();
+        List<Node> neighbors = this.getNeighbors(actual);
         switch (direction) {
-            case MOVE_UP:
-                Node actual = this.getCurrentPlayerNode();
-                List<Node> neighbors = this.getNeighbors(actual);
-
-                break;
             case MOVE_RIGHT:
+                for (Node neighbor : neighbors) {
+                    if (neighbor.getX() == actual.getX() + 1 && neighbor.getY() == actual.getY()) {
+                        this.getJogadorAtual().setPosition(neighbor.getNode());
+                    }
+                }
 
                 break;
             case MOVE_DOWN:
+                for (Node neighbor : neighbors) {
+                    if (neighbor.getX() == actual.getX() && neighbor.getY() == actual.getY() + 1) {
+                        this.getJogadorAtual().setPosition(neighbor.getNode());
+                    }
+                }
 
                 break;
             case MOVE_LEFT:
+                for (Node neighbor : neighbors) {
+                    if (neighbor.getX() == actual.getX() - 1 && neighbor.getY() == actual.getY()) {
+                        this.getJogadorAtual().setPosition(neighbor.getNode());
+                    }
+                }
 
+                break;
+            case MOVE_UP:
+                for (Node neighbor : neighbors) {
+                    if (neighbor.getX() == actual.getX() && neighbor.getY() == actual.getY() - 1) {
+                        this.getJogadorAtual().setPosition(neighbor.getNode());
+                    }
+                }
                 break;
             default:
                 throw new AssertionError();
