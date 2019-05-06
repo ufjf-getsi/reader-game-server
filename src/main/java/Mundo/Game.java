@@ -44,8 +44,8 @@ public class Game {
         this.itens = new ArrayList<>();
         this.opcoes = new HashMap<>();
         this.data = "";
-        this.status ="";
-        
+        this.status = "";
+
     }
 
     public List<Player> getJogadores() {
@@ -78,7 +78,7 @@ public class Game {
 
     public Player getJogadorAtual() {
         if (this.currentPlayer != null && this.currentPlayer < this.jogadores.size()) {
-            return this.jogadores.get(this.currentPlayer);       
+            return this.jogadores.get(this.currentPlayer);
         } else {
             return null;
         }
@@ -121,7 +121,6 @@ public class Game {
             Exceptions.printStackTrace(ex);
         }
     }
-    
 
     public String getData() {
         return data;
@@ -195,8 +194,16 @@ public class Game {
         this.opcoes = opcoes;
     }
 
-    Map<Integer,Node> getNodeMap() {
+    Map<Integer, Node> getNodeMap() {
         return this.nodesMap;
+    }
+
+    Node getCurrentPlayerNode() {
+        return this.nodesMap.get(this.getJogadorAtual().getPosition());
+    }
+
+    void endTurn() {
+        currentPlayer = (currentPlayer + 1 < this.jogadores.size()) ? currentPlayer + 1 : 0;
     }
 
 }

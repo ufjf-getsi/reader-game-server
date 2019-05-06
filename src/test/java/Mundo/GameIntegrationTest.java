@@ -60,6 +60,26 @@ public class GameIntegrationTest {
         assertEquals((Integer)0, nodes.get(0).getNode());
     }
     
+    @Test
+    public void testPassTurn(){
+        Player p1 = game.getJogadorAtual();
+        assertNotNull(p1);
+        game.endTurn();
+        Player p2 = game.getJogadorAtual();
+        assertNotNull(p2);
+        assertNotSame(p1, p2);
+        for (int i = 2; i < game.getJogadores().size(); i++) {
+            game.endTurn();
+        }
+        Player p3 = game.getJogadorAtual();
+        assertNotSame(p1, p3);
+    }
     
+    @Test
+    public void testGetCurrentPlayerNode(){
+        Node currentNode = game.getCurrentPlayerNode();
+        assertNotNull(currentNode);
+        assertEquals((Integer)0, currentNode.getNode());
+    }
     
 }
