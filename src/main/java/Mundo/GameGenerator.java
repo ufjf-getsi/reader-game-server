@@ -172,7 +172,21 @@ public class GameGenerator {
         
         Game game = new Game("abcdef", 0, jogadores.size(), 6*jogadores.size(), "PlayersOrder");
         game.setIdentifier(1);
-        game.setNodes("[{\"node\":0,\"x\":0,\"y\":0,\"items\":[\"p1\"]},{\"node\":1,\"x\":1,\"y\":0,\"items\":[\"p2\"]},{\"node\":2,\"x\":1,\"y\":1,\"items\":[\"gA\"]},{\"node\":3,\"x\":2,\"y\":1,\"items\":[\"c3\"]},{\"node\":4,\"x\":2,\"y\":2,\"items\":[\"p3\",\"cB\"]},{\"node\":5,\"x\":1,\"y\":4,\"items\":[\"cA\"]}]");
+        game.setNodes("["
+                + "{\"node\":0,\"x\":0,\"y\":0,\"items\":[\"p1\"]},"
+                + "{\"node\":1,\"x\":1,\"y\":0,\"items\":[\"p2\"]},"
+                + "{\"node\":2,\"x\":2,\"y\":0,\"items\":[\"gA\"]},"
+                + "{\"node\":3,\"x\":0,\"y\":1,\"items\":[\"c3\"]},"
+                + "{\"node\":4,\"x\":1,\"y\":1,\"items\":[\"p3\",\"cB\"]},"
+                + "{\"node\":5,\"x\":2,\"y\":1,\"items\":[\"cA\"]},"
+                + "{\"node\":6,\"x\":0,\"y\":2,\"items\":[]},"
+                + "{\"node\":7,\"x\":1,\"y\":2,\"items\":[]},"
+                + "{\"node\":8,\"x\":2,\"y\":2,\"items\":[]},"
+                + "{\"node\":9,\"x\":0,\"y\":3,\"items\":[]},"
+                + "{\"node\":10,\"x\":1,\"y\":3,\"items\":[]},"
+                + "{\"node\":11,\"x\":0,\"y\":4,\"items\":[]},"
+                + "{\"node\":12,\"x\":1,\"y\":5,\"items\":[]}"
+                + "]");
         game.setOpcoes(new HashMap<String, String>(){{
             put("Pálido","Mover para 3");
             put("Paletó","Mover para 4");

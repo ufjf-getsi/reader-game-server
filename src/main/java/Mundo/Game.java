@@ -29,6 +29,11 @@ public class Game {
     private Grafo mapa;
     private Map<Integer, Node> nodesMap;
 
+    public static final int MOVE_UP = 1;
+    public static final int MOVE_RIGHT = 2;
+    public static final int MOVE_DOWN = 3;
+    public static final int MOVE_LEFT = 4;
+
     public Game() {
         this("", 0, 0, 0, "");
     }
@@ -206,4 +211,44 @@ public class Game {
         currentPlayer = (currentPlayer + 1 < this.jogadores.size()) ? currentPlayer + 1 : 0;
     }
 
+    void move(int direction) {
+        switch (direction) {
+            case MOVE_UP:
+                Node actual = this.getCurrentPlayerNode();
+                List<Node> neighbors = this.getNeighbors(actual);
+
+                break;
+            case MOVE_RIGHT:
+
+                break;
+            case MOVE_DOWN:
+
+                break;
+            case MOVE_LEFT:
+
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }
+
+    public List<Node> getNeighbors(Node actual) {
+        List<Node> neighbors = new ArrayList<>();
+        Integer[][] pos = {
+            {actual.getX(), actual.getY() - 1},
+            {actual.getX() + 1, actual.getY()},
+            {actual.getX(), actual.getY() + 1},
+            {actual.getX() - 1, actual.getY()},};
+        for (Map.Entry<Integer, Node> entry : nodesMap.entrySet()) {
+            Integer key = entry.getKey();
+            Node node = entry.getValue();
+            if ((pos[0][0] == node.getX() && pos[0][1] == node.getY())
+                    || (pos[1][0] == node.getX() && pos[1][1] == node.getY())
+                    || (pos[2][0] == node.getX() && pos[2][1] == node.getY())
+                    || (pos[3][0] == node.getX() && pos[3][1] == node.getY())) {
+                neighbors.add(node);
+            }
+        }
+        return neighbors;
+    }
 }
