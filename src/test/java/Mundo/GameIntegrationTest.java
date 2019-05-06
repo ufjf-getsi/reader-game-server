@@ -55,10 +55,10 @@ public class GameIntegrationTest {
         assertEquals((Integer)4,actual.getNode());
         assertEquals((Integer)1,actual.getX());
         assertEquals((Integer)1,actual.getY());
-        assertEquals("Mover para [1, 0]",opcoes.get("A"));
-        assertEquals("Mover para [0, 1]",opcoes.get("B"));
-        assertEquals("Mover para [2, 1]",opcoes.get("C"));
-        assertEquals("Mover para [1, 2]",opcoes.get("D"));
+        assertEquals("Mover para [1, 0]",opcoes.get(Game.UP));
+        assertEquals("Mover para [0, 1]",opcoes.get(Game.LEFT));
+        assertEquals("Mover para [2, 1]",opcoes.get(Game.RIGHT));
+        assertEquals("Mover para [1, 2]",opcoes.get(Game.DOWN));
     }
 
     @Test

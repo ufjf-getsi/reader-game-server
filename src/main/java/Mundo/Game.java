@@ -12,6 +12,7 @@ import org.openide.util.Exceptions;
 
 public class Game {
 
+
     private Integer identifier;
     private String tittle;
     private Integer turnsLeft;
@@ -33,6 +34,10 @@ public class Game {
     public static final int MOVE_RIGHT = 2;
     public static final int MOVE_DOWN = 3;
     public static final int MOVE_LEFT = 4;
+    public static final String UP = "↑";
+    public static final String LEFT = "←";
+    public static final String RIGHT = "→";
+    public static final String DOWN = "↓";
 
     public Game() {
         this("", 0, 0, 0, "");
@@ -194,12 +199,21 @@ public class Game {
 
     public Map<String, String> getOpcoes() {
         opcoes.clear();
-        List<Node> nodes = getNeighbors(getCurrentPlayerNode());
+        Node actual = getCurrentPlayerNode();
+        List<Node> nodes = getNeighbors(actual);
         char l = 65;
         for (Node node : nodes) {
-            opcoes.put(Character.toString(l++), String.format("Mover para [%d, %d]", node.getX(), node.getY()));
+            opcoes.put(getMovementTo(actual, node), String.format("Mover para [%d, %d]", node.getX(), node.getY()));
         }
         return opcoes;
+    }
+    
+    private String getMovementTo(Node actual, Node destiny){
+        if(destiny.getX()<actual.getX() && destiny.getY()==actual.getY()) return Game.LEFT;
+        if(destiny.getX()>actual.getX() && destiny.getY()==actual.getY()) return Game.RIGHT;
+        if(destiny.getX()==actual.getX() && destiny.getY()<actual.getY()) return Game.UP;
+        if(destiny.getX()==actual.getX() && destiny.getY()>actual.getY()) return Game.DOWN;
+        return "?";
     }
 
     public void setOpcoes(Map<String, String> opcoes) {
