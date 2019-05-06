@@ -1,10 +1,14 @@
 package Mundo;
 
 import Grafo.Grafo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.openide.util.Exceptions;
 
 public class Game {
 
@@ -23,6 +27,7 @@ public class Game {
     private Map<String, String> opcoes;
 
     private Grafo mapa;
+    private Map<Integer, Node> nodesMap;
 
     public Game() {
         this("", 0, 0, 0, "");
@@ -105,7 +110,18 @@ public class Game {
 
     public void setNodes(String nodes) {
         this.nodes = nodes;
+        this.nodesMap = new HashMap<Integer, Node>();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            List<Node> nodeList = Arrays.asList(mapper.readValue(this.nodes, Node[].class));
+            for (Node node : nodeList) {
+                this.nodesMap.put(node.getNode(), node);
+            }
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        }
     }
+    
 
     public String getData() {
         return data;
@@ -177,6 +193,10 @@ public class Game {
 
     public void setOpcoes(Map<String, String> opcoes) {
         this.opcoes = opcoes;
+    }
+
+    Map<Integer,Node> getNodeMap() {
+        return this.nodesMap;
     }
 
 }

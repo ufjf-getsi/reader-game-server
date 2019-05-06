@@ -51,4 +51,15 @@ public class GameIntegrationTest {
         game.getOpcoes();
     }
     
+    
+    @Test
+    public void testNodeMapShouldNotBeNull() {
+        Map<Integer, Node> nodes = game.getNodeMap();
+        assertNotNull(nodes);
+        assertEquals(6, nodes.size());
+        assertEquals((Integer)0, nodes.get(0).getNode());
+    }
+    
+    
+    
 }

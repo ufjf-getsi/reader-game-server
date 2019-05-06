@@ -36,7 +36,7 @@ public class NodeTest {
         System.out.println("getId");
         Node instance = new Node();
         Integer expResult = null;
-        Integer result = instance.getId();
+        Integer result = instance.getNode();
         assertEquals(expResult, result);
     }
 
@@ -48,7 +48,7 @@ public class NodeTest {
         System.out.println("setId");
         Integer id = 1;
         Node instance = new Node();
-        instance.setId(id);
+        instance.setNode(id);
     }
 
     /**

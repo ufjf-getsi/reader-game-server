@@ -1,27 +1,32 @@
 package Mundo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Node {
 
-    private Integer id;
+    private Integer node;
     private Integer x;
     private Integer y;
+    private List<String> items;
 
     public Node() {
         this(null, null, null);
     }
 
     public Node(Integer id, Integer x, Integer y) {
-        this.id = id;
+        this.node = id;
         this.x = x;
         this.y = y;
+        this.items  = new ArrayList<String>();
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getNode() {
+        return node;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setNode(Integer node) {
+        this.node = node;
     }
 
     public Integer getX() {
@@ -40,4 +45,13 @@ public class Node {
         this.y = y;
     }
 
+    public List<String> getItems() {
+        return items;
+    }
+
+    public void setItems(List<String> items) {
+        this.items = items;
+    }
+
+    
 }
