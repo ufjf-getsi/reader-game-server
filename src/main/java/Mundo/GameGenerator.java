@@ -153,12 +153,12 @@ public class GameGenerator {
     public static Game getGameStub(){
         List<Player> jogadores = new ArrayList<Player>(){{
             add(new Player(1001, 1, "Jogador A1",1,0,0));
+            add(new Player(1015, 5, "Jogador B1",2,4,0));
             add(new Player(1002, 2, "Jogador A2",1,1,0));
-            add(new Player(1003, 3, "Jogador A3",1,0,0));
-            add(new Player(1004, 4, "Jogador A4",1,0,0));
-            add(new Player(1015, 5, "Jogador B1",2,0,0));
             add(new Player(1016, 6, "Jogador B2",2,0,0));
+            add(new Player(1003, 3, "Jogador A3",1,0,0));
             add(new Player(1017, 7, "Jogador B3",2,0,0));
+            add(new Player(1004, 4, "Jogador A4",1,0,0));
             add(new Player(1018, 8, "Jogador B4",2,0,0));
         }};
         

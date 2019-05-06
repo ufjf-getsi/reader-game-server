@@ -48,6 +48,7 @@ public class Game {
         this.jogadores = new ArrayList<>();
         this.itens = new ArrayList<>();
         this.opcoes = new HashMap<>();
+        this.nodesMap = new HashMap<>();
         this.data = "";
         this.status = "";
 
@@ -192,6 +193,12 @@ public class Game {
     }
 
     public Map<String, String> getOpcoes() {
+        opcoes.clear();
+        List<Node> nodes = getNeighbors(getCurrentPlayerNode());
+        char l = 65;
+        for (Node node : nodes) {
+            opcoes.put(Character.toString(l++), String.format("Mover para [%d, %d]", node.getX(), node.getY()));
+        }
         return opcoes;
     }
 
@@ -204,6 +211,9 @@ public class Game {
     }
 
     Node getCurrentPlayerNode() {
+        if (getJogadorAtual() == null) {
+            return null;
+        }
         return this.nodesMap.get(this.getJogadorAtual().getPosition());
     }
 
@@ -234,6 +244,9 @@ public class Game {
 
     public List<Node> getNeighbors(Node actual) {
         List<Node> neighbors = new ArrayList<>();
+        if (actual == null) {
+            return neighbors;
+        }
         Integer[][] pos = {
             {actual.getX(), actual.getY() - 1},
             {actual.getX() + 1, actual.getY()},
