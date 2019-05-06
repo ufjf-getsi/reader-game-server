@@ -18,14 +18,14 @@ public class Game {
     private Integer players;
     private Integer currentPlayer;
     private String playersOrder;
-    private List<Player> jogadores = new ArrayList<>();
-    private List<Item> itens = new ArrayList<>();
-    private Map<String, String> opcoes = new HashMap<>();
+    private List<Player> jogadores;
+    private List<Item> itens;
+    private Map<String, String> opcoes;
 
     private Grafo mapa;
 
     public Game() {
-
+        this("", 0, 0, 0, "");
     }
 
     public Game(String name, Integer currentPlayer, Integer players, Integer turnsLeft, String playersOrder) {
@@ -34,6 +34,13 @@ public class Game {
         this.players = players;
         this.turnsLeft = turnsLeft;
         this.playersOrder = playersOrder;
+        this.nodes = "";
+        this.jogadores = new ArrayList<>();
+        this.itens = new ArrayList<>();
+        this.opcoes = new HashMap<>();
+        this.data = "";
+        this.status ="";
+        
     }
 
     public List<Player> getJogadores() {
@@ -65,7 +72,11 @@ public class Game {
     }
 
     public Player getJogadorAtual() {
-        return this.jogadores.get(this.currentPlayer);
+        if (this.currentPlayer != null && this.currentPlayer < this.jogadores.size()) {
+            return this.jogadores.get(this.currentPlayer);       
+        } else {
+            return null;
+        }
     }
 
     public void setCurrentPlayer(Integer currentPlayer) {
@@ -127,14 +138,14 @@ public class Game {
     public void setMapa(Grafo mapa) {
         this.mapa = mapa;
     }
-    
+
     public Integer getPlayers() {
         return players;
     }
 
     public void setPlayers(Integer players) {
         this.players = players;
-    }    
+    }
 
     public void start() {
 
@@ -167,6 +178,5 @@ public class Game {
     public void setOpcoes(Map<String, String> opcoes) {
         this.opcoes = opcoes;
     }
-    
-    
+
 }
