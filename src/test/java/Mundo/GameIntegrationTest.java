@@ -246,4 +246,11 @@ public class GameIntegrationTest {
         
     }
     
+    @Test
+    public void testScoreList(){
+        game.move(Game.MOVE_RIGHT);
+        game.move(Game.MOVE_LEFT);
+        assertEquals("{\"1\":20,\"2\":0}", game.getScoreList());
+        
+    }
 }

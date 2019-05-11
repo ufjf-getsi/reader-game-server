@@ -212,7 +212,6 @@ public class Game {
                     break;
             }
         }
-        
 
     }
 
@@ -268,7 +267,7 @@ public class Game {
 
     void endTurn() {
         currentPlayer = (currentPlayer + 1 < this.jogadores.size()) ? currentPlayer + 1 : 0;
-        turnsLeft = Integer.max(turnsLeft-1, 0);
+        turnsLeft = Integer.max(turnsLeft - 1, 0);
     }
 
     void move(int direction) {
@@ -372,5 +371,27 @@ public class Game {
                 }
             }
         }
+    }
+
+    public String getScoreList() {
+        Map<Integer, Integer> teams = new HashMap<>();
+        String teamsJson = "{}";
+        for (Player jogador : jogadores) {
+            int team = jogador.getTeam();
+            if (!teams.containsKey(team)) {
+                teams.put(team, 0);
+            }
+            teams.put(team, teams.get(team) + jogador.getPontos());
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+
+            teamsJson = mapper.writeValueAsString(teams);
+        } catch (IOException e) {
+
+        }
+        return teamsJson;
     }
 }
