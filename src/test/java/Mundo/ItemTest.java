@@ -73,12 +73,13 @@ public class ItemTest {
     @Test
     public void testSetData() {
         System.out.println("setData");
-        String data = "{\"name\": \"teste\"}";
+        String data = "{\"name\": \"teste\", \"type\":\"good\"}";
         Item instance = new Item();
         instance.setData(data);
         assertNotNull(instance.getDataMap());
-        assertEquals(1, instance.getDataMap().size());
+        assertEquals(2, instance.getDataMap().size());
         assertEquals("teste", instance.getDataMap().get("name"));
+        assertEquals("good", instance.getDataMap().get("type"));
     }
 
     /**

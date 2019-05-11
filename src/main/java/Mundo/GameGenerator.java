@@ -168,6 +168,7 @@ public class GameGenerator {
             add(new Item(102, "{name: \"CA\"}", 0));
             add(new Item(130, "{name: \"CA\"}", 0));
             add(new Item(131, "{name: \"CB\"}", 0));
+            add(new Item(151, "{\"name\": \"saphire\", \"type\":\"good\", \"color\":\"blue\"}", 4));
         }};
         
         Game game = new Game("abcdef", 0, jogadores.size(), 6*jogadores.size(), "PlayersOrder");

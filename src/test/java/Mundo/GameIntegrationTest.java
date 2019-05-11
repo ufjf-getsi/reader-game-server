@@ -47,18 +47,18 @@ public class GameIntegrationTest {
     @Test
     public void testGetOptions() {
         game.endTurn();
-        assertEquals((Integer)1, game.getCurrentPlayer());
+        assertEquals((Integer) 1, game.getCurrentPlayer());
         Node actual = game.getCurrentPlayerNode();
-        
+
         Map<String, String> opcoes = game.getOpcoes();
         assertEquals(4, opcoes.size());
-        assertEquals((Integer)4,actual.getNode());
-        assertEquals((Integer)1,actual.getX());
-        assertEquals((Integer)1,actual.getY());
-        assertEquals("Mover para [1, 0]",opcoes.get(Game.UP));
-        assertEquals("Mover para [0, 1]",opcoes.get(Game.LEFT));
-        assertEquals("Mover para [2, 1]",opcoes.get(Game.RIGHT));
-        assertEquals("Mover para [1, 2]",opcoes.get(Game.DOWN));
+        assertEquals((Integer) 4, actual.getNode());
+        assertEquals((Integer) 1, actual.getX());
+        assertEquals((Integer) 1, actual.getY());
+        assertEquals("Mover para [1, 0]", opcoes.get(Game.UP));
+        assertEquals("Mover para [0, 1]", opcoes.get(Game.LEFT));
+        assertEquals("Mover para [2, 1]", opcoes.get(Game.RIGHT));
+        assertEquals("Mover para [1, 2]", opcoes.get(Game.DOWN));
     }
 
     @Test
@@ -113,35 +113,51 @@ public class GameIntegrationTest {
     }
 
     @Test
-    public void testMove(){
+    public void testMove() {
         Node p1n1 = game.getCurrentPlayerNode();
-        assertEquals((Integer)0, p1n1.getX());
-        assertEquals((Integer)0, p1n1.getY());
+        assertEquals((Integer) 0, p1n1.getX());
+        assertEquals((Integer) 0, p1n1.getY());
         game.move(Game.MOVE_DOWN);
         Node p1n2 = game.getCurrentPlayerNode();
-        assertEquals((Integer)0, p1n2.getX());
-        assertEquals((Integer)1, p1n2.getY());
-        
+        assertEquals((Integer) 0, p1n2.getX());
+        assertEquals((Integer) 1, p1n2.getY());
+
         game.endTurn();
         Node p2n1 = game.getCurrentPlayerNode();
-        assertEquals((Integer)1, p2n1.getX());
-        assertEquals((Integer)1, p2n1.getY());
+        assertEquals((Integer) 1, p2n1.getX());
+        assertEquals((Integer) 1, p2n1.getY());
         game.move(Game.MOVE_RIGHT);
         Node p2n2 = game.getCurrentPlayerNode();
-        assertEquals((Integer)2, p2n2.getX());
-        assertEquals((Integer)1, p2n2.getY());
+        assertEquals((Integer) 2, p2n2.getX());
+        assertEquals((Integer) 1, p2n2.getY());
         game.move(Game.MOVE_LEFT);
         Node p2n4 = game.getCurrentPlayerNode();
-        assertEquals((Integer)1, p2n4.getX());
-        assertEquals((Integer)1, p2n4.getY());
+        assertEquals((Integer) 1, p2n4.getX());
+        assertEquals((Integer) 1, p2n4.getY());
         game.move(Game.MOVE_UP);
         Node p2n3 = game.getCurrentPlayerNode();
-        assertEquals((Integer)1, p2n3.getX());
-        assertEquals((Integer)0, p2n3.getY());
+        assertEquals((Integer) 1, p2n3.getX());
+        assertEquals((Integer) 0, p2n3.getY());
         game.move(Game.MOVE_UP);
         Node p2n5 = game.getCurrentPlayerNode();
-        assertEquals((Integer)1, p2n5.getX());
-        assertEquals((Integer)0, p2n5.getY());
-                
+        assertEquals((Integer) 1, p2n5.getX());
+        assertEquals((Integer) 0, p2n5.getY());
+
+    }
+
+    @Test
+    public void testStubSaphireOnNode04() {
+        Item saphire = game.getItens().get(5);
+        assertNotNull(saphire);
+        assertNotNull(saphire.getData());
+        assertEquals((Integer)4, saphire.getNode());
+        assertEquals("{\"name\": \"saphire\", \"type\":\"good\", \"color\":\"blue\"}", saphire.getData());
+        assertNotNull(saphire.getDataMap());
+        System.out.println(saphire.getData());
+        System.out.println(saphire.getDataMap());
+        assertEquals(3, saphire.getDataMap().size());
+        assertEquals("saphire", saphire.getDataMap().get("name"));
+        assertEquals("good"   , saphire.getDataMap().get("type"));
+        assertEquals("blue"   ,saphire.getDataMap().get("color"));
     }
 }

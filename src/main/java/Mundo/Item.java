@@ -19,9 +19,9 @@ public class Item {
 
     public Item(Integer id, String data, Integer node) {
         this.id = id;
-        this.data = data;
         this.node = node;
         this.dataMap = new HashMap<>();
+        this.setData(data);
     }
 
     public Integer getId() {
