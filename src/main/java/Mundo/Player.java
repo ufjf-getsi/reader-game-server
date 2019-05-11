@@ -26,7 +26,7 @@ public class Player {
     }
 
     public Player(Integer identifier_in_game, String nome) {
-        this(null,identifier_in_game,nome,0,null,0);
+        this(null, identifier_in_game, nome, 0, null, 0);
     }
 
     public Player(Integer identifier, Integer identifier_in_game, String name, Integer team, Integer position, Integer pontos) {
@@ -140,38 +140,40 @@ public class Player {
     }
 
     public Integer pickUp(String item) {
-        String qtyStr = dataMap.get(item);
-        int qty;
-        if (qtyStr != null) {
-            try {
-                qty = Integer.parseInt(qtyStr) + 1;
-            } catch (NumberFormatException e) {
-                qty = 1;
-            } 
-        } else {
-            qty = 1;
-        }
-        dataMap.put(item, Integer.toString(qty));
-        return qty;
+        addGoodQuantity(item, 1);
+        return getGoodQuantity(item);
     }
 
     public Integer deliver(String item) {
-        String qtyStr = dataMap.get(item);
-        int qty;
+        addGoodQuantity(item, -1);
+        return getGoodQuantity(item);
+    }
+
+    public int getGoodQuantity(String good) {
+        Integer qty = 0;
+        String qtyStr = dataMap.get(good);
         if (qtyStr != null) {
             try {
                 qty = Integer.parseInt(qtyStr);
-                if (qty > 0) {
-                    qty = qty - 1;
-                }
             } catch (NumberFormatException e) {
-                qty = 0;
-            } 
-        } else {
+                qty = -1;
+            }
+        }
+        return qty;
+    }
+
+    public void addGoodQuantity(String item, int i) {
+        int qty = getGoodQuantity(item);
+        if (qty >= 0 && i > 0) {
+            qty = qty + i;
+        } else if (qty >= 0 && i < 0) {
+            qty = Math.max(qty + i, 0);
+        } else if (qty < 0 && i > 0) {
+            qty = i;
+        } else if (qty < 0 && i < 0) {
             qty = 0;
         }
         dataMap.put(item, Integer.toString(qty));
-        return qty;
     }
 
 }

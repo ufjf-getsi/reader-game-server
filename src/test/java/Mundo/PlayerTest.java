@@ -269,5 +269,31 @@ public class PlayerTest {
         Integer result = instance.deliver("test");
         assertEquals((Integer)1, result);
     }
+    
+    @Test
+    public void testGetGoodQuantity(){
+        System.out.println("testGetGoodQuantity");
+        String data = "{\"name\": \"teste\", \"ruby\":\"1\", \"saphire\":\"2\"}";
+        Player instance = new Player();
+        instance.setData(data);
+        assertNotNull(instance.getDataMap());
+        assertEquals(1, instance.getGoodQuantity("ruby"));
+        assertEquals(2, instance.getGoodQuantity("saphire"));
+    }
+
+        @Test
+    public void testAddGoodQuantity(){
+        System.out.println("testAddGoodQuantity");
+        String data = "{\"name\": \"teste\", \"ruby\":\"1\", \"saphire\":\"2\"}";
+        Player instance = new Player();
+        instance.setData(data);
+        assertNotNull(instance.getDataMap());
+        instance.addGoodQuantity("ruby", 1);
+        instance.addGoodQuantity("saphire", 1);
+        instance.addGoodQuantity("emerald", 1);
+        assertEquals(3, instance.getGoodQuantity("saphire"));
+        assertEquals(2, instance.getGoodQuantity("ruby"));
+        assertEquals(1, instance.getGoodQuantity("emerald"));
+    }
 
 }
