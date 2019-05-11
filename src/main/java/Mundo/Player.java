@@ -145,8 +145,23 @@ public class Player {
     }
 
     public Integer deliver(String item) {
-        addGoodQuantity(item, -1);
-        return getGoodQuantity(item);
+
+        return addGoodQuantity(item, -1);
+    }
+
+    public Integer deliver(Item item) {
+        final String itemName = item.getDataMap().get(Game.NAME);
+        int q = addGoodQuantity(itemName, -1);
+        if (q == -1) {
+            int p;
+            try {
+                p = Integer.parseInt(item.getDataMap().get(Game.POINTS));
+            } catch (NumberFormatException e) {
+                p = 10;
+            }
+            setPontos(getPontos() + p);
+        }
+        return q;
     }
 
     public int getGoodQuantity(String good) {
@@ -162,18 +177,21 @@ public class Player {
         return qty;
     }
 
-    public void addGoodQuantity(String item, int i) {
+    public int addGoodQuantity(String item, int i) {
         int qty = getGoodQuantity(item);
         if (qty >= 0 && i > 0) {
             qty = qty + i;
-        } else if (qty >= 0 && i < 0) {
-            qty = Math.max(qty + i, 0);
-        } else if (qty < 0 && i > 0) {
+        } else if (qty > 0 && i < 0) {
+            i = Math.max(-qty, i);
+            qty = qty + i;
+        } else if (qty <= 0 && i > 0) {
             qty = i;
-        } else if (qty < 0 && i < 0) {
+        } else if (qty <= 0 && i < 0) {
             qty = 0;
+            i = 0;
         }
         dataMap.put(item, Integer.toString(qty));
+        return i;
     }
 
 }

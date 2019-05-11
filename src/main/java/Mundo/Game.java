@@ -41,6 +41,7 @@ public class Game {
     public static final String GOOD = "good";
     public static final String NAME = "name";
     public static final String DEMAND = "demand";
+    public static final String POINTS = "points";
 
     public Game() {
         this("", 0, 0, 0, "");
@@ -343,16 +344,10 @@ public class Game {
         List<Item> itens = getItemsOnNode(node);
         for (Item item : itens) {
             if (item.getDataMap().get(TYPE).equals(DEMAND)) {
-                String itemName = item.getDataMap().get(NAME);
-                if (player.getDataMap().get(itemName) != null) {
-                    Integer qty = Integer.parseInt(player.getDataMap().get(itemName));
-                    if(qty>0){
-                        player.deliver(itemName);
-                        getItens().remove(item);
-                    }
+                if (player.deliver(item) == -1) {
+                    getItens().remove(item);
                 }
             }
         }
     }
-    
 }

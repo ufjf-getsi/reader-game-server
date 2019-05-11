@@ -267,7 +267,7 @@ public class PlayerTest {
         instance.deliver("test");
         assertEquals("2", instance.getDataMap().get("test"));
         Integer result = instance.deliver("test");
-        assertEquals((Integer)1, result);
+        assertEquals((Integer)(-1), result);
     }
     
     @Test
