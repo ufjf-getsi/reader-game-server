@@ -61,7 +61,7 @@ public class ItemTest {
     public void testGetData() {
         System.out.println("getData");
         Item instance = new Item();
-        String expResult = "";
+        String expResult = "{}";
         String result = instance.getData();
         assertEquals(expResult, result);
         

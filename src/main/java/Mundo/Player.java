@@ -2,7 +2,12 @@ package Mundo;
 
 import Grafo.Aresta;
 import Grafo.VerticeItem;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+import org.openide.util.Exceptions;
 
 public class Player {
 
@@ -13,6 +18,8 @@ public class Player {
     private Integer position;
     private Integer pontos;
     private VerticeItem vertice;
+    private String data;
+    private Map<String, String> dataMap;
 
     public Player() {
         this(null, UUID.randomUUID().toString());
@@ -24,6 +31,8 @@ public class Player {
         this.pontos = 0;
         this.vertice = null;
         this.team = 0;
+        this.data = "{}";
+        this.dataMap = new HashMap<>();
     }
 
     public Player(Integer identifier, Integer identifier_in_game, String name, Integer team, Integer position, Integer pontos) {
@@ -34,7 +43,6 @@ public class Player {
         this.position = position;
         this.pontos = pontos;
     }
-    
 
     public String getName() {
         return this.name;
@@ -115,4 +123,22 @@ public class Player {
         return this;
     }
 
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+        this.dataMap = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            this.dataMap = mapper.readValue(this.data, Map.class);
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        }
+    }
+
+    public Map<String, String> getDataMap() {
+        return dataMap;
+    }
 }

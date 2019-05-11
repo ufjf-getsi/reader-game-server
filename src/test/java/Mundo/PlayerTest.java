@@ -215,5 +215,31 @@ public class PlayerTest {
         assertSame(instance, result);
         assertEquals(identifier_in_game, result2);
     }
+   /**
+     * Test of getData method, of class Player.
+     */
+    @Test
+    public void testGetData() {
+        System.out.println("getData");
+        Player instance = new Player();
+        String expResult = "{}";
+        String result = instance.getData();
+        assertEquals(expResult, result);
+        
+    }
+
+    /**
+     * Test of setData method, of class Player.
+     */
+    @Test
+    public void testSetData() {
+        System.out.println("setData");
+        String data = "{\"name\": \"teste\"}";
+        Player instance = new Player();
+        instance.setData(data);
+        assertNotNull(instance.getDataMap());
+        assertEquals(1, instance.getDataMap().size());
+        assertEquals("teste", instance.getDataMap().get("name"));
+    }
 
 }

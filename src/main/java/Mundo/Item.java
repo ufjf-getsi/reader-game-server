@@ -2,9 +2,7 @@ package Mundo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.openide.util.Exceptions;
 
@@ -16,7 +14,7 @@ public class Item {
     private Map<String, String> dataMap;
 
     public Item() {
-        this(null, "", null);
+        this(null, "{}", null);
     }
 
     public Item(Integer id, String data, Integer node) {
