@@ -45,7 +45,25 @@ public class GameIntegrationTest {
     }
 
     @Test
-    public void testGetOptions() {
+    public void testGetOptionsOnNode0() {
+        assertEquals((Integer) 0, game.getCurrentPlayer());
+        Node actual = game.getCurrentPlayerNode();
+
+        Map<String, String> opcoes = game.getOpcoes();
+        assertEquals(2, opcoes.size());
+        assertEquals((Integer) 0, actual.getNode());
+        assertEquals((Integer) 0, actual.getX());
+        assertEquals((Integer) 0, actual.getY());
+        assertFalse(opcoes.keySet().contains(Game.UP));
+        assertTrue(opcoes.keySet().contains(Game.RIGHT));
+        assertTrue(opcoes.keySet().contains(Game.DOWN));
+        assertFalse(opcoes.keySet().contains(Game.LEFT));
+        assertEquals("→ Mover para [1, 0]", opcoes.get(Game.RIGHT));
+        assertEquals("↓ Mover para [0, 1]", opcoes.get(Game.DOWN));
+    }
+
+    @Test
+    public void testGetOptionsOnNode5() {
         game.endTurn();
         assertEquals((Integer) 1, game.getCurrentPlayer());
         Node actual = game.getCurrentPlayerNode();
@@ -55,10 +73,14 @@ public class GameIntegrationTest {
         assertEquals((Integer) 4, actual.getNode());
         assertEquals((Integer) 1, actual.getX());
         assertEquals((Integer) 1, actual.getY());
-        assertEquals("Mover para [1, 0]", opcoes.get(Game.UP));
-        assertEquals("Mover para [0, 1]", opcoes.get(Game.LEFT));
-        assertEquals("Mover para [2, 1]", opcoes.get(Game.RIGHT));
-        assertEquals("Mover para [1, 2]", opcoes.get(Game.DOWN));
+        assertTrue(opcoes.keySet().contains(Game.UP));
+        assertTrue(opcoes.keySet().contains(Game.RIGHT));
+        assertTrue(opcoes.keySet().contains(Game.DOWN));
+        assertTrue(opcoes.keySet().contains(Game.LEFT));
+        assertEquals("↑ Mover para [1, 0]", opcoes.get(Game.UP));
+        assertEquals("← Mover para [0, 1]", opcoes.get(Game.LEFT));
+        assertEquals("→ Mover para [2, 1]", opcoes.get(Game.RIGHT));
+        assertEquals("↓ Mover para [1, 2]", opcoes.get(Game.DOWN));
     }
 
     @Test
