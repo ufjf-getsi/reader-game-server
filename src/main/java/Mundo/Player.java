@@ -26,13 +26,7 @@ public class Player {
     }
 
     public Player(Integer identifier_in_game, String nome) {
-        this.identifier_in_game = identifier_in_game;
-        this.name = nome;
-        this.pontos = 0;
-        this.vertice = null;
-        this.team = 0;
-        this.data = "{}";
-        this.dataMap = new HashMap<>();
+        this(null,identifier_in_game,nome,0,null,0);
     }
 
     public Player(Integer identifier, Integer identifier_in_game, String name, Integer team, Integer position, Integer pontos) {
@@ -40,8 +34,11 @@ public class Player {
         this.identifier_in_game = identifier_in_game;
         this.name = name;
         this.team = team;
+        this.vertice = null;
         this.position = position;
         this.pontos = pontos;
+        this.data = "{}";
+        this.dataMap = new HashMap<>();
     }
 
     public String getName() {

@@ -170,4 +170,20 @@ public class GameIntegrationTest {
         assertEquals(1, itens.size());
         assertEquals("saphire", itens.get(0).getDataMap().get("name"));
     }
+    
+    @Test
+    public void testPickUpAllItensOnNode03() {
+        Node node3 = game.getNodeMap().get(3);
+        Player player = game.getJogadorAtual();
+        assertNotNull(node3);
+        List<Item> itensOnNode3  = game.getItemsOnNode(node3);
+        assertNotNull(itensOnNode3);
+        assertEquals(1, itensOnNode3.size());
+        assertEquals("ruby", itensOnNode3.get(0).getDataMap().get("name"));
+        game.move(Game.MOVE_DOWN);
+        itensOnNode3  = game.getItemsOnNode(node3);
+        assertEquals(0, itensOnNode3.size());
+        assertEquals("1", player.getDataMap().get("ruby"));
+        
+    }
 }

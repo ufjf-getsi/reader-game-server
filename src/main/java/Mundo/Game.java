@@ -237,13 +237,15 @@ public class Game {
     }
 
     void move(int direction) {
+        Player currentPlayer = this.getJogadorAtual();
         Node actual = this.getCurrentPlayerNode();
         List<Node> neighbors = this.getNeighbors(actual);
         switch (direction) {
             case MOVE_RIGHT:
                 for (Node neighbor : neighbors) {
                     if (neighbor.getX() == actual.getX() + 1 && neighbor.getY() == actual.getY()) {
-                        this.getJogadorAtual().setPosition(neighbor.getNode());
+                        currentPlayer.setPosition(neighbor.getNode());
+                        pickUpAllGoodsOnNode(currentPlayer, neighbor);
                     }
                 }
 
@@ -251,7 +253,8 @@ public class Game {
             case MOVE_DOWN:
                 for (Node neighbor : neighbors) {
                     if (neighbor.getX() == actual.getX() && neighbor.getY() == actual.getY() + 1) {
-                        this.getJogadorAtual().setPosition(neighbor.getNode());
+                        currentPlayer.setPosition(neighbor.getNode());
+                        pickUpAllGoodsOnNode(currentPlayer, neighbor);
                     }
                 }
 
@@ -259,7 +262,8 @@ public class Game {
             case MOVE_LEFT:
                 for (Node neighbor : neighbors) {
                     if (neighbor.getX() == actual.getX() - 1 && neighbor.getY() == actual.getY()) {
-                        this.getJogadorAtual().setPosition(neighbor.getNode());
+                        currentPlayer.setPosition(neighbor.getNode());
+                        pickUpAllGoodsOnNode(currentPlayer, neighbor);
                     }
                 }
 
@@ -267,7 +271,8 @@ public class Game {
             case MOVE_UP:
                 for (Node neighbor : neighbors) {
                     if (neighbor.getX() == actual.getX() && neighbor.getY() == actual.getY() - 1) {
-                        this.getJogadorAtual().setPosition(neighbor.getNode());
+                        currentPlayer.setPosition(neighbor.getNode());
+                        pickUpAllGoodsOnNode(currentPlayer, neighbor);
                     }
                 }
                 break;
@@ -307,5 +312,15 @@ public class Game {
             }
         }
         return itens;
+    }
+    
+    public void pickUpAllGoodsOnNode(Player player, Node node){
+        List<Item> itens = getItemsOnNode(node);
+        for (Item item : itens) {
+            if(item.getDataMap().get("type").equals("good")){
+                player.pickUp(item.getDataMap().get("name"));
+                getItens().remove(item);
+            }
+        }
     }
 }
