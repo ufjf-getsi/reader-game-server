@@ -191,6 +191,28 @@ public class Game {
     }
 
     public void doAction(String action) {
+        Map<String, String> validOpcoes = getOpcoes();
+        if (validOpcoes.containsKey(action)) {
+            switch (action) {
+                case UP:
+                    move(MOVE_UP);
+                    endTurn();
+                    break;
+                case RIGHT:
+                    move(MOVE_RIGHT);
+                    endTurn();
+                    break;
+                case DOWN:
+                    move(MOVE_DOWN);
+                    endTurn();
+                    break;
+                case LEFT:
+                    move(MOVE_LEFT);
+                    endTurn();
+                    break;
+            }
+        }
+        
 
     }
 
@@ -246,6 +268,7 @@ public class Game {
 
     void endTurn() {
         currentPlayer = (currentPlayer + 1 < this.jogadores.size()) ? currentPlayer + 1 : 0;
+        turnsLeft = Integer.max(turnsLeft-1, 0);
     }
 
     void move(int direction) {

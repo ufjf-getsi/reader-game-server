@@ -355,16 +355,7 @@ public class GameTest {
         instance.stop();
     }
 
-    /**
-     * Test of doAction method, of class Game.
-     */
-    @Test
-    public void testDoAction() {
-        System.out.println("doAction");
-        String action = "";
-        Game instance = new Game();
-        instance.doAction(action);
-    }
+ 
 
     /**
      * Test of getAllStatus method, of class Game.

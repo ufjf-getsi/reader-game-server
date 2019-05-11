@@ -228,6 +228,21 @@ public class GameIntegrationTest {
         game.move(Game.MOVE_UP);
         assertEquals(0, player.getGoodQuantity("saphire"));
         assertEquals((Integer)60, player.getPontos());
+    }
+    
+    @Test
+    public void testDoAction(){
+        Player player = game.getJogadorAtual();
+        assertEquals("Jogador A1", player.getName());
+        assertEquals((Integer)48, game.getTurnsLeft());
+        game.doAction(Game.DOWN);
+        Player player2 = game.getJogadorAtual();
+        assertEquals("Jogador B1", player2.getName());
+        assertEquals((Integer)47, game.getTurnsLeft());
+        game.doAction(Game.DOWN);
+        Player player3 = game.getJogadorAtual();
+        assertEquals("Jogador A2", player3.getName());
+        assertEquals((Integer)46, game.getTurnsLeft());
         
     }
     
