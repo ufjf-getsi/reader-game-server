@@ -203,4 +203,32 @@ public class GameIntegrationTest {
         assertEquals("0", player.getDataMap().get("ruby"));
         assertEquals(0, itensOnNode6.size());
     }
+    
+    @Test
+    public void testScoreAfterDeliverOnNode00() {
+        Player player = game.getJogadorAtual();
+        assertEquals((Integer)0, player.getPontos());
+        assertEquals(0, player.getGoodQuantity("emerald"));
+        game.move(Game.MOVE_RIGHT);
+        assertEquals(1, player.getGoodQuantity("emerald"));
+        game.move(Game.MOVE_LEFT);
+        assertEquals(0, player.getGoodQuantity("emerald"));
+        assertEquals((Integer)20, player.getPontos());
+        assertEquals(0, player.getGoodQuantity("ruby"));
+        game.move(Game.MOVE_DOWN);
+        assertEquals(1, player.getGoodQuantity("ruby"));
+        assertEquals((Integer)20, player.getPontos());
+        game.move(Game.MOVE_DOWN);
+        assertEquals(0, player.getGoodQuantity("ruby"));
+        assertEquals((Integer)50, player.getPontos());
+        game.move(Game.MOVE_RIGHT);
+        game.move(Game.MOVE_UP);
+        game.move(Game.MOVE_LEFT);
+        assertEquals(1, player.getGoodQuantity("saphire"));
+        game.move(Game.MOVE_UP);
+        assertEquals(0, player.getGoodQuantity("saphire"));
+        assertEquals((Integer)60, player.getPontos());
+        
+    }
+    
 }
