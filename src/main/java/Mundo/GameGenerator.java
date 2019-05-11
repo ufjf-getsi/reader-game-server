@@ -163,11 +163,11 @@ public class GameGenerator {
         }};
         
         List<Item> items = new ArrayList<Item>(){{
-            add(new Item(100, "{name: \"GA\"}", 0));
-            add(new Item(101, "{name: \"GB\"}", 0));
-            add(new Item(102, "{name: \"CA\"}", 0));
-            add(new Item(130, "{name: \"CA\"}", 0));
-            add(new Item(131, "{name: \"CB\"}", 0));
+            add(new Item(100, "{\"name\": \"GA\"}", 0));
+            add(new Item(101, "{\"name\": \"GB\"}", 0));
+            add(new Item(102, "{\"name\": \"CA\"}", 0));
+            add(new Item(130, "{\"name\": \"CA\"}", 0));
+            add(new Item(131, "{\"name\": \"CB\"}", 0));
             add(new Item(151, "{\"name\": \"saphire\", \"type\":\"good\", \"color\":\"blue\"}", 4));
         }};
         

@@ -130,6 +130,7 @@ public class Game {
             }
         } catch (IOException ex) {
             Exceptions.printStackTrace(ex);
+            this.nodes = "[]";
         }
     }
 

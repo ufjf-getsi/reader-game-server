@@ -141,4 +141,40 @@ public class Player {
     public Map<String, String> getDataMap() {
         return dataMap;
     }
+
+    public Integer pickUp(String item) {
+        String qtyStr = dataMap.get(item);
+        int qty;
+        if (qtyStr != null) {
+            try {
+                qty = Integer.parseInt(qtyStr) + 1;
+            } catch (NumberFormatException e) {
+                qty = 1;
+            } 
+        } else {
+            qty = 1;
+        }
+        dataMap.put(item, Integer.toString(qty));
+        return qty;
+    }
+
+    public Integer deliver(String item) {
+        String qtyStr = dataMap.get(item);
+        int qty;
+        if (qtyStr != null) {
+            try {
+                qty = Integer.parseInt(qtyStr);
+                if (qty > 0) {
+                    qty = qty - 1;
+                }
+            } catch (NumberFormatException e) {
+                qty = 0;
+            } 
+        } else {
+            qty = 0;
+        }
+        dataMap.put(item, Integer.toString(qty));
+        return qty;
+    }
+
 }

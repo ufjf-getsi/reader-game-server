@@ -204,7 +204,7 @@ public class GameTest {
     @Test
     public void testSetNodes() {
         System.out.println("setNodes");
-        String nodes = "";
+        String nodes = "[]";
         Game instance = new Game();
         instance.setNodes(nodes);
     }

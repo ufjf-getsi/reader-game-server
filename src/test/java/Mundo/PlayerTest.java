@@ -241,5 +241,33 @@ public class PlayerTest {
         assertEquals(1, instance.getDataMap().size());
         assertEquals("teste", instance.getDataMap().get("name"));
     }
+    
+    /**
+     * Test of pickUp method, of class Player.
+     */
+    @Test
+    public void testPickup() {
+        System.out.println("pickup");
+        Player instance = new Player();
+        instance.pickUp("test");
+        assertNotNull(instance.getDataMap());
+        assertEquals(1, instance.getDataMap().size());
+        assertEquals("1", instance.getDataMap().get("test"));
+        Integer result = instance.pickUp("test");
+        assertEquals((Integer)2, result);
+    }
+    /**
+     * Test of deliver method, of class Player.
+     */
+    @Test
+    public void testDeliver() {
+        System.out.println("deliver");
+        Player instance = new Player();
+        instance.setData("{\"test\":\"3\"}");
+        instance.deliver("test");
+        assertEquals("2", instance.getDataMap().get("test"));
+        Integer result = instance.deliver("test");
+        assertEquals((Integer)1, result);
+    }
 
 }
