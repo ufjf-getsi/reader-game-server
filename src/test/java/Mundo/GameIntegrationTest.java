@@ -179,11 +179,28 @@ public class GameIntegrationTest {
         List<Item> itensOnNode3  = game.getItemsOnNode(node3);
         assertNotNull(itensOnNode3);
         assertEquals(1, itensOnNode3.size());
-        assertEquals("ruby", itensOnNode3.get(0).getDataMap().get("name"));
+        assertEquals("ruby", itensOnNode3.get(0).getDataMap().get(Game.NAME));
         game.move(Game.MOVE_DOWN);
         itensOnNode3  = game.getItemsOnNode(node3);
         assertEquals(0, itensOnNode3.size());
         assertEquals("1", player.getDataMap().get("ruby"));
         
+    }
+    
+    @Test
+    public void testDeliverAllItensOnNode00() {
+        Player player = game.getJogadorAtual();
+        Node node6 = game.getNodeMap().get(6);
+        List<Item> itensOnNode6  = game.getItemsOnNode(node6);
+        assertEquals(1, itensOnNode6.size());
+        assertEquals("ruby", itensOnNode6.get(0).getDataMap().get(Game.NAME));
+        assertEquals(Game.DEMAND, itensOnNode6.get(0).getDataMap().get(Game.TYPE));
+        assertEquals(null, player.getDataMap().get("ruby"));
+        game.move(Game.MOVE_DOWN);
+        assertEquals("1", player.getDataMap().get("ruby"));
+        game.move(Game.MOVE_DOWN);
+        itensOnNode6  = game.getItemsOnNode(node6);
+        assertEquals("0", player.getDataMap().get("ruby"));
+        assertEquals(0, itensOnNode6.size());
     }
 }

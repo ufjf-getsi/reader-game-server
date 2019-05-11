@@ -12,7 +12,6 @@ import org.openide.util.Exceptions;
 
 public class Game {
 
-
     private Integer identifier;
     private String tittle;
     private Integer turnsLeft;
@@ -38,6 +37,10 @@ public class Game {
     public static final String LEFT = "←";
     public static final String RIGHT = "→";
     public static final String DOWN = "↓";
+    public static final String TYPE = "type";
+    public static final String GOOD = "good";
+    public static final String NAME = "name";
+    public static final String DEMAND = "demand";
 
     public Game() {
         this("", 0, 0, 0, "");
@@ -208,12 +211,20 @@ public class Game {
         }
         return opcoes;
     }
-    
-    private String getMovementTo(Node actual, Node destiny){
-        if(destiny.getX()<actual.getX() && destiny.getY()==actual.getY()) return Game.LEFT;
-        if(destiny.getX()>actual.getX() && destiny.getY()==actual.getY()) return Game.RIGHT;
-        if(destiny.getX()==actual.getX() && destiny.getY()<actual.getY()) return Game.UP;
-        if(destiny.getX()==actual.getX() && destiny.getY()>actual.getY()) return Game.DOWN;
+
+    private String getMovementTo(Node actual, Node destiny) {
+        if (destiny.getX() < actual.getX() && destiny.getY() == actual.getY()) {
+            return Game.LEFT;
+        }
+        if (destiny.getX() > actual.getX() && destiny.getY() == actual.getY()) {
+            return Game.RIGHT;
+        }
+        if (destiny.getX() == actual.getX() && destiny.getY() < actual.getY()) {
+            return Game.UP;
+        }
+        if (destiny.getX() == actual.getX() && destiny.getY() > actual.getY()) {
+            return Game.DOWN;
+        }
         return "?";
     }
 
@@ -246,6 +257,7 @@ public class Game {
                     if (neighbor.getX() == actual.getX() + 1 && neighbor.getY() == actual.getY()) {
                         currentPlayer.setPosition(neighbor.getNode());
                         pickUpAllGoodsOnNode(currentPlayer, neighbor);
+                        deliverAllGoodsOnNode(currentPlayer, neighbor);
                     }
                 }
 
@@ -255,6 +267,7 @@ public class Game {
                     if (neighbor.getX() == actual.getX() && neighbor.getY() == actual.getY() + 1) {
                         currentPlayer.setPosition(neighbor.getNode());
                         pickUpAllGoodsOnNode(currentPlayer, neighbor);
+                        deliverAllGoodsOnNode(currentPlayer, neighbor);
                     }
                 }
 
@@ -264,6 +277,7 @@ public class Game {
                     if (neighbor.getX() == actual.getX() - 1 && neighbor.getY() == actual.getY()) {
                         currentPlayer.setPosition(neighbor.getNode());
                         pickUpAllGoodsOnNode(currentPlayer, neighbor);
+                        deliverAllGoodsOnNode(currentPlayer, neighbor);
                     }
                 }
 
@@ -273,6 +287,7 @@ public class Game {
                     if (neighbor.getX() == actual.getX() && neighbor.getY() == actual.getY() - 1) {
                         currentPlayer.setPosition(neighbor.getNode());
                         pickUpAllGoodsOnNode(currentPlayer, neighbor);
+                        deliverAllGoodsOnNode(currentPlayer, neighbor);
                     }
                 }
                 break;
@@ -303,24 +318,41 @@ public class Game {
         }
         return neighbors;
     }
-    
-    public List<Item> getItemsOnNode(Node node){
+
+    public List<Item> getItemsOnNode(Node node) {
         List<Item> itens = new ArrayList<>();
         for (Item item : this.itens) {
-            if(item.getNode().equals(node.getNode())){
+            if (item.getNode().equals(node.getNode())) {
                 itens.add(item);
             }
         }
         return itens;
     }
-    
-    public void pickUpAllGoodsOnNode(Player player, Node node){
+
+    public void pickUpAllGoodsOnNode(Player player, Node node) {
         List<Item> itens = getItemsOnNode(node);
         for (Item item : itens) {
-            if(item.getDataMap().get("type").equals("good")){
-                player.pickUp(item.getDataMap().get("name"));
+            if (item.getDataMap().get(TYPE).equals(GOOD)) {
+                player.pickUp(item.getDataMap().get(NAME));
                 getItens().remove(item);
             }
         }
     }
+
+    public void deliverAllGoodsOnNode(Player player, Node node) {
+        List<Item> itens = getItemsOnNode(node);
+        for (Item item : itens) {
+            if (item.getDataMap().get(TYPE).equals(DEMAND)) {
+                String itemName = item.getDataMap().get(NAME);
+                if (player.getDataMap().get(itemName) != null) {
+                    Integer qty = Integer.parseInt(player.getDataMap().get(itemName));
+                    if(qty>0){
+                        player.deliver(itemName);
+                        getItens().remove(item);
+                    }
+                }
+            }
+        }
+    }
+    
 }

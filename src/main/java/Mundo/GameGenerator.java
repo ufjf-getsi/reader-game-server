@@ -163,12 +163,13 @@ public class GameGenerator {
         }};
         
         List<Item> items = new ArrayList<Item>(){{
-            add(new Item(100, "{\"name\": \"GA\"}", 0));
+            add(new Item(100, "{\"name\": \"ruby\", \"type\":\"demand\"}", 0));
             add(new Item(101, "{\"name\": \"GB\"}", 0));
             add(new Item(102, "{\"name\": \"CA\"}", 0));
             add(new Item(130, "{\"name\": \"CA\"}", 0));
             add(new Item(151, "{\"name\": \"ruby\", \"type\":\"good\", \"color\":\"red\"}", 3));
             add(new Item(152, "{\"name\": \"saphire\", \"type\":\"good\", \"color\":\"blue\"}", 4));
+            add(new Item(151, "{\"name\": \"ruby\", \"type\":\"demand\"}", 6));
         }};
         
         Game game = new Game("abcdef", 0, jogadores.size(), 6*jogadores.size(), "PlayersOrder");
