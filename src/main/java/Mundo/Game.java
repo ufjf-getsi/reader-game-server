@@ -297,4 +297,14 @@ public class Game {
         }
         return neighbors;
     }
+    
+    public List<Item> getItemsOnNode(Node node){
+        List<Item> itens = new ArrayList<>();
+        for (Item item : this.itens) {
+            if(item.getNode().equals(node.getNode())){
+                itens.add(item);
+            }
+        }
+        return itens;
+    }
 }

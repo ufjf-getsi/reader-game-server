@@ -160,4 +160,14 @@ public class GameIntegrationTest {
         assertEquals("good"   , saphire.getDataMap().get("type"));
         assertEquals("blue"   ,saphire.getDataMap().get("color"));
     }
+    
+    @Test
+    public void testStubItensOnNode04() {
+        Node node4 = game.getNodeMap().get(4);
+        assertNotNull(node4);
+        List<Item> itens  = game.getItemsOnNode(node4);
+        assertNotNull(itens);
+        assertEquals(1, itens.size());
+        assertEquals("saphire", itens.get(0).getDataMap().get("name"));
+    }
 }
