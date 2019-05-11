@@ -2,6 +2,7 @@ package Mundo;
 
 import Grafo.Aresta;
 import Grafo.VerticeItem;
+import java.util.UUID;
 
 public class Player {
 
@@ -14,6 +15,7 @@ public class Player {
     private VerticeItem vertice;
 
     public Player() {
+        this(null, UUID.randomUUID().toString());
     }
 
     public Player(Integer identifier_in_game, String nome) {
