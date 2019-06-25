@@ -63,5 +63,11 @@ public class DatabaseLocator {
         Statement operacao4 = conn.createStatement();
         operacao4.executeUpdate("CREATE TABLE IF NOT EXISTS ITEM(item_identifier serial PRIMARY KEY, data varchar (100), node int,"
                 + "fk_game_identifier integer, CONSTRAINT fk_game_identifier_id_image FOREIGN KEY (fk_game_identifier) REFERENCES GAME (game_identifier) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION);");
+    
+        Statement operacao5 = conn.createStatement();
+        operacao5.executeUpdate("CREATE TABLE IF NOT EXISTS GAME_WORDS (word_identifier serial PRIMARY KEY, word varchar (100), used int, fk_game_identifier integer, fk_player_identifier integer,"
+                + " CONSTRAINT fk_game_identifier_id FOREIGN KEY (fk_game_identifier) REFERENCES GAME (game_identifier), CONSTRAINT fk_player_identifier_id FOREIGN KEY (fk_player_identifier) REFERENCES PLAYER (player_identifier)"
+                + "MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION);");
+        operacao5.close();
     }
 }

@@ -15,11 +15,14 @@ import org.openide.util.Exceptions;
 
 public class GameGenerator {
 
-    public Integer saveInitialData(String name, Integer players, Integer turnsLeft) {
+    public Integer saveInitialData(String name, Integer players, Integer turnsLeft, String words) {
         try {
+            String split = ",";
+            String finalWords[] = words.split(split);
             OrdemGenerator ordem = new OrdemGenerator(players);
             Game game = new Game(name, ordem.getOrdem().get(0), players, (turnsLeft * players), ordem.getOrdem(players));
             Integer game_id = GameDAO.getInstance().saveGame(game);
+            GameDAO.getInstance().saveWords(finalWords, game_id);
             return game_id;
         } catch (ClassNotFoundException | SQLException ex) {
             Exceptions.printStackTrace(ex);

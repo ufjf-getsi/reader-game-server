@@ -12,6 +12,8 @@
                 <input type="number" class="form-control" name="turns" placeholder="Entre com a quantidade de turnos" value="3">
                 <label> Quantidade de jogadores </label>
                 <input type="number" class="form-control" name="players" placeholder="Entre com a quantidade de jogadores" value="10">
+                <label> Palavras (Escreva as palavras separadas por vírgula) </label>
+                <textarea class="form-control" id="palavras" name="words" rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-primary"> Enviar </button>
         </form>

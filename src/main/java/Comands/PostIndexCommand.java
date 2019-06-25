@@ -14,8 +14,9 @@ public class PostIndexCommand implements Comando {
             String name = request.getParameter("matchName");
             Integer turnsLeft = Integer.parseInt(request.getParameter("turns"));
             Integer players = Integer.parseInt(request.getParameter("players"));
+            String words = request.getParameter("words");
             GameGenerator generator = new GameGenerator();
-            response.sendRedirect("alunos.html?id=" + generator.saveInitialData(name, players, turnsLeft));
+            response.sendRedirect("alunos.html?id=" + generator.saveInitialData(name, players, turnsLeft, words));
         } catch (IOException ex) {
             Exceptions.printStackTrace(ex);
         }

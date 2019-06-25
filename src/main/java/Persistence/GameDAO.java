@@ -9,6 +9,7 @@ public class GameDAO {
 
     private final static GameDAO instance = new GameDAO();
     private final String operacaoSaveGame = "insert into game (name, turnsleft, players, currentPlayer, turnOrder) values (?, ?, ?, ?, ?)";
+    private final String operacaoSaveWords = "insert into GAME_WORDS (word, used, fk_game_identifier) values (?, ?, ?)";
     private final String operacaoListGame = "select * from game";
     private final String operacaoListPlayersNumber = "select players from game where game_identifier = ?";
     private final String operacaoListCurrentPlayer = "select currentPlayer from game where game_identifier = ?";
@@ -42,6 +43,18 @@ public class GameDAO {
         }
         comando.close();
         return idCriado;
+    }
+    
+    public void saveWords (String palavras[], Integer gameID) throws SQLException, ClassNotFoundException {
+        PreparedStatement comando = DatabaseLocator.getInstance().getConnection().prepareStatement(operacaoSaveWords);
+        for (String palavra : palavras) {
+            comando.clearParameters();
+            comando.setString(1, palavra);
+            comando.setInt(2, 0);
+            comando.setInt(3, gameID);
+            comando.execute();
+        }
+        comando.close();
     }
     
     public Integer searchPlayersNumber (Integer id) throws SQLException, ClassNotFoundException {

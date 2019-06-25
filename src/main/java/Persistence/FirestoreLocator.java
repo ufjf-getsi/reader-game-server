@@ -27,11 +27,11 @@ public class FirestoreLocator {
     }
 
     private void conectaEscrita() throws FileNotFoundException, IOException {
-        FileInputStream serviceAccount = new FileInputStream("C:\\Users\\Mateu\\Documents\\readergame-57416-firebase-adminsdk-el9xt-32bd222949.json");
+        FileInputStream serviceAccount = new FileInputStream("C:\\Users\\Mateu\\Documents\\readergameserver-firebase-adminsdk-ai20d-222b19a7fc.json");
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setStorageBucket("readergame-57416.appspot.com")
+                .setStorageBucket("readergameserver.appspot.com")
                 .build();
 
         FirebaseApp.initializeApp(options);
