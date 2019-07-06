@@ -8,6 +8,7 @@
             <h1 class="display-3">Partida: ${titulo}</h1>
             <p>A partida ${titulo} possui ainda ${rodadas} rodadas.</p>
             <p>O próximo jogador é ${jogadoratual.name}.</p>
+            <p>Código da partida: ${codigopartida}</p>
         </div>
     </div>
 

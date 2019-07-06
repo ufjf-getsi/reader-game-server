@@ -93,11 +93,13 @@ public class PostPlayersNameCommand implements Comando {
             request.setAttribute("player", player);
             request.setAttribute("nomeimagem", pngGraphviz.getName());
             request.setAttribute("nomefigura", svgGephi.getName()); */
+            Player playerAtual = PlayerDAO.getInstance().searchPlayer(game.getCurrentPlayer(), gameId);
             request.setAttribute("titulo", game.getTittle());
             request.setAttribute("rodadas", game.getTurnsLeft());
             request.setAttribute("jogadores", PlayerDAO.getInstance().searchPlayersGame(gameId));
-            request.setAttribute("jogadoratual", game.getJogadorAtual());
+            request.setAttribute("jogadoratual", playerAtual);
             request.setAttribute("palavras", GameDAO.getInstance().searchWords(gameId));
+            request.setAttribute("codigopartida", game.getTittle() + gameId);
             RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/detalhe-partida.jsp");
             despachante.forward(request, response);
         } catch (Exception ex) {
