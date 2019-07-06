@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "PrincipalServlet", urlPatterns = {"/index.html", "/imagem", "/audio", "/alunos.html", "/grafo.html", "/avancargame.html", "/jogo/*","/",})
+@WebServlet(name = "PrincipalServlet", urlPatterns = {"/index.html", "/listar-salas.html", "/configurar.html", "/ver-detalhes.html", "/imagem", "/audio", "/alunos.html", "/grafo.html", "/avancargame.html", "/jogo/*", "/",})
 public class PrincipalServlet extends HttpServlet {
 
     @Override
@@ -21,6 +21,9 @@ public class PrincipalServlet extends HttpServlet {
             rotas = new HashMap<>();
             rotas.put("/", "Comands.GetIndexCommand");
             rotas.put("/index.html", "Comands.GetIndexCommand");
+            rotas.put("/configurar.html", "Comands.GetConfigurarCommand");
+            rotas.put("/listar-salas.html", "Comands.GetListarSalasCommand");
+            rotas.put("/ver-detalhes.html", "Comands.GetDetalhesPartidaCommand");
             rotas.put("/imagem", "Comands.ShowImage");
             rotas.put("/audio", "Comands.AudioShow");
             rotas.put("/audios", "Comands.AudioListCommand");
@@ -43,11 +46,11 @@ public class PrincipalServlet extends HttpServlet {
             Map<String, String> rotas;
             rotas = new HashMap<>();
             rotas.put("/", "Comands.PostIndexCommand");
-            rotas.put("/index.html", "Comands.PostIndexCommand");
-            rotas.put("/audio", "Comands.PostAudioCommand");
+            rotas.put("/configurar.html", "Comands.PostConfigurarCommand");
             rotas.put("/alunos.html", "Comands.PostPlayersNameCommand");
+            rotas.put("/audio", "Comands.PostAudioCommand");
             rotas.put("/grafo.html", "Comands.PostGrafoCommand");
-            
+
             processRequest(rotas, request, response);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
             response.sendRedirect("index.html");
@@ -71,7 +74,7 @@ public class PrincipalServlet extends HttpServlet {
     private boolean processRequest(Map<String, String> rotas, HttpServletRequest request, HttpServletResponse response) throws IllegalAccessException, InstantiationException, ClassNotFoundException, IOException {
         String clazzName = rotas.get(request.getServletPath());
         if (clazzName == null) {
-            System.out.println("404: "+request.getServletPath()+" "+clazzName);
+            System.out.println("404: " + request.getServletPath() + " " + clazzName);
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return false;
         }

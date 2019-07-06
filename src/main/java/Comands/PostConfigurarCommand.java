@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.openide.util.Exceptions;
 
-public class PostIndexCommand implements Comando {
+public class PostConfigurarCommand implements Comando {
 
     @Override
     public void exec(HttpServletRequest request, HttpServletResponse response) {

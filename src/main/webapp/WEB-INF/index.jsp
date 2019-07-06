@@ -1,25 +1,35 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="jspf/cabecalho.jspf" %>
 
-<div class="container-fluid">
+<main role="main">
 
-    <div class="container text-left">
-        <form method="post">
-            <div class="form-group">
-                <label> Nome da partida </label>
-                <input type="text" class="form-control" name="matchName" placeholder="Entre com o nome da partida" value="Teste">
-                <label> Entre com a quantidade de turnos </label>
-                <input type="number" class="form-control" name="turns" placeholder="Entre com a quantidade de turnos" value="3">
-                <label> Quantidade de jogadores </label>
-                <input type="number" class="form-control" name="players" placeholder="Entre com a quantidade de jogadores" value="10">
-                <label> Palavras (Escreva as palavras separadas por vírgula) </label>
-                <textarea class="form-control" id="palavras" name="words" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary"> Enviar </button>
-        </form>
-        <a href="reader-game-server/grafo.html">Testar desenho do grafo</a>
+  <div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">Talk2Me, módulo de configuração</h1>
+      <p>Este módulo permite realizar o cadastro de salas, alunos e palavras para uma partida.</p>
+      <p><a class="btn btn-primary btn-lg" href="/reader-game-server/configurar.html" role="button">Crie já uma sala!</a></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Configurar salas</h2>
+        <p>Aqui é possível realizar o cadastro de salas e suas respectivas informações.</p>
+        <p><a class="btn btn-secondary" href="/reader-game-server/configurar.html" role="button">Configurar sala</a></p>
+      </div>
+      <div class="col-md-6">
+        <h2>Salas</h2>
+        <p>Deseja saber o estado de uma partida? Veja todas as salas criadas.</p>
+        <p><a class="btn btn-secondary" href="/reader-game-server/listar-salas.html" role="button">Lista de todas as salas</a></p>
+      </div>
     </div>
 
-</div>
+    <hr>
+
+  </div> <!-- /container -->
+
+</main>
 
 <%@include file="jspf/rodape.jspf" %>

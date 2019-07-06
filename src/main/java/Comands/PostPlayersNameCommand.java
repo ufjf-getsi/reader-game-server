@@ -31,7 +31,7 @@ public class PostPlayersNameCommand implements Comando {
 
             GameGenerator generator = new GameGenerator();
             Game game = generator.savePlayersData(playersNumber, playersNames, gameId); // jogo já gerado, só falta iniciá-lo
-            Grafo grafo = game.getMapa();
+/*            Grafo grafo = game.getMapa();
 
             Properties config = new Properties();
             config.load(request.getServletContext().getResourceAsStream("/WEB-INF/properties/config.properties"));
@@ -92,8 +92,13 @@ public class PostPlayersNameCommand implements Comando {
             request.setAttribute("gameId", gameId);
             request.setAttribute("player", player);
             request.setAttribute("nomeimagem", pngGraphviz.getName());
-            request.setAttribute("nomefigura", svgGephi.getName());
-            RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/figura.jsp");
+            request.setAttribute("nomefigura", svgGephi.getName()); */
+            request.setAttribute("titulo", game.getTittle());
+            request.setAttribute("rodadas", game.getTurnsLeft());
+            request.setAttribute("jogadores", PlayerDAO.getInstance().searchPlayersGame(gameId));
+            request.setAttribute("jogadoratual", game.getJogadorAtual());
+            request.setAttribute("palavras", GameDAO.getInstance().searchWords(gameId));
+            RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/detalhe-partida.jsp");
             despachante.forward(request, response);
         } catch (Exception ex) {
             Exceptions.printStackTrace(ex);

@@ -4,6 +4,7 @@ import Mundo.Player;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerDAO {
@@ -11,7 +12,8 @@ public class PlayerDAO {
     private final static PlayerDAO instance = new PlayerDAO();
     private final String operacaoSavePlayer = "insert into player (player_identifier_in_game, name, position, team, points, fk_game_identifier) values (?, ?, ?, ?, ?, ?)";
     private final String operacaoSearchPlayer = "select * from player where player_identifier_in_game = ? and fk_game_identifier = ?";
-
+    private final String operacaoSearchPlayersGame = "select * from player where fk_game_identifier = ?";
+    
     private PlayerDAO() {
     }
 
@@ -54,5 +56,24 @@ public class PlayerDAO {
         }
         
         return player;
+    }
+    
+    public List<Player> searchPlayersGame (Integer gameID) throws ClassNotFoundException, SQLException
+    {
+        PreparedStatement comando = DatabaseLocator.getInstance().getConnection().prepareStatement(operacaoSearchPlayersGame);
+        comando.setInt(1, gameID);
+        List<Player> jogadores = new ArrayList<>();
+        ResultSet resultado = comando.executeQuery();
+        while(resultado.next())
+        {
+            Player player = new Player();
+            player.setName(resultado.getString("name"));
+            player.setPontos(resultado.getInt("points"));
+            player.setPosition(resultado.getInt("position"));
+            player.setTeam(resultado.getInt("team"));
+            player.setIdentifier(resultado.getInt("player_identifier"));
+            jogadores.add(player);
+        }
+        return jogadores;
     }
 }
