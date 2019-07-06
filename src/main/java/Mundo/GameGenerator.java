@@ -155,24 +155,24 @@ public class GameGenerator {
     
     public static Game getGameStub(){
         List<Player> jogadores = new ArrayList<Player>(){{
-            add(new Player(1001, 1, "Jogador A1",1,0,0));
-            add(new Player(1015, 5, "Jogador B1",2,4,0));
-            add(new Player(1002, 2, "Jogador A2",1,1,0));
-            add(new Player(1016, 6, "Jogador B2",2,0,0));
-            add(new Player(1003, 3, "Jogador A3",1,0,0));
-            add(new Player(1017, 7, "Jogador B3",2,0,0));
-            add(new Player(1004, 4, "Jogador A4",1,0,0));
-            add(new Player(1018, 8, "Jogador B4",2,0,0));
+            add(new Player(1001, 1, "André",    1,0,0));
+            add(new Player(1015, 5, "Bernardo", 2,4,0));
+            add(new Player(1002, 2, "Adriano",  1,1,0));
+            add(new Player(1016, 6, "Bruno",    2,0,0));
+            add(new Player(1003, 3, "Adalberto",1,0,0));
+            add(new Player(1017, 7, "Brian",    2,0,0));
+            add(new Player(1004, 4, "Alexandre",1,0,0));
+            add(new Player(1018, 8, "Breno",    2,0,0));
         }};
         
         List<Item> items = new ArrayList<Item>(){{
             add(new Item(100, "{\"name\": \"emerald\", \"type\":\"demand\",\"points\":\"20\"}", 0));
-            add(new Item(100, "{\"name\": \"saphire\", \"type\":\"demand\",\"points\":\"10\"}", 0));
+            add(new Item(101, "{\"name\": \"saphire\", \"type\":\"demand\",\"points\":\"10\"}", 0));
             add(new Item(102, "{\"name\": \"CA\", \"type\":\"noidea\"}", 0));
             add(new Item(151, "{\"name\": \"emerald\", \"type\":\"good\", \"color\":\"green\"}", 1));
-            add(new Item(151, "{\"name\": \"ruby\", \"type\":\"good\", \"color\":\"red\"}", 3));
-            add(new Item(152, "{\"name\": \"saphire\", \"type\":\"good\", \"color\":\"blue\"}", 4));
-            add(new Item(151, "{\"name\": \"ruby\", \"type\":\"demand\", \"points\":\"30\"}", 6));
+            add(new Item(152, "{\"name\": \"ruby\", \"type\":\"good\", \"color\":\"red\"}", 3));
+            add(new Item(153, "{\"name\": \"saphire\", \"type\":\"good\", \"color\":\"blue\"}", 4));
+            add(new Item(154, "{\"name\": \"ruby\", \"type\":\"demand\", \"points\":\"30\"}", 6));
         }};
         
         Game game = new Game("abcdef", 0, jogadores.size(), 6*jogadores.size(), "PlayersOrder");
@@ -190,7 +190,17 @@ public class GameGenerator {
                 + "{\"node\":9,\"x\":0,\"y\":3},"
                 + "{\"node\":10,\"x\":1,\"y\":3},"
                 + "{\"node\":11,\"x\":0,\"y\":4},"
-                + "{\"node\":12,\"x\":1,\"y\":5}"
+                + "{\"node\":12,\"x\":1,\"y\":5,\"items\":[]},"
+                + "{\"node\":13,\"x\":3,\"y\":0,\"items\":[]},"
+                + "{\"node\":14,\"x\":4,\"y\":0,\"items\":[]},"
+                + "{\"node\":15,\"x\":3,\"y\":1,\"items\":[]},"
+                + "{\"node\":16,\"x\":4,\"y\":1,\"items\":[]},"
+                + "{\"node\":17,\"x\":3,\"y\":2,\"items\":[]},"
+                + "{\"node\":18,\"x\":4,\"y\":2,\"items\":[]},"
+                + "{\"node\":19,\"x\":3,\"y\":3,\"items\":[]},"
+                + "{\"node\":20,\"x\":4,\"y\":3,\"items\":[]},"
+                + "{\"node\":21,\"x\":3,\"y\":4,\"items\":[]},"
+                + "{\"node\":22,\"x\":4,\"y\":4,\"items\":[]}"
                 + "]");
         
         game.setJogadores(jogadores);

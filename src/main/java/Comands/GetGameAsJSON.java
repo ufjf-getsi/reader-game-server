@@ -22,6 +22,7 @@ public class GetGameAsJSON implements Comando{
             String[] parts = pathInfo.split("/");
             
             Game game = GameGenerator.getGameStub();
+            game.doAction(Game.RIGHT);
             if(parts.length!=4 || parts[3].isEmpty() || !parts[3].equals(game.getTittle())){
                 writer.println("{\"error\":\"Game room not found!\"}");
                 writer.close(); 

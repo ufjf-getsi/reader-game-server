@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.openide.util.Exceptions;
+import Mundo.CadernosDePalavras;
 
 public class Game {
 
@@ -33,10 +34,10 @@ public class Game {
     public static final int MOVE_RIGHT = 2;
     public static final int MOVE_DOWN = 3;
     public static final int MOVE_LEFT = 4;
-    public static final String UP = "↑";
-    public static final String LEFT = "←";
-    public static final String RIGHT = "→";
-    public static final String DOWN = "↓";
+    public static final String UP = "U";
+    public static final String LEFT = "L";
+    public static final String RIGHT = "R";
+    public static final String DOWN = "D";
     public static final String TYPE = "type";
     public static final String GOOD = "good";
     public static final String NAME = "name";
@@ -230,7 +231,8 @@ public class Game {
         char l = 65;
         for (Node node : nodes) {
             String action = getMovementTo(actual, node);
-            opcoes.put(action, String.format("%s Mover para [%d, %d]", action, node.getX(), node.getY()));
+            opcoes.put(action, CadernosDePalavras.getRandomWord());
+            //opcoes.put(action, String.format("%s Mover para [%d, %d]", action, node.getX(), node.getY()));
         }
         return opcoes;
     }

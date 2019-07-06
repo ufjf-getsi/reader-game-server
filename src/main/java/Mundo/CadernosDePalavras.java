@@ -1,9 +1,13 @@
+package Mundo;
+
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-
 public class CadernosDePalavras {
+
+    private static int nextWord = 0;
+
     public static String[] D0101 = {
         "SOFÁ", "BONÉ", "AQUARELA", "NOVELA", "RUA", "GELO", "AMIGO", "PETECA", "MIL", "DINOSSAURO", "CABIDE", "EXEMPLO", "SECA", "BARRIGA", "CUBO", "BATUCADA", "LEI", "NINHO", "FAIXA", "COLMEIA", "TACO", "HIPOPÓTAMO", "TAXA", "SOL", "FOLIA", "JOGADA", "VÉU", "FADA", "PIQUE", "SAPATO", "TOMATE", "FIVELA", "TELEFONE", "PLUMA", "OURO", "POSE", "MARINHEIRO", "REDE", "PIRULITO", "FIXO", "CARAMELO", "TREM", "VICE", "ÚLTIMO", "PLATEIA", "ABELHA", "MARIDO", "PILHA", "CAMINHÃO", "XÍCARA"
     };
@@ -15,13 +19,25 @@ public class CadernosDePalavras {
     public static String[] D0301 = {
         "ANEL", "MUSA", "GINCANA", "PIQUE", "IRMÃO", "GUARANÁ", "SOFÁ", "LÍNGUA", "CEBOLA", "CAMINHÃO", "VIOLÃO", "ZAGUEIRO", "REDE", "NOVELA", "ONÇA", "ÉGUA", "BABOSA", "NOVO", "GATO", "DUPLA", "NÓ", "TIJOLO", "MANCHA", "DITADO", "MELANCIA", "RUA", "NINHO", "AVENIDA", "ZEBRA", "POSE", "QUEIJO", "FOGUETE", "CINTO", "GELO", "POEMA", "PACOTE", "TABULEIRO", "AMIZADE", "CHAPÉU", "MOÇA", "DICIONÁRIO", "TREM", "VASO", "CIMENTO", "FLOR", "COMETA", "JOGADA", "ÔNIBUS", "BLUSA", "VICE", "BORBOLETA", "GALO", "HÉLICE", "ABACATE", "VAGALUME", "QUIBE", "CINEMA", "PRATO", "MOLA", "ANDORINHA", "CAPELA", "SOMBRA", "CEREJA", "VARAL", "FACA", "BEXIGA", "DENTE", "SABONETE", "CORUJA", "FOME", "PÁGINA", "FIVELA", "SONHO", "OUVIDO", "LUZ", "PARASITA", "MANETE", "CÉU", "TELEFONE", "PEIXE", "MOLEZA", "TÁXI", "BANANA", "PONTE", "REINO", "LENHA", "DEBATE", "TERRA", "JACARÉ", "CAL", "PACTO", "TELHADO", "CHAVE", "GIRASSOL", "CARTAZ", "GENTE", "BIBLIOTECA", "TAXA", "CAÇAROLA", "HOJE"
     };
-    
-    public static Set<String> getPalavras(int n){
+
+    public static Set<String> getRandomWordSet(int n) {
         Set<String> palavras = new HashSet();
         Random rnd = new Random();
-        while(palavras.size()<n && palavras.size()<D0101.length){
+        while (palavras.size() < n && palavras.size() < D0101.length) {
             palavras.add(D0101[rnd.nextInt(D0101.length)]);
         }
         return palavras;
+    }
+
+    static String getRandomWord() {
+        Random rnd = new Random();
+        return (D0101[rnd.nextInt(D0101.length)]);
+    }
+
+    static String getNextWord() {
+        if (nextWord <= 0 || D0101.length <= nextWord) {
+            nextWord = 0;
+        }
+        return (D0101[nextWord++]);
     }
 }
