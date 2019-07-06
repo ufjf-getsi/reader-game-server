@@ -27,7 +27,7 @@ public class FirestoreLocator {
     }
 
     private void conectaEscrita() throws FileNotFoundException, IOException {
-        FileInputStream serviceAccount = new FileInputStream("C:\\Users\\Mateu\\Documents\\readergameserver-firebase-adminsdk-ai20d-222b19a7fc.json");
+        FileInputStream serviceAccount = new FileInputStream("./src/main/resources/client_secret.json.json");
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))

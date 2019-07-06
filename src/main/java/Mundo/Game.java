@@ -229,22 +229,23 @@ public class Game {
         List<Node> nodes = getNeighbors(actual);
         char l = 65;
         for (Node node : nodes) {
-            opcoes.put(getMovementTo(actual, node), String.format("Mover para [%d, %d]", node.getX(), node.getY()));
+            String action = getMovementTo(actual, node);
+            opcoes.put(action, String.format("%s Mover para [%d, %d]", action, node.getX(), node.getY()));
         }
         return opcoes;
     }
 
     private String getMovementTo(Node actual, Node destiny) {
-        if (destiny.getX() < actual.getX() && destiny.getY() == actual.getY()) {
+        if (destiny.getX() == actual.getX()-1 && destiny.getY() == actual.getY()) {
             return Game.LEFT;
         }
-        if (destiny.getX() > actual.getX() && destiny.getY() == actual.getY()) {
+        if (destiny.getX() == actual.getX()+1 && destiny.getY() == actual.getY()) {
             return Game.RIGHT;
         }
-        if (destiny.getX() == actual.getX() && destiny.getY() < actual.getY()) {
+        if (destiny.getX() == actual.getX() && destiny.getY() == actual.getY()-1) {
             return Game.UP;
         }
-        if (destiny.getX() == actual.getX() && destiny.getY() > actual.getY()) {
+        if (destiny.getX() == actual.getX() && destiny.getY() == actual.getY()+1) {
             return Game.DOWN;
         }
         return "?";
